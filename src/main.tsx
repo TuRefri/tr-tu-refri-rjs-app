@@ -1,10 +1,67 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { createRoot } from 'react-dom/client';
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import Root from "./routes/root";
+import TuRefri from './routes/turefri';
+import ErrorPage from "./error-page";
+import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "turefri",
+          element: <TuRefri />,
+        },
+        {
+            path: "perfil",
+            element: <> </>, 
+        },
+        {
+            path: "turefri",
+            element: <> </>, 
+        },
+        {
+            path: "turefri/:tienda",
+            element: <> </>, 
+        },
+        {
+            path: "buscar-tienda",
+            element: <> </>, 
+        },
+        {
+            path: "eventos",
+            element: <> </>, 
+        },
+        {
+            path: "emergencias",
+            element: <> </>, 
+        },
+        {
+            path: "contacto",
+            element: <> </>, 
+        },
+        {
+            path: "scanear-tienda",
+            element: <> </>, 
+        },
+      ],
+    },
+  ]);
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+    createRoot(rootElement).render(
+        <RouterProvider router={router} />
+    );
+} else {
+    console.error("Element with ID 'root' not found");
+}
+
+
+
