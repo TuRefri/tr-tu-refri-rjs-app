@@ -1,11 +1,14 @@
 [
     {
+        "name":"siren",
         "icon":"siren.svg"
     },
     {
+        "name":"mail",
         "icon":"mail.svg"
     },
     {
+        "name":"power",
         "icon":"power.svg"
     }
 ]

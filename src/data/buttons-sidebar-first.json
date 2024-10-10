@@ -1,17 +1,18 @@
 [
     {
+        "name": "fridge",
         "icon":"fridge.svg"
     },
     {
+        "name": "burguer-menu",
         "icon":"burguer-menu.svg"
     },
     {
+        "name": "location",
         "icon":"location.svg"
     },
     {
+        "name": "draw",
         "icon":"draw.svg"
-    },
-    {
-        "icon":"fridge.svg"
     }
 ]

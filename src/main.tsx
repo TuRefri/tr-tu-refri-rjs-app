@@ -7,7 +7,7 @@ import Root from "./routes/root";
 import TuRefri from './routes/turefri';
 import ErrorPage from "./error-page";
 import './index.css';
-
+import {FridgeProvider} from './context/fridge-color-context.tsx'
 const router = createBrowserRouter([
     {
       path: "/",
@@ -57,7 +57,9 @@ const rootElement = document.getElementById("root");
 
 if (rootElement) {
     createRoot(rootElement).render(
-        <RouterProvider router={router} />
+        <FridgeProvider>
+            <RouterProvider router={router} />
+        </FridgeProvider>
     );
 } else {
     console.error("Element with ID 'root' not found");

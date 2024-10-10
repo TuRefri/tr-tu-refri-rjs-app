@@ -1,13 +1,5 @@
-import s from './RoundedButton.module.css';
+import { RoundedButtonProps } from "../types";
 
-interface RoundedButtonProps {
-  href: string;
-  icon: string;
-  theme?: themeButton;
-  className?: string;
-}
-
-type themeButton = "dark" | "white";
 
 export default function RoundedButton({ href, icon, theme, className }: RoundedButtonProps) {
   const classNameTheme = theme === 'dark'

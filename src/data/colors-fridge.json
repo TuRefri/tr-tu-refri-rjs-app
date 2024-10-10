@@ -1,0 +1,32 @@
+[
+    {
+        "id":0,
+        "name": "White",
+        "hexColor": "#fdfcfc",
+        "shadow": "shadow-[inset_-13px_13px_27px_#c3c2c2,inset_13px_-13px_27px_#ffffff]"
+    },
+    {
+        "id":1,
+        "name": "Red",
+        "hexColor": "#e50036",
+        "shadow": "shadow-[inset_-13px_13px_27px_#b0002a,inset_13px_-13px_27px_#ff0042]"
+    },
+    {
+        "id":2,
+        "name": "Black",
+        "hexColor": "#1f1f1e",
+        "shadow": "shadow-[inset_-13px_13px_27px_#181817,inset_13px_-13px_27px_#262625]"
+    },
+    {
+        "id":3,
+        "name": "Purple",
+        "hexColor": "#bf67b6",
+        "shadow": "shadow-[inset_-13px_13px_27px_#934f8c,inset_13px_-13px_27px_#eb7fe0]"
+    },
+    {
+        "id":4,
+        "name": "Cyan",
+        "hexColor": "#74cad0",
+        "shadow": "shadow-[inset_-13px_13px_27px_#599ca0,inset_13px_-13px_27px_#8ff8ff]"
+    }
+]
