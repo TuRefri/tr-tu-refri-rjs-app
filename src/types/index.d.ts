@@ -13,15 +13,29 @@ export interface RoundedButtonProps {
   }
 
 export interface RoundedButtonTooltipProps extends RoundedButtonProps {
-    options: colorFridge[] 
+    options: ColorFridge[]
 }
 
-export interface colorFridge {
+export interface RoundedButtonCategoriesProps {
+    href: string;
+    icon: string;
+    className?: string;
+  }
+
+export interface RoundedButtonTooltipCategoriesProps extends RoundedButtonCategoriesProps {
+    options: Category[];
+}
+
+export interface ColorFridge {
     id: number;
     name: string;
     hexColor: string;
     shadow: string;
 }
 
+interface Category {
+    id: number;
+    name: string;
+}
 
 export type themeButton = "dark" | "white";

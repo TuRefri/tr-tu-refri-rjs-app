@@ -1,5 +1,5 @@
 import { RoundedButtonProps } from "../types";
-
+import { Link } from "react-router-dom";
 
 export default function RoundedButton({ href, icon, theme, className }: RoundedButtonProps) {
   const classNameTheme = theme === 'dark'
@@ -9,8 +9,8 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
   const combinedClassName = `${classNameTheme} ${className || ''}`.trim();
 
   return (
-    <button className={combinedClassName}>
+    <Link to={href} className={combinedClassName}>
       <img src={icon} alt='icon' />
-    </button>
+    </Link>
   );
 }

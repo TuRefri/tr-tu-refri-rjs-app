@@ -1,7 +1,8 @@
 [
     {
         "name": "fridge",
-        "icon":"fridge.svg"
+        "icon":"fridge.svg",
+        "href": "/turefri"
     },
     {
         "name": "burguer-menu",

@@ -1,0 +1,17 @@
+[
+    {"id": 1, "name": "Panadería"},
+    {"id": 2, "name": "Cafetería"},
+    {"id": 3, "name": "Frutas y Verduras"},
+    {"id": 4, "name": "Supermercado"},
+    {"id": 5, "name": "Minimercado"},
+    {"id": 6, "name": "Carnicería"},
+    {"id": 7, "name": "Droguería"},
+    {"id": 8, "name": "Licorera"},
+    {"id": 9, "name": "Mascotas"},
+    {"id": 10, "name": "Papelería"},
+    {"id": 11, "name": "Ferretería"},
+    {"id": 12, "name": "Postres"},
+    {"id": 13, "name": "Comida Rápida"},
+    {"id": 14, "name": "Restaurantes"},
+    {"id": 15, "name": "Lavandería"}
+]

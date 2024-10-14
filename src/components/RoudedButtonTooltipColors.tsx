@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { RoundedButtonTooltipProps } from "../types";
 import { useFridgeContext } from "../context/fridge-color-context";
 
-export default function RoudedButtonTooltip({ icon, theme, className, options }: RoundedButtonTooltipProps) {
+export default function RoudedButtonTooltipColors({ icon, theme, className, options }: RoundedButtonTooltipProps) {
   const { setCurrentColor } = useFridgeContext();  
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
