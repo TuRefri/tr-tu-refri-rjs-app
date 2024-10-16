@@ -10,7 +10,8 @@
     },
     {
         "name": "location",
-        "icon":"location.svg"
+        "icon":"location.svg",
+        "href": "/map"
     },
     {
         "name": "draw",

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "image": "bakery-logo.png",
+        "category": "Panadería",
+        "name": "Bakery & Cafe",
+        "phone": "+57 1 555 1234"
+    },
+    {
+        "id": 2,
+        "image": "burguer-king-logo.png",
+        "category": "Comida Rápida",
+        "name": "Burger King",
+        "phone": "+57 1 555 5678"
+    },
+    {
+        "id": 3,
+        "image": "farmacy-logo.png",
+        "category": "Droguería",
+        "name": "El pueblo",
+        "phone": "+57 1 555 8765"
+    },
+    {
+        "id": 4,
+        "image": "pepsi-logo.png",
+        "category": "Comida Rápida",
+        "name": "Pepsi",
+        "phone": "+57 1 555 4321"
+    },
+    {
+        "id": 7,
+        "image": "starbucks-logo.png",
+        "category": "Café",
+        "name": "Starbucks",
+        "phone": "+57 1 565 2168"
+    },
+    {
+        "id": 8,
+        "image": "mcdonals-logo.png",
+        "category": "Comida Rápida",
+        "name": "Mc Donalds",
+        "phone": "+57 1 712 3461"
+    }
+]

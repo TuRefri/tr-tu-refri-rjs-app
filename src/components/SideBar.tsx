@@ -8,10 +8,10 @@ import colorsFridge from '../data/colors-fridge.json'
 import categories from '../data/list-categories.json'
 export default function SideBar() {
   return (
-    <aside className='pt-4 px-2 py-4 flex flex-col justify-center items-center'>
+    <aside className='pt-4 px-2 py-4 flex flex-col justify-center items-center h-[90%]'>
       <RoundedButton href='' icon='icons/person.svg'/>
 
-      <ul className='mt-12 border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center'>
+      <ul className='mt-6 border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center'>
         {firstSection.map((item, index:number)=>{
           if(item.name === 'draw'){
             return(<li><RoudedButtonTooltipColors options={colorsFridge} className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-2"} href='' icon={`/icons/${item.icon}`} /></li>)
@@ -24,10 +24,10 @@ export default function SideBar() {
         })}
       </ul>
 
-      <ul className='mt-12 border border-gray-300 px-1 rounded-full'>
+      <ul className='mt-6 border border-gray-300 px-1 rounded-full'>
         {secondSection.map((item, index:number) =>{
           return(
-          <li><RoundedButton className={index === 0 || index === secondSection.length - 1 ? "my-1" : "my-2"} href='' icon={`/icons/${item.icon}`}/></li>
+          <li><RoundedButton className={index === 0 || index === secondSection.length - 1 ? "my-1" : "my-2"} href={item.href? item.href : ''} icon={`/icons/${item.icon}`}/></li>
         )
         })}
       </ul>

@@ -8,6 +8,12 @@ import TuRefri from './routes/turefri';
 import ErrorPage from "./error-page";
 import './index.css';
 import {FridgeProvider} from './context/fridge-color-context.tsx'
+import Map from './routes/map.tsx';
+import Emergency from './routes/emergency.tsx';
+import Contact from './routes/contact.tsx';
+import Scan from './routes/scan.tsx';
+import Events from './routes/events.tsx';
+import Profile from './routes/profile.tsx';
 const router = createBrowserRouter([
     {
       path: "/",
@@ -20,35 +26,31 @@ const router = createBrowserRouter([
         },
         {
             path: "perfil",
-            element: <> </>, 
-        },
-        {
-            path: "turefri",
-            element: <> </>, 
+            element: <Profile />, 
         },
         {
             path: "turefri/:tienda",
             element: <> </>, 
         },
         {
-            path: "buscar-tienda",
-            element: <> </>, 
+            path: "map",
+            element: <Map />, 
         },
         {
-            path: "eventos",
-            element: <> </>, 
+            path: "events",
+            element: <Events/>, 
         },
         {
-            path: "emergencias",
-            element: <> </>, 
+            path: "emergency",
+            element: <Emergency />, 
         },
         {
-            path: "contacto",
-            element: <> </>, 
+            path: "contact",
+            element: <Contact/>, 
         },
         {
-            path: "scanear-tienda",
-            element: <> </>, 
+            path: "scan",
+            element: <Scan/>, 
         },
       ],
     },

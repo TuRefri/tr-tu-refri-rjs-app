@@ -1,11 +1,18 @@
 [
     {
+        "name":"star",
+        "icon":"star.svg",
+        "href": "/events"
+    },
+    {
         "name":"siren",
-        "icon":"siren.svg"
+        "icon":"siren.svg",
+        "href": "/emergency"
     },
     {
         "name":"mail",
-        "icon":"mail.svg"
+        "icon":"mail.svg",
+        "href": "/contact"
     },
     {
         "name":"power",
