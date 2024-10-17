@@ -1,17 +1,48 @@
+import { useState, useEffect, useRef } from "react";
 import MagnetRefri from "../components/MagnetRefri";
+import Slider from "../components/Slider";
 import magnets from "../data/magnets.json"
+import banner1 from "../../public/images/banner/banner_coca_cola.avif"
+import banner2 from "../../public/images/banner/burguer-king-banner.avif"
+import banner3 from "../../public/images/banner/pepsi-banner.avif"
+import banner4 from "../../public/images/banner/starbucks-banner.avif"
+
+const IMAGES =[
+  {url: banner1, alt: "banner 1"},
+  {url: banner2, alt: "banner 2"},
+  {url: banner3, alt: "banner 3"},
+  {url: banner4, alt: "banner 4"},
+]
 export default function TuRefri() {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const[sideBarDim, setSideBarDim] = useState(0)
+
+  const logHeight = () => {
+    if (sidebarRef.current) {
+      setSideBarDim(sidebarRef.current.clientHeight)
+      console.log(`Altura del refri: ${sidebarRef.current.clientHeight}px`);
+    }
+  };
+
+  useEffect(() => {
+    // Log initial height
+    logHeight();
+
+    // Add a resize event listener
+    window.addEventListener('resize', logHeight);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', logHeight);
+    };
+  }, []);
   return (
-    <div className="w-full h-full flex flex-col">
-      <img
-        className="w-full mt-6 rounded-2xl object-cover shadow-md"
-        src="/images/banner_coca_cola.avif"
-        alt="coca-cola-banner"
-      />
-      <ul className="flex-grow grid grid-cols-2 grid-rows-3 gap-3 p-4">
-        {magnets.map(item =>{
+    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-auto">
+      <Slider images={IMAGES} />
+      <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} flex-grow grid grid-cols-2  p-4`}>
+        {magnets.map((item)=>{
           return(
-            <li>
+            <li key={item.id}>
               <MagnetRefri id={item.id} image={item.image} name={item.name} category={item.category} phone={item.phone}/>
             </li>
         )
