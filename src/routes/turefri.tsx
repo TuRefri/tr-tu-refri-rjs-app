@@ -20,7 +20,6 @@ export default function TuRefri() {
   const logHeight = () => {
     if (sidebarRef.current) {
       setSideBarDim(sidebarRef.current.clientHeight)
-      console.log(`Altura del refri: ${sidebarRef.current.clientHeight}px`);
     }
   };
 
@@ -37,7 +36,7 @@ export default function TuRefri() {
     };
   }, []);
   return (
-    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-auto">
+    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-auto px-4">
       <Slider images={IMAGES} />
       <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} flex-grow grid grid-cols-2  p-4`}>
         {magnets.map((item)=>{

@@ -10,15 +10,22 @@ interface Color {
 interface FridgeContextType {
     currentColor: Color;
     setCurrentColor: React.Dispatch<React.SetStateAction<Color>>;
+    refriDim: refriDim,
+    setRefriDim: React.Dispatch<React.SetStateAction<refriDim>>;
 }
+
+interface refriDim {
+    height: number,
+    width: number,
+  }
 
 const FridgeContext = createContext<FridgeContextType | undefined>(undefined);
 
 export const FridgeProvider = ({ children }: { children: ReactNode }) => {
     const [currentColor, setCurrentColor] = useState<Color>(colorFridge[0]);
-
+    const[refriDim, setRefriDim] = useState<refriDim>({height: 0, width: 0})
     return (
-        <FridgeContext.Provider value={{ currentColor, setCurrentColor }}>
+        <FridgeContext.Provider value={{ currentColor, setCurrentColor, refriDim, setRefriDim }}>
             {children}
         </FridgeContext.Provider>
     );
