@@ -38,4 +38,24 @@ interface Category {
     name: string;
 }
 
+export interface MagnetRefriProps {
+    id: number;
+    image: string;
+    name: string;
+    category: string;
+    phone: string;
+    description: string;
+    address: string;
+    schedule: Schedule
+}
+type Schedule = {
+    lunes: string;
+    martes: string;
+    miércoles: string; 
+    jueves: string;
+    viernes: string;
+    sábado: string;
+    domingo: string;
+};
+
 export type themeButton = "dark" | "white";

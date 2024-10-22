@@ -10,7 +10,7 @@ export default function RoudedButtonTooltipColors({ icon, theme, className, opti
 
   const classNameTheme = theme === 'dark'
     ? "rounded-[50px] h-6 w-6 p-1 flex justify-center items-center bg-[#121212]"
-    : "rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-[inset_-3px_3px_11px_#ededed,inset_3px_-3px_11px_#ffffff]";
+    : "rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-[inset_-3px_3px_11px_#ededed,inset_3px_-3px_11px_#ffffff] active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9] active:translate-z-[-2px] transition-transform duration-150";
   
   const combinedClassName = `${classNameTheme} ${className || ''}`.trim();
 

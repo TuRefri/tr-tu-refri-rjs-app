@@ -31,7 +31,7 @@ export default function Root() {
     return (
       <div  className="flex h-[100dvh] w-full justify-center bg-slate-200 items-center">
             <SideBar />
-            <section ref={refriDimRef} id="detail" className=" h-[90%]  max-w-[30rem] rounded-3xl w-full bg-transparent">
+            <section ref={refriDimRef} id="detail" className=" h-[90%]  max-w-[25rem] rounded-3xl w-full bg-transparent mr-4">
             <article 
               className={`relative h-full rounded-3xl overflow-hidden border border-transparent 
                           transition-all duration-500 ease-in-out ${currentColor.shadow}`} 

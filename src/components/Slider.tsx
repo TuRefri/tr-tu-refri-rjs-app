@@ -51,7 +51,7 @@ export default function Slider({ images }: ImageSliderProps) {
             src={url}
             alt={alt}
             aria-hidden={imageIndex !== index}
-            className="img-slider-img aspect-square object-cover mix-blend-darken"
+            className="img-slider-img aspect-square object-cover"
             style={{ translate: `${-100 * imageIndex}%` }}
           />
         ))}

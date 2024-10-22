@@ -4,41 +4,107 @@
         "image": "bakery-logo.png",
         "category": "Panadería",
         "name": "Bakery & Cafe",
-        "phone": "+57 1 555 1234"
+        "phone": "+57 1 555 1234",
+        "address": "Calle 70 # 12-34, Bogotá",
+        "description": "Una acogedora panadería que ofrece una variedad de panes frescos y pasteles.",
+        "schedule": {
+            "lunes": "7:00 AM - 8:00 PM",
+            "martes": "7:00 AM - 8:00 PM",
+            "miércoles": "7:00 AM - 8:00 PM",
+            "jueves": "7:00 AM - 8:00 PM",
+            "viernes": "7:00 AM - 9:00 PM",
+            "sábado": "8:00 AM - 9:00 PM",
+            "domingo": "8:00 AM - 7:00 PM"
+        }
     },
     {
         "id": 2,
         "image": "burguer-king-logo.png",
         "category": "Comida Rápida",
         "name": "Burger King",
-        "phone": "+57 1 555 5678"
+        "phone": "+57 1 555 5678",
+        "address": "Avenida 19 # 85-45, Bogotá",
+        "description": "Cadena de comida rápida conocida por sus hamburguesas y papas fritas.",
+        "schedule": {
+            "lunes": "10:00 AM - 11:00 PM",
+            "martes": "10:00 AM - 11:00 PM",
+            "miércoles": "10:00 AM - 11:00 PM",
+            "jueves": "10:00 AM - 11:00 PM",
+            "viernes": "10:00 AM - 12:00 AM",
+            "sábado": "10:00 AM - 12:00 AM",
+            "domingo": "10:00 AM - 11:00 PM"
+        }
     },
     {
         "id": 3,
         "image": "farmacy-logo.png",
         "category": "Droguería",
         "name": "El pueblo",
-        "phone": "+57 1 555 8765"
+        "phone": "+57 1 555 8765",
+        "address": "Calle 26 # 45-67, Bogotá",
+        "description": "Droguería con una amplia variedad de medicamentos y productos de cuidado personal.",
+        "schedule": {
+            "lunes": "8:00 AM - 8:00 PM",
+            "martes": "8:00 AM - 8:00 PM",
+            "miércoles": "8:00 AM - 8:00 PM",
+            "jueves": "8:00 AM - 8:00 PM",
+            "viernes": "8:00 AM - 8:00 PM",
+            "sábado": "9:00 AM - 6:00 PM",
+            "domingo": "Cerrado"
+        }
     },
     {
         "id": 4,
         "image": "pepsi-logo.png",
         "category": "Comida Rápida",
         "name": "Pepsi",
-        "phone": "+57 1 555 4321"
+        "phone": "+57 1 555 4321",
+        "address": "Carrera 15 # 30-12, Bogotá",
+        "description": "Restaurante de comida rápida que ofrece una variedad de bebidas y snacks.",
+        "schedule": {
+            "lunes": "10:00 AM - 11:00 PM",
+            "martes": "10:00 AM - 11:00 PM",
+            "miércoles": "10:00 AM - 11:00 PM",
+            "jueves": "10:00 AM - 11:00 PM",
+            "viernes": "10:00 AM - 12:00 AM",
+            "sábado": "10:00 AM - 12:00 AM",
+            "domingo": "10:00 AM - 11:00 PM"
+        }
     },
     {
         "id": 7,
         "image": "starbucks-logo.png",
         "category": "Café",
         "name": "Starbucks",
-        "phone": "+57 1 565 2168"
+        "phone": "+57 1 565 2168",
+        "address": "Calle 93 # 11-25, Bogotá",
+        "description": "Café famoso por su café de especialidad y ambiente relajante.",
+        "schedule": {
+            "lunes": "7:00 AM - 9:00 PM",
+            "martes": "7:00 AM - 9:00 PM",
+            "miércoles": "7:00 AM - 9:00 PM",
+            "jueves": "7:00 AM - 9:00 PM",
+            "viernes": "7:00 AM - 10:00 PM",
+            "sábado": "8:00 AM - 10:00 PM",
+            "domingo": "8:00 AM - 8:00 PM"
+        }
     },
     {
         "id": 8,
         "image": "mcdonals-logo.png",
         "category": "Comida Rápida",
         "name": "Mc Donalds",
-        "phone": "+57 1 712 3461"
+        "phone": "+57 1 712 3461",
+        "address": "Avenida 68 # 34-56, Bogotá",
+        "description": "Cadena internacional de comida rápida conocida por sus hamburguesas y menús variados.",
+        "schedule": {
+            "lunes": "6:00 AM - 12:00 AM",
+            "martes": "6:00 AM - 12:00 AM",
+            "miércoles": "6:00 AM - 12:00 AM",
+            "jueves": "6:00 AM - 12:00 AM",
+            "viernes": "6:00 AM - 12:00 AM",
+            "sábado": "6:00 AM - 12:00 AM",
+            "domingo": "6:00 AM - 12:00 AM"
+        }
     }
 ]

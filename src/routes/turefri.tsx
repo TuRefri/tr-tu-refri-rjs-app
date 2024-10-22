@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useDetailMagnetContext } from "../context/detail-magnet-context";
+import { AnimatePresence, motion } from "framer-motion";
 import MagnetRefri from "../components/MagnetRefri";
 import Slider from "../components/Slider";
 import magnets from "../data/magnets.json"
@@ -6,6 +8,7 @@ import banner1 from "../../public/images/banner/banner_coca_cola.avif"
 import banner2 from "../../public/images/banner/burguer-king-banner.avif"
 import banner3 from "../../public/images/banner/pepsi-banner.avif"
 import banner4 from "../../public/images/banner/starbucks-banner.avif"
+import ModalMagnetRefri from "../components/ModalMagnetRefri";
 
 const IMAGES =[
   {url: banner1, alt: "banner 1"},
@@ -16,6 +19,7 @@ const IMAGES =[
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
+  const {isOpen, handleClose} = useDetailMagnetContext();
 
   const logHeight = () => {
     if (sidebarRef.current) {
@@ -36,16 +40,21 @@ export default function TuRefri() {
     };
   }, []);
   return (
-    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-auto px-4">
+    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
       <Slider images={IMAGES} />
-      <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} flex-grow grid grid-cols-2  p-4`}>
+      <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} relative flex-grow grid grid-cols-2  p-4`}>
         {magnets.map((item)=>{
           return(
             <li key={item.id}>
-              <MagnetRefri id={item.id} image={item.image} name={item.name} category={item.category} phone={item.phone}/>
+              <MagnetRefri item={item}/>
             </li>
         )
         })}
+        {isOpen && (
+        <div className="absolute inset-0 flex items-end justify-center z-20 my-4">
+          <ModalMagnetRefri />
+        </div>
+      )}
       </ul>
     </div>
   );
