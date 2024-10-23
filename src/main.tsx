@@ -14,6 +14,7 @@ import Contact from './routes/contact.tsx';
 import Scan from './routes/scan.tsx';
 import Events from './routes/events.tsx';
 import Profile from './routes/profile.tsx';
+import StorePage from './routes/stores.tsx';
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 const router = createBrowserRouter([
     {
@@ -33,8 +34,12 @@ const router = createBrowserRouter([
             element: <Profile />, 
         },
         {
-            path: "turefri/:tienda",
-            element: <> </>, 
+            path: "stores",
+            element: <StorePage />, 
+        },
+        {
+            path: "stores/:id",
+            element: <StorePage />, 
         },
         {
             path: "map",

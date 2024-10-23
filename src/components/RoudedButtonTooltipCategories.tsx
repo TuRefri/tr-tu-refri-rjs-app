@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { RoundedButtonTooltipCategoriesProps } from "../types";
+import { Category, RoundedButtonTooltipCategoriesProps } from "../types";
+import { useNavigate } from "react-router-dom";
 export default function RoudedButtonTooltipCategories({ icon, className, options }: RoundedButtonTooltipCategoriesProps) {
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -22,6 +23,16 @@ export default function RoudedButtonTooltipCategories({ icon, className, options
     };
   }, []);
 
+  const handleSelectCategory = (item : Category) => {
+    if(item.id === 16){
+      navigate("stores")
+    }else{
+      let route = "stores/" + item.href
+      navigate(route)
+    }
+
+    setVisible(false)
+  }
   return (
     <div className="relative inline-block">
       <button
@@ -39,8 +50,8 @@ export default function RoudedButtonTooltipCategories({ icon, className, options
           style={{ top: '50%', left: '100%', transform: 'translateY(-5%)' }}
         >
           <ul className="flex flex-col">
-            {options.map(item => (
-              <li onClick={() =>setVisible(false)} className="cursor-pointer border bg-white rounded-r-full rounded-tl-full px-2 py-1 text-nowrap w-fit text-xs font-light my-[0.1rem] shadow-md">{item.name}</li>
+            {options.map((item, index) => (
+              <li key={index} onClick={() =>handleSelectCategory(item)} className="cursor-pointer border bg-white rounded-r-full rounded-tl-full px-2 py-1 text-nowrap w-fit text-xs font-light my-[0.1rem] shadow-md">{item.name}</li>
             ))}
           </ul>
           <div className="tooltip-arrow" />

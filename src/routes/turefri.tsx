@@ -9,6 +9,7 @@ import banner2 from "../../public/images/banner/burguer-king-banner.avif"
 import banner3 from "../../public/images/banner/pepsi-banner.avif"
 import banner4 from "../../public/images/banner/starbucks-banner.avif"
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
+import AddMagnets from "../components/AddMagnets";
 
 const IMAGES =[
   {url: banner1, alt: "banner 1"},
@@ -43,19 +44,20 @@ export default function TuRefri() {
     <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
       <Slider images={IMAGES} />
       <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} relative flex-grow grid grid-cols-2  p-4`}>
-        {magnets.map((item)=>{
+        {magnets.length > 0? magnets.map((item)=>{ //TODO quitar. solo prueba < 0
           return(
             <li key={item.id}>
               <MagnetRefri item={item}/>
             </li>
         )
-        })}
+        }):
+        <li className="col-span-2 row-span-3"><AddMagnets /></li>}
+      </ul>
         {isOpen && (
-        <div className="absolute inset-0 flex items-end justify-center z-20 my-4">
+        <div className="absolute inset-0 flex items-end justify-center z-20 my-2 ">
           <ModalMagnetRefri />
         </div>
       )}
-      </ul>
     </div>
   );
 }

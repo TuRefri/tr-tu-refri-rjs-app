@@ -36,6 +36,7 @@ export interface ColorFridge {
 interface Category {
     id: number;
     name: string;
+    href?: string;
 }
 
 export interface MagnetRefriProps {
