@@ -40,11 +40,13 @@ export default function TuRefri() {
       window.removeEventListener('resize', logHeight);
     };
   }, []);
+
+  const toshow = magnets.slice(0,6);
   return (
     <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
       <Slider images={IMAGES} />
       <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} relative flex-grow grid grid-cols-2  p-4`}>
-        {magnets.length > 0? magnets.map((item)=>{ //TODO quitar. solo prueba < 0
+        {toshow.length > 0? toshow.map((item)=>{ //TODO quitar. solo prueba < 0
           return(
             <li key={item.id}>
               <MagnetRefri item={item}/>

@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { RoundedButtonTooltipProps } from "../types";
 import { useFridgeContext } from "../context/fridge-color-context";
+import { motion } from "framer-motion";
 
-export default function RoudedButtonTooltipColors({ icon, theme, className, options }: RoundedButtonTooltipProps) {
+export default function RoundedButtonTooltipColors({ icon, theme, className, options }: RoundedButtonTooltipProps) {
   const { setCurrentColor } = useFridgeContext();  
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -30,6 +31,15 @@ export default function RoudedButtonTooltipColors({ icon, theme, className, opti
     };
   }, []);
 
+  const variants = {
+    hidden: (i: number) => (i === 0 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }),
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.08 }, // Retraso basado en el índice
+    }),
+  };
+
   return (
     <div className="relative inline-block">
       <button
@@ -47,9 +57,16 @@ export default function RoudedButtonTooltipColors({ icon, theme, className, opti
           style={{ top: '50%', left: '100%', transform: 'translateY(-50%)' }}
         >
           <ul className="flex">
-            {options.map(item => (
-              <li key={item.name} className="px-1 flex items-center justify-center">
-                <button
+            {options.map((item, index) => (
+              <motion.li
+                key={item.name}
+                className="px-1 flex items-center justify-center"
+                custom={index} // Pasar el índice como prop "custom"
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.button
                   onClick={() => {
                     setCurrentColor(item);
                     setVisible(false); // Cerrar el tooltip al seleccionar un color
@@ -57,7 +74,7 @@ export default function RoudedButtonTooltipColors({ icon, theme, className, opti
                   className={`rounded-[80px] h-8 w-8 ${item.shadow}`}
                   style={{ backgroundColor: item.hexColor }}
                 />
-              </li>
+              </motion.li>
             ))}
           </ul>
           <div className="tooltip-arrow" />

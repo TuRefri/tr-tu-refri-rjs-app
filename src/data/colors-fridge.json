@@ -1,9 +1,9 @@
 [
     {
-        "id":0,
+        "id": 0,
         "name": "White",
-        "hexColor": "#fdfcfc",
-        "shadow": "shadow-[inset_-13px_13px_27px_#c3c2c2,inset_13px_-13px_27px_#ffffff]"
+        "hexColor": "#f2f2f2",
+        "shadow": "shadow-[inset_-10px_10px_12px_#e6e6e6,inset_10px_-10px_12px_#fefefe]"
     },
     {
         "id":1,

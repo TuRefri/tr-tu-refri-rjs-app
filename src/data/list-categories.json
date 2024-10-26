@@ -14,5 +14,7 @@
     {"id": 12, "name": "Postres", "href": "desserts"},
     {"id": 13, "name": "Comida Rápida", "href": "fast_food"},
     {"id": 14, "name": "Restaurantes", "href": "restaurants"},
-    {"id": 15, "name": "Lavandería", "href": "laundry"}
+    {"id": 15, "name": "Lavandería", "href": "laundry"},
+    {"id": 16, "name": "Electrónica", "href": "electronics"},
+    {"id": 17, "name": "Librería", "href": "bookstore"}
 ]

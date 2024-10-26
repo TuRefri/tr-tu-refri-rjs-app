@@ -1,3 +1,5 @@
+export type day = "lunes" | "martes" | "miércoles" | "jueves" | "viernes" | "sábado" | "domingo"
+
 export interface SideBarButton {
     href?: string;
     icon: string;

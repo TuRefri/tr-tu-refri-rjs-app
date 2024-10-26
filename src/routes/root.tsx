@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useFridgeContext } from "../context/fridge-color-context";
-
+import { useLocation } from 'react-router-dom';
 export default function Root() {
+    const location = useLocation();
     const { currentColor, setRefriDim } = useFridgeContext();
     const refriDimRef = useRef<HTMLDivElement>(null);
     const logHeight = () => {
@@ -36,7 +37,7 @@ export default function Root() {
               className={`relative h-full rounded-3xl overflow-hidden border border-transparent 
                           transition-all duration-500 ease-in-out ${currentColor.shadow}`} 
               style={{ backgroundColor: currentColor.hexColor }}>
-                  <img src="/images/handle.png" className="absolute right-1 top-1/2 transform -translate-y-1/2 "/>
+                  {!location.pathname.includes("stores") && <img src="/images/handle.png" className="absolute right-1 top-1/2 transform -translate-y-1/2 "/>}
                   <Outlet />
               </article>
             </section>

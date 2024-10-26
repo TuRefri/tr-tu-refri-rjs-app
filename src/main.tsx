@@ -16,6 +16,7 @@ import Events from './routes/events.tsx';
 import Profile from './routes/profile.tsx';
 import StorePage from './routes/stores.tsx';
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
+import { StorePageProvider } from './context/store-page-context.tsx';
 const router = createBrowserRouter([
     {
       path: "/",
@@ -35,7 +36,10 @@ const router = createBrowserRouter([
         },
         {
             path: "stores",
-            element: <StorePage />, 
+            element: 
+            <StorePageProvider>
+                <StorePage />
+            </StorePageProvider>, 
         },
         {
             path: "stores/:id",

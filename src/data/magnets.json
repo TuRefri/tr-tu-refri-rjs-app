@@ -106,5 +106,131 @@
             "sábado": "6:00 AM - 12:00 AM",
             "domingo": "6:00 AM - 12:00 AM"
         }
+    },
+    {
+        "id": 9,
+        "image": "electronic-store-logo.png",
+        "category": "Electrónica",
+        "name": "ElectroShop",
+        "phone": "+57 1 555 9876",
+        "address": "Calle 10 # 20-30, Bogotá",
+        "description": "Tienda de electrónica que ofrece una variedad de gadgets y electrodomésticos.",
+        "schedule": {
+            "lunes": "9:00 AM - 7:00 PM",
+            "martes": "9:00 AM - 7:00 PM",
+            "miércoles": "9:00 AM - 7:00 PM",
+            "jueves": "9:00 AM - 7:00 PM",
+            "viernes": "9:00 AM - 8:00 PM",
+            "sábado": "10:00 AM - 6:00 PM",
+            "domingo": "Cerrado"
+        }
+    },
+    {
+        "id": 10,
+        "image": "book-store-logo.jpg",
+        "category": "Librería",
+        "name": "Libros y Más",
+        "phone": "+57 1 555 5432",
+        "address": "Carrera 7 # 14-50, Bogotá",
+        "description": "Librería con una amplia selección de libros de todos los géneros.",
+        "schedule": {
+            "lunes": "10:00 AM - 8:00 PM",
+            "martes": "10:00 AM - 8:00 PM",
+            "miércoles": "10:00 AM - 8:00 PM",
+            "jueves": "10:00 AM - 8:00 PM",
+            "viernes": "10:00 AM - 9:00 PM",
+            "sábado": "11:00 AM - 9:00 PM",
+            "domingo": "11:00 AM - 6:00 PM"
+        }
+    },
+    {
+        "id": 11,
+        "image": "farmers-logo.png",
+        "category": "Frutas y Verduras",
+        "name": "Farmers",
+        "phone": "+57 1 555 3456",
+        "address": "Avenida 72 # 25-40, Bogotá",
+        "description": "Frutas y verduras al mejor precio.",
+        "schedule": {
+            "lunes": "10:00 AM - 8:00 PM",
+            "martes": "10:00 AM - 8:00 PM",
+            "miércoles": "10:00 AM - 8:00 PM",
+            "jueves": "10:00 AM - 8:00 PM",
+            "viernes": "10:00 AM - 9:00 PM",
+            "sábado": "10:00 AM - 9:00 PM",
+            "domingo": "Cerrado"
+        }
+    },
+    {
+        "id": 12,
+        "image": "fruit-logo.jpeg",
+        "category": "Frutas y Verduras",
+        "name": "Fruit store",
+        "phone": "+57 1 555 6789",
+        "address": "Calle 50 # 15-22, Bogotá",
+        "description": "Las frutas más frescas.",
+        "schedule": {
+            "lunes": "10:00 AM - 8:00 PM",
+            "martes": "10:00 AM - 8:00 PM",
+            "miércoles": "10:00 AM - 8:00 PM",
+            "jueves": "10:00 AM - 8:00 PM",
+            "viernes": "10:00 AM - 9:00 PM",
+            "sábado": "10:00 AM - 9:00 PM",
+            "domingo": "Cerrado"
+        }
+    },
+    {
+        "id": 13,
+        "image": "kfc-logo.png",
+        "category": "Muebles",
+        "name": "Comida Rápida",
+        "phone": "+57 1 555 2345",
+        "address": "Avenida 40 # 22-33, Bogotá",
+        "description": "Cadena de comida rápida conocida por sus hamburguesas y papas fritas.",
+        "schedule": {
+            "lunes": "9:00 AM - 7:00 PM",
+            "martes": "9:00 AM - 7:00 PM",
+            "miércoles": "9:00 AM - 7:00 PM",
+            "jueves": "9:00 AM - 7:00 PM",
+            "viernes": "9:00 AM - 8:00 PM",
+            "sábado": "10:00 AM - 6:00 PM",
+            "domingo": "Cerrado"
+        }
+    },
+    {
+        "id": 14,
+        "image": "pet-shop-logo.png",
+        "category": "Mascotas",
+        "name": "Pet Shop 1",
+        "phone": "+57 1 555 8765",
+        "address": "Calle 80 # 50-90, Bogotá",
+        "description": "Tienda de mascotas.",
+        "schedule": {
+            "lunes": "7:00 AM - 10:00 PM",
+            "martes": "7:00 AM - 10:00 PM",
+            "miércoles": "7:00 AM - 10:00 PM",
+            "jueves": "7:00 AM - 10:00 PM",
+            "viernes": "7:00 AM - 10:00 PM",
+            "sábado": "7:00 AM - 10:00 PM",
+            "domingo": "8:00 AM - 9:00 PM"
+        }
+    },
+    {
+        "id": 15,
+        "image": "pet-shop2-logo.png",
+        "category": "Mascotas",
+        "name": "Pet Corner",
+        "phone": "+57 1 555 3210",
+        "address": "Calle 33 # 18-25, Bogotá",
+        "description": "Tienda para mascotas que ofrece alimentos, juguetes y accesorios.",
+        "schedule": {
+            "lunes": "9:00 AM - 7:00 PM",
+            "martes": "9:00 AM - 7:00 PM",
+            "miércoles": "9:00 AM - 7:00 PM",
+            "jueves": "9:00 AM - 7:00 PM",
+            "viernes": "9:00 AM - 8:00 PM",
+            "sábado": "10:00 AM - 6:00 PM",
+            "domingo": "Cerrado"
+        }
     }
 ]
