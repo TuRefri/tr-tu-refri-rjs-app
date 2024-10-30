@@ -7,6 +7,7 @@ import RoudedButtonTooltipColors from './RoudedButtonTooltipColors';
 import RoudedButtonTooltipCategories from './RoudedButtonTooltipCategories';
 import colorsFridge from '../data/colors-fridge.json';
 import categories from '../data/list-categories.json';
+import RoundedFridgeButton from './RoundedFridgeButton';
 
 export default function SideBar() {
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -50,6 +51,10 @@ export default function SideBar() {
                 <RoudedButtonTooltipCategories options={categories} href='' icon={`/icons/${item.icon}`} />
               </li>
             );
+          } else if( item.name === 'fridge') {
+            return (<li key={index}>
+                <RoundedFridgeButton className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-2"} href={item.href ? item.href : ''} icon={`/icons/${item.icon}`} />
+              </li>)
           }
           return (
             <li key={index}>

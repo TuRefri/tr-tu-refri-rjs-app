@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { Category, RoundedButtonTooltipCategoriesProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useGlobalContext } from "../context/global-context";
 
 export default function RoundedButtonTooltipCategories({ icon, className, options }: RoundedButtonTooltipCategoriesProps) {
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const { handleSelectCategory } = useGlobalContext()
   const navigate = useNavigate();
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -25,12 +27,10 @@ export default function RoundedButtonTooltipCategories({ icon, className, option
     };
   }, []);
 
-  const handleSelectCategory = (item: Category) => {
-    if (item.id === 16) {
-      navigate("stores");
-    } else {
-      let route = "stores/" + item.href;
-      navigate(route);
+  const handleSelectCategoryList = (item: Category) => {
+    navigate("stores");
+    if (item.id !== 16) {
+      handleSelectCategory(item.name)
     }
     setVisible(false);
   };
@@ -66,7 +66,7 @@ export default function RoundedButtonTooltipCategories({ icon, className, option
             {options.map((item, index) => (
               <motion.li
                 key={index}
-                onClick={() => handleSelectCategory(item)}
+                onClick={() => handleSelectCategoryList(item)}
                 className="cursor-pointer border bg-white rounded-r-full rounded-tl-full px-2 py-1 text-nowrap w-fit text-xs font-light my-[0.1rem] shadow-md"
                 custom={index} // Pasar el índice como prop "custom"
                 variants={variants}

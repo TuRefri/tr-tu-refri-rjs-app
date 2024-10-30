@@ -81,10 +81,6 @@ export default function ModalStoreCard() {
                     />
         </h2>
         <div className='w-full border-b'/>
-
-        <p className='relative text-red-500 py-2 font-light text-sm active:underline'>
-            Eliminar tienda de mi Refri
-        </p>
     </motion.div>
   )
 }

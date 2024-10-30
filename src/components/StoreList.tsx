@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import StoreCard from './StoreCard';
 import { MagnetRefriProps } from '../types';
-
+import { toast } from 'sonner';
 interface StoreListProps {
     stores: MagnetRefriProps[]
 }
@@ -15,6 +15,14 @@ export default function StoreList({ stores }: StoreListProps ) {
     }),
   };
 
+  const sonnerTrigger = (type : string,msg : string) =>{
+    //@ts-ignore
+    toast[type](msg, {
+      position: 'bottom-center',
+    });
+  }
+
+
   return (
     <section className='w-full h-full mt-2 pt-2'>
       <ul className='flex flex-col gap-y-3 overflow-y-scroll no-scrollbar h-full pb-20'>
@@ -26,7 +34,7 @@ export default function StoreList({ stores }: StoreListProps ) {
             animate="visible"
             custom={index} 
           >
-            <StoreCard data={item} />
+            <StoreCard data={item}/>
           </motion.li>
         ))}
       </ul>

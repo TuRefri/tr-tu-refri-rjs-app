@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import StoreList from '../components/StoreList';
-import stores from '../data/magnets.json'
+import stores from '../data/stores.json'
 import SearchBarStores from '../components/SearchBarStores';
 import { useStorePageContext } from '../context/store-page-context';
 import ModalStoreCard from '../components/ModalStoreCard';

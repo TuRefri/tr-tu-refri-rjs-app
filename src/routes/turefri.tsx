@@ -3,14 +3,16 @@ import { useDetailMagnetContext } from "../context/detail-magnet-context";
 import { AnimatePresence, motion } from "framer-motion";
 import MagnetRefri from "../components/MagnetRefri";
 import Slider from "../components/Slider";
-import magnets from "../data/magnets.json"
+import magnets from "../data/stores.json"
 import banner1 from "../../public/images/banner/banner_coca_cola.avif"
 import banner2 from "../../public/images/banner/burguer-king-banner.avif"
 import banner3 from "../../public/images/banner/pepsi-banner.avif"
 import banner4 from "../../public/images/banner/starbucks-banner.avif"
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
-
+import { MagnetRefriProps } from "../types";
+import { useGlobalContext } from "../context/global-context";
+type magnets = MagnetRefriProps[] | null
 const IMAGES =[
   {url: banner1, alt: "banner 1"},
   {url: banner2, alt: "banner 2"},
@@ -20,8 +22,10 @@ const IMAGES =[
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
+  const { magnets } = useGlobalContext();
   const {isOpen, handleClose} = useDetailMagnetContext();
 
+  
   const logHeight = () => {
     if (sidebarRef.current) {
       setSideBarDim(sidebarRef.current.clientHeight)
@@ -41,20 +45,28 @@ export default function TuRefri() {
     };
   }, []);
 
-  const toshow = magnets.slice(0,6);
   return (
     <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
       <Slider images={IMAGES} />
-      <ul className={`${sideBarDim < 650? "gap-1" : "gap-3"} relative flex-grow grid grid-cols-2  p-4`}>
-        {toshow.length > 0? toshow.map((item)=>{ //TODO quitar. solo prueba < 0
-          return(
-            <li key={item.id}>
-              <MagnetRefri item={item}/>
+      <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4`}>
+          {magnets && magnets.length > 0 ? (
+            magnets.map((item) => (
+              <li key={item.id}>
+                <MagnetRefri item={item} />
+              </li>
+            ))
+          ) : (
+            <li className="absolute h-full w-full">
+              <AddMagnets />
             </li>
-        )
-        }):
-        <li className="col-span-2 row-span-3"><AddMagnets /></li>}
-      </ul>
+          )}
+          {magnets.length < 6 && (
+            <li className={`col-span-2 ${sideBarDim < 650 ? "h-20" : "h-32"}`}></li>
+          )}
+          {magnets.length < 4 && (
+            <li className={`col-span-2 ${sideBarDim < 650 ? "h-20" : "h-32"}`}></li>
+          )}
+        </ul>
         {isOpen && (
         <div className="absolute inset-0 flex items-end justify-center z-20 my-2 ">
           <ModalMagnetRefri />

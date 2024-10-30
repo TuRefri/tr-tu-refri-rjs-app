@@ -3,6 +3,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import { Toaster } from 'sonner';
 import Root from "./routes/root";
 import TuRefri from './routes/turefri';
 import ErrorPage from "./error-page";
@@ -17,10 +18,11 @@ import Profile from './routes/profile.tsx';
 import StorePage from './routes/stores.tsx';
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
+import { GlobalProvider } from './context/global-context.tsx';
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root />,
+      element: <GlobalProvider><Root /></GlobalProvider>,
       errorElement: <ErrorPage />,
       children: [
         {
@@ -74,6 +76,7 @@ if (rootElement) {
     createRoot(rootElement).render(
         <FridgeProvider>
             <RouterProvider router={router} />
+            <Toaster />
         </FridgeProvider>
     );
 } else {
