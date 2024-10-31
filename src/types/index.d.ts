@@ -61,4 +61,6 @@ type Schedule = {
     domingo: string;
 };
 
+export type Open = "now" | "today" | null
+
 export type themeButton = "dark" | "white";

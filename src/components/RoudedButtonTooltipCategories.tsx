@@ -30,7 +30,7 @@ export default function RoundedButtonTooltipCategories({ icon, className, option
   const handleSelectCategoryList = (item: Category) => {
     navigate("stores");
     if (item.id !== 16) {
-      handleSelectCategory(item.name)
+      handleSelectCategory(item)
     }
     setVisible(false);
   };

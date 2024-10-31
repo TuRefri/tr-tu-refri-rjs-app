@@ -2,10 +2,9 @@ import React, { useState, createContext, useContext, ReactNode } from 'react';
 import { MagnetRefriProps } from '../types';
 
 interface StorePageContextType {
-    zone: number,
     filterCategory: string
     setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
-    setZone: React.Dispatch<React.SetStateAction<number>>;
+    
     isOpen: boolean;
     handleOpen: (data: MagnetRefriProps) => void,
     handleClose: () => void,
@@ -16,8 +15,7 @@ interface StorePageContextType {
 const StorePageContext = createContext<StorePageContextType | undefined>(undefined);
 
 export const StorePageProvider = ({ children }: { children: ReactNode }) => {
-    const [filterCategory, setFilterCategory] = useState('')
-    const [zone, setZone] = useState(5000);
+    const [filterCategory, setFilterCategory] = useState('')  
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [data, setData] = useState<MagnetRefriProps | null>(null)
 
@@ -35,7 +33,7 @@ export const StorePageProvider = ({ children }: { children: ReactNode }) => {
     }
 
     return (
-        <StorePageContext.Provider value={{ isOpen, data, handleOpen, handleClose, zone, setZone, setFilterCategory, filterCategory}}>
+        <StorePageContext.Provider value={{ isOpen, data, handleOpen, handleClose, setFilterCategory, filterCategory}}>
             {children}
         </StorePageContext.Provider>
     );

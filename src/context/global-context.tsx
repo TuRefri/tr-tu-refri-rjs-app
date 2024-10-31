@@ -1,21 +1,28 @@
 import React, { useState, createContext, useContext, ReactNode, useEffect } from 'react';
-import { MagnetRefriProps } from '../types';
+import { Category, MagnetRefriProps, Open } from '../types';
 import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';
 
 interface GlobalContextType {
     magnets: MagnetRefriProps[]; // Añadido para almacenar los imanes
     addMagnet: number; // Mantener el estado existente
-    selectedCategory: string;
-    handleSelectCategory: (category: string) => void;
+    selectedCategory: Category | '';
+    zone: number;
+    selectedTime: Open;
+    handleSelectCategory: (category: Category | '') => void;
     handleAddMagnet: (data: MagnetRefriProps) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
+    handleZone: (value: number) => void;
+    handleTime: (value: Open) => void;
+
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
-    const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState<Category | ''>('')
+    const [zone, setZone] = useState(5000);
+    const [selectedTime, setSelectedTime] = useState<Open>(null)
     const [magnets, setMagnets] = useState<MagnetRefriProps[]>(() => {
         const savedMagnets = sessionStorage.getItem('magnets');
         return savedMagnets ? JSON.parse(savedMagnets) : [];
@@ -60,11 +67,25 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             }
         }
     };
-    const handleSelectCategory = (category: string) =>{
-        setSelectedCategory(category)
+    const handleSelectCategory = (category: Category | '') =>{
+        if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
+            setSelectedCategory('')
+        }else{
+            setSelectedCategory(category)
+        }
+    }
+    const handleZone = (value : number) =>{
+        setZone(value)
+    }
+    const handleTime = (value : Open) =>{
+        if(value === selectedTime){
+            setSelectedTime(null)
+        }else{
+            setSelectedTime(value)
+        }
     }
     return (
-        <GlobalContext.Provider value={{ magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory, selectedCategory }}>
+        <GlobalContext.Provider value={{ magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory, selectedCategory, zone, handleZone, handleTime, selectedTime }}>
             {children}
         </GlobalContext.Provider>
     );
