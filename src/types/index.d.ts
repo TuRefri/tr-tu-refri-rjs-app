@@ -75,3 +75,13 @@ export interface Event {
     hour: string;
     location: string;
 }
+
+export interface Promotion {
+    id: number;
+    image: string;
+    name: string;
+    description: string;
+    store_id: number;
+    initial_date: string;
+    end_date: string;
+}

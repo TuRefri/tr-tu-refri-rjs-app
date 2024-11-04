@@ -29,8 +29,7 @@ export default function CardStoreUserProfile({store, handleStoreDelete} : CardSt
                 <div className=' bg-green-600 h-2 w-2 rounded-full animate-pulse' />
             </div>
             <p 
-                onClick={() =>deleteStore(store.id)}
-                className='w-full text-end text-[10px] text-red-600 cursor-pointer'>Eliminar</p>
+                className='w-full text-end text-[10px] text-red-600 cursor-pointer'><span onClick={() =>deleteStore(store.id)}>Eliminar</span></p>
         </section>
     </div>
 </article>

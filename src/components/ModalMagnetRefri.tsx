@@ -1,11 +1,20 @@
 import { useDetailMagnetContext } from '../context/detail-magnet-context'
 import { AnimatePresence, motion } from 'framer-motion';
 import close from '../../public/icons/close.svg'
-import { day } from '../types';
+import { day, Promotion } from '../types';
 import { useGlobalContext } from '../context/global-context';
+import promotions from '../data/promotions.json'
+import { useEffect, useState } from 'react';
+import PromotionCard from './PromotionCard';
 export default function ModalMagnetRefri() {
+    const [promotionsStore, setPromotionsStore] = useState<Promotion[]>([])
     const { handleRemoveMagnet } = useGlobalContext();
     const { handleClose, data } = useDetailMagnetContext();
+
+    useEffect(() => {
+        let promotionsStore = promotions.filter(item => item.store_id === data?.id)
+        setPromotionsStore(promotionsStore)
+    },[])
     let dateObj = new Date();
     //@ts-ignore
     let day : day  = dateObj.toLocaleDateString('es-CO', { weekday: 'long' })
@@ -78,7 +87,16 @@ return (
                         className='absolute left-0 top-2'
                         />
             </h2>
-            <div className='w-full border-b'/>
+            <ul className='w-[95%] flex flex-col gap-y-2'>
+                {promotionsStore.map(item =>{
+                    return(
+                        <li>
+                            <PromotionCard data={item}/>
+                        </li>
+                    )
+                })}
+            </ul>
+            <div className='my-4 w-full border-b'/>
             <p onClick={() => handleDelete(data?.id)}className='relative text-red-500 py-2 font-light text-sm active:underline'>
                 Eliminar tienda de mi Refri
             </p>

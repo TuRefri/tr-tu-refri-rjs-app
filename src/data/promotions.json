@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "name": "Descuento del 20% en café",
+        "store_id": 1,
+        "description": "Aprovecha un 20% de descuento en todos los cafés.",
+        "initial_date": "2024-11-01",
+        "end_date": "2024-11-30",
+        "image": "promo-cafe.png"
+    },
+    {
+        "id": 2,
+        "name": "2x1 en hamburguesas",
+        "store_id": 2,
+        "description": "Compra una hamburguesa y lleva otra gratis.",
+        "initial_date": "2024-11-05",
+        "end_date": "2024-11-15",
+        "image": "promo-burger.png"
+    },
+    {
+        "id": 3,
+        "name": "10% en productos de aseo",
+        "store_id": 3,
+        "description": "Descuento en todos los productos de aseo personal.",
+        "initial_date": "2024-11-10",
+        "end_date": "2024-11-20",
+        "image": "promo-aseo.png"
+    },
+    {
+        "id": 4,
+        "name": "Descuento en bebidas",
+        "store_id": 4,
+        "description": "25% de descuento en todas las bebidas.",
+        "initial_date": "2024-11-01",
+        "end_date": "2024-11-30",
+        "image": "promo-bebidas.png"
+    },
+    {
+        "id": 5,
+        "name": "Descuento de temporada",
+        "store_id": 7,
+        "description": "15% de descuento en bebidas de temporada.",
+        "initial_date": "2024-11-15",
+        "end_date": "2024-12-15",
+        "image": "promo-temporada.png"
+    },
+    {
+        "id": 6,
+        "name": "Regalo sorpresa",
+        "store_id": 8,
+        "description": "Lleva un regalo sorpresa en tu compra mayor a $50,000.",
+        "initial_date": "2024-11-20",
+        "end_date": "2024-11-30",
+        "image": "promo-regalo.png"
+    },
+    {
+        "id": 7,
+        "name": "Descuento en electrónicos",
+        "store_id": 9,
+        "description": "Aprovecha un 10% de descuento en productos seleccionados.",
+        "initial_date": "2024-11-01",
+        "end_date": "2024-11-30",
+        "image": "promo-electronicos.png"
+    },
+    {
+        "id": 8,
+        "name": "10% de descuento en libros",
+        "store_id": 10,
+        "description": "Descuento en toda la colección de libros.",
+        "initial_date": "2024-11-05",
+        "end_date": "2024-11-25",
+        "image": "promo-libros.png"
+    },
+    {
+        "id": 9,
+        "name": "Descuento en vitaminas",
+        "store_id": 3,
+        "description": "20% de descuento en todas las vitaminas y suplementos.",
+        "initial_date": "2024-11-10",
+        "end_date": "2024-11-30",
+        "image": "promo-vitaminas.png"
+    },
+    {
+        "id": 10,
+        "name": "2x1 en analgésicos",
+        "store_id": 3,
+        "description": "Llévate dos analgésicos por el precio de uno.",
+        "initial_date": "2024-11-01",
+        "end_date": "2024-11-15",
+        "image": "promo-analgesicos.png"
+    },
+    {
+        "id": 11,
+        "name": "Combo Whopper",
+        "store_id": 2,
+        "description": "Combo Whopper por solo $15,000.",
+        "initial_date": "2024-11-12",
+        "end_date": "2024-11-18",
+        "image": "promo-whopper.png"
+    },
+    {
+        "id": 12,
+        "name": "Nuggets gratis",
+        "store_id": 2,
+        "description": "Recibe 6 nuggets gratis al comprar un combo grande.",
+        "initial_date": "2024-11-20",
+        "end_date": "2024-11-25",
+        "image": "promo-nuggets.png"
+    },
+    {
+        "id": 13,
+        "name": "Café gratis",
+        "store_id": 7,
+        "description": "Un café gratis en tu primera compra.",
+        "initial_date": "2024-11-01",
+        "end_date": "2024-11-30",
+        "image": "promo-cafe-gratis.png"
+    },
+    {
+        "id": 14,
+        "name": "Descuento en pastelería",
+        "store_id": 7,
+        "description": "15% de descuento en todos los productos de pastelería.",
+        "initial_date": "2024-11-05",
+        "end_date": "2024-11-20",
+        "image": "promo-pasteleria.png"
+    },
+    {
+        "id": 15,
+        "name": "Puntos dobles",
+        "store_id": 7,
+        "description": "Gana puntos dobles en cada compra con tu tarjeta de cliente frecuente.",
+        "initial_date": "2024-11-15",
+        "end_date": "2024-12-15",
+        "image": "promo-puntos-dobles.png"
+    }
+]
