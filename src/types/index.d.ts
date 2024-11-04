@@ -64,3 +64,14 @@ type Schedule = {
 export type Open = "now" | "today" | null
 
 export type themeButton = "dark" | "white";
+
+
+export interface Event {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    day: string;
+    hour: string;
+    location: string;
+}

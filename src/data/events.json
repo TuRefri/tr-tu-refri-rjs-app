@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Colombia de fiesta para ti",
+        "description": "Descripción del evento 1.",
+        "image": "event_1.jpg",
+        "day": "21 de Noviembre",
+        "hour": "8:00 pm",
+        "location": "Bogotá, Colombia"
+    },
+    {
+        "id": 2,
+        "name": "Evento de emprendedores",
+        "description": "Descripción del evento 2.",
+        "image": "event_2.webp",
+        "day": "2 de Noviembre",
+        "hour": "2:00 pm",
+        "location": "Medellín, Colombia"
+    },
+    {
+        "id": 3,
+        "name": "Festival nacional de la Música",
+        "description": "Descripción del evento 3.",
+        "image": "event_3.jpg",
+        "day": "13 de Marzo",
+        "hour": "6:00 pm",
+        "location": "Cali, Colombia"
+    },
+    {
+        "id": 4,
+        "name": "Fiesta de Colombia",
+        "description": "Descripción del evento 4.",
+        "image": "event_4.jpeg",
+        "day": "21 de Julio",
+        "hour": "3:00 pm",
+        "location": "Barranquilla, Colombia"
+    }
+]

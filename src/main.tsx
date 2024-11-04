@@ -33,7 +33,7 @@ const router = createBrowserRouter([
           </DetailMagnetProvider>,
         },
         {
-            path: "perfil",
+            path: "profile",
             element: <Profile />, 
         },
         {

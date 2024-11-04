@@ -35,7 +35,7 @@ export default function SideBar() {
 
   return (
     <aside ref={sidebarRef} className=' pt-4 px-2 py-4 flex flex-col justify-center items-center h-[90%]'>
-      <RoundedButton className={""} href='' icon='icons/person.svg' />
+      <RoundedButton className={""} href='/profile' icon='icons/person.svg' />
 
       <ul className={`${sideBarDim < 642? "mt-2" : "mt-6"} border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center`}>
         {firstSection.map((item, index: number) => {

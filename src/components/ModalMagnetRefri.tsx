@@ -3,14 +3,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import close from '../../public/icons/close.svg'
 import { day } from '../types';
 import { useGlobalContext } from '../context/global-context';
-export default function ModalMagnetRefri(isOpen : boolean) {
+export default function ModalMagnetRefri() {
     const { handleRemoveMagnet } = useGlobalContext();
     const { handleClose, data } = useDetailMagnetContext();
     let dateObj = new Date();
     //@ts-ignore
     let day : day  = dateObj.toLocaleDateString('es-CO', { weekday: 'long' })
 
-    const handleDelete = (id : number) =>{
+    const handleDelete = (id : number | undefined ) =>{
+        if(!id){
+            return
+        }
         handleRemoveMagnet(id)
         setTimeout(() => {
             handleClose()
@@ -20,7 +23,6 @@ export default function ModalMagnetRefri(isOpen : boolean) {
 return (
     <>
         <AnimatePresence >
-        {isOpen &&
         <motion.div
         key="modal-magnet"
         initial={{ opacity: 0, scale: 0 }}
@@ -45,7 +47,8 @@ return (
             <div className='w-full border-b'/>
             <p className='text-sm text-center p-1 text-wrap font-medium'>{data?.schedule[day]}</p>
             <div className='w-full border-b'/>
-            <p className='text-sm font-light text-center p-1 text-wrap'>{data?.description}</p>
+            <p className='text-sm font-light p-1 h-fit w-5/6 break-words'>{data?.description}</p>
+
             <div className='w-full border-b'/>
             
             <p className='relative w-full rounded-full bg-green-600 text-white font-semibold text-lg mt-3 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#16a34a,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150'>
@@ -81,7 +84,6 @@ return (
             </p>
 
         </motion.div>
-        }
         </AnimatePresence>
     </>
     
