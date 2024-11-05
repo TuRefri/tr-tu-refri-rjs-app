@@ -3,19 +3,29 @@ import profile from '../../public/images/profile/profile_image.png';
 import add from '../../public/icons/add-icon.svg';
 import add_button from '../../public/icons/add.svg';
 import ModalCreateStore from '../components/ModalCreateStore';
+import ModalCreatePromotion from '../components/ModalCreatePromotion';
 import { MagnetRefriProps } from '../types';
 import CardStoreUserProfile from '../components/CardStoreUserProfile';
 
 export default function Profile() {
   const [createStoreModal, setCreateStoreModal] = useState(false);
+  const [createPromotionModal, setCreatePromotionModal] = useState(false);
   const [userStores, setUserStores] = useState<MagnetRefriProps[]>([]);
-
+  const [selectedStoreForPromotion, setSelectedStoreForPromotion] = useState<number | null>(null)
   const handleCloseCreateStoreModal = () => {
     setCreateStoreModal(false);
     const storedStores = sessionStorage.getItem("user_stores");
     setUserStores(storedStores ? JSON.parse(storedStores) : []);
   };
-
+  const handleOpenCreatePromotionModal = () =>{
+    setCreatePromotionModal(true)
+  }
+  const handleCloseCreatePromotionModal = () => {
+    setCreatePromotionModal(false)
+  };
+  const handleSelectStoreForPromotion = (id? : number ) =>{
+    setSelectedStoreForPromotion(id? id : null)
+  }
   useEffect(() => {
     const storedStores = sessionStorage.getItem("user_stores");
     setUserStores(storedStores ? JSON.parse(storedStores) : []);
@@ -65,7 +75,10 @@ export default function Profile() {
                 <li key={store.id}>
                   <CardStoreUserProfile 
                     handleStoreDelete={handleStoreDelete}
-                    store={store}/>
+                    store={store}
+                    handleSelectStoreForPromotion={handleSelectStoreForPromotion}
+                    handleOpenCreatePromotionModal={handleOpenCreatePromotionModal}
+                    />
                 </li>
               ))}
             </ul>
@@ -76,6 +89,13 @@ export default function Profile() {
         <div className="absolute inset-0 flex items-end justify-center z-20 ">
           <ModalCreateStore 
             handleCloseCreateStoreModal={handleCloseCreateStoreModal} />
+        </div>
+      )}
+      {createPromotionModal && (
+        <div className="absolute inset-0 flex items-end justify-center z-20 ">
+          <ModalCreatePromotion 
+            handleCloseCreatePromotionModal={handleCloseCreatePromotionModal} 
+            selectedStoreForPromotion={selectedStoreForPromotion}/>
         </div>
       )}
     </div>

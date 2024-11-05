@@ -5,8 +5,10 @@ import { MagnetRefriProps } from '../types'
 interface CardStoreUserProfileProps {
     store: MagnetRefriProps,
     handleStoreDelete: (id: number) => void;
+    handleSelectStoreForPromotion: (id?: number) => void;
+    handleOpenCreatePromotionModal: () => void
 }
-export default function CardStoreUserProfile({store, handleStoreDelete} : CardStoreUserProfileProps) {
+export default function CardStoreUserProfile({store, handleStoreDelete, handleSelectStoreForPromotion, handleOpenCreatePromotionModal} : CardStoreUserProfileProps) {
 
     const deleteStore = (id: number) => {
         handleStoreDelete(id);
@@ -28,8 +30,13 @@ export default function CardStoreUserProfile({store, handleStoreDelete} : CardSt
             <div className='absolute flex justify-center  items-center border p-[.1rem] border-gray-300 top-0 right-0 rounded-full'>
                 <div className=' bg-green-600 h-2 w-2 rounded-full animate-pulse' />
             </div>
+            <section className='flex w-full justify-end gap-x-2'>
             <p 
-                className='w-full text-end text-[10px] text-red-600 cursor-pointer'><span onClick={() =>deleteStore(store.id)}>Eliminar</span></p>
+                className='text-[10px] text-blue-600 cursor-pointer'><span onClick={() =>{handleOpenCreatePromotionModal();handleSelectStoreForPromotion(store.id)}}>Crear promoción</span></p>
+            <p 
+                className='text-[10px] text-red-600 cursor-pointer'><span onClick={() =>deleteStore(store.id)}>Eliminar</span></p>
+
+            </section>
         </section>
     </div>
 </article>

@@ -1,12 +1,10 @@
 import { useGlobalContext } from '../context/global-context';
-import { useStorePageContext } from '../context/store-page-context';
 import { MagnetRefriProps } from '../types'
 import './StoreCard.css'
 interface StoreCardProps {
     data: MagnetRefriProps; // Asegúrate de que MagnetRefriProps tenga la estructura correcta
   }
 export default function StoreCard( { data }: StoreCardProps) {
-    const { handleOpen } = useStorePageContext()
     const { handleAddMagnet } = useGlobalContext()
   return (
     <article className='shadow-sm cursor-pointer w-full rounded-lg border bg-gray-50' onClick={() => handleAddMagnet(data)/* handleOpen(data) */}>

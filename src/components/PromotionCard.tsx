@@ -1,4 +1,3 @@
-import React from 'react'
 import { Promotion } from '../types'
 interface PromotionCardProps {
     data : Promotion
@@ -6,7 +5,7 @@ interface PromotionCardProps {
 
 const formatDate = (date: string) => {
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
-    return new Date(date).toLocaleDateString('en-US', options);
+    return new Date(date).toLocaleDateString('es-CO', options);
   };
 
 export default function PromotionCard({data} : PromotionCardProps) {

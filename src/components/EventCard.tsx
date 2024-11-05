@@ -1,7 +1,3 @@
-import React from 'react';
-import clock from '../../public/icons/clock.svg'
-import calendar from '../../public/icons/calendar.svg'
-import location_event from '../../public/icons/location_event.svg'
 
 import { Event } from '../types';
 
@@ -24,9 +20,9 @@ export default function EventCard({ data }: EventCardProps) {
                     <h1 className='font-semibold text-lg'>{data.name}</h1>
                 </section>
                 <section className='flex flex-col gap-y-1 text-xs text-gray-600 font-medium pt-1 w-full justify-end'>
-                    <p className='flex items-center gap-x-1'><img height={18} width={18} src={clock} alt='event image'/>{data.day}</p>
-                    <p className='flex items-center gap-x-1'><img height={18} width={18} src={calendar} alt='event image'/>{data.hour}</p>
-                    <p className='flex items-center gap-x-1'><img height={18} width={18} src={location_event} alt='event image'/>{data.location}</p>
+                    <p className='flex items-center gap-x-1'><img height={18} width={18} src='/icons/clock.svg' alt='event image'/>{data.day}</p>
+                    <p className='flex items-center gap-x-1'><img height={18} width={18} src='/icons/calendar.svg' alt='event image'/>{data.hour}</p>
+                    <p className='flex items-center gap-x-1'><img height={18} width={18} src='/icons/location_event.svg' alt='event image'/>{data.location}</p>
                 </section>
             </div>
         </article>

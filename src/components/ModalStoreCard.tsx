@@ -1,6 +1,6 @@
 import { useStorePageContext } from '../context/store-page-context'
 import { useState } from 'react';
-import { animate, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import close from '../../public/icons/close.svg'
 import { day } from '../types';
 import add from '../../public/icons/add.svg'

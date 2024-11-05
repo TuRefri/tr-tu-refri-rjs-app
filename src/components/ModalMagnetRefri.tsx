@@ -12,9 +12,20 @@ export default function ModalMagnetRefri() {
     const { handleClose, data } = useDetailMagnetContext();
 
     useEffect(() => {
-        let promotionsStore = promotions.filter(item => item.store_id === data?.id)
-        setPromotionsStore(promotionsStore)
-    },[])
+        let promotionsStorage: any[] = [];
+        const storedData = sessionStorage.getItem("promotions_user");
+        if (storedData) {
+            try {
+                promotionsStorage = JSON.parse(storedData);
+            } catch (error) {
+                console.error("Error al parsear promociones de sessionStorage:", error);
+            }
+        }
+        const allPromotions = [...promotions, ...promotionsStorage];
+        const promotionsStore = allPromotions.filter(item => item.store_id === data?.id);
+        setPromotionsStore(promotionsStore);
+    }, []);
+    
     let dateObj = new Date();
     //@ts-ignore
     let day : day  = dateObj.toLocaleDateString('es-CO', { weekday: 'long' })
