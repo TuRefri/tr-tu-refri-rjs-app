@@ -49,7 +49,9 @@ export interface MagnetRefriProps {
     phone: string;
     description: string;
     address: string;
-    schedule: Schedule
+    schedule: Schedule;
+    lat?: number;
+    lng?: number
 }
 type Schedule = {
     lunes: string;
