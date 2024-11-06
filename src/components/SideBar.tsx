@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import RoundedButton from './RoundedButton';
 import redes from '../data/redes-sociales.json';
 import firstSection from "../data/buttons-sidebar-first.json";

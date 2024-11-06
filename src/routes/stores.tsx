@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import StoreList from '../components/StoreList';
 import stores from '../data/stores.json';
 import SearchBarStores from '../components/SearchBarStores';

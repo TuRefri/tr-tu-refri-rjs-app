@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ModalCreateStore from '../components/ModalCreateStore';
 import ModalCreatePromotion from '../components/ModalCreatePromotion';
 import { MagnetRefriProps } from '../types';

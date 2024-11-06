@@ -1,4 +1,5 @@
 import { useState } from "react";
+//@ts-ignore
 import MapSection from "../components/MapSection";
 import ModalMap from "../components/ModalMap";
 import { MagnetRefriProps } from "../types";

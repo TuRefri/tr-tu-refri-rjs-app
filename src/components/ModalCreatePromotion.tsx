@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import categories from '../data/list-categories.json'
 import { toast } from 'sonner';
 interface ModalCreatePromotionProps {
     handleCloseCreatePromotionModal: () => void;

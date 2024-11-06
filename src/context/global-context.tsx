@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, ReactNode, useEffect } from 'react';
+import { useState, createContext, useContext, ReactNode } from 'react';
 import { Category, MagnetRefriProps, Open } from '../types';
 import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';

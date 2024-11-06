@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react';
+import { useState, createContext, useContext, ReactNode } from 'react';
 import { MagnetRefriProps } from '../types';
 
 interface DetailMagnetContextType {

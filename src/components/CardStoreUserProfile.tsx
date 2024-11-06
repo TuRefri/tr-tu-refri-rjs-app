@@ -1,6 +1,5 @@
 /* Card de la tienda del usuario, se renderiza en el perfil del usuario */
 
-import React from 'react'
 import { MagnetRefriProps } from '../types'
 interface CardStoreUserProfileProps {
     store: MagnetRefriProps,

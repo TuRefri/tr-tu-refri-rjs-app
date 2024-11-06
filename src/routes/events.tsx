@@ -1,4 +1,4 @@
-import React from 'react'
+
 import EventList from '../components/EventsList'
 
 export default function Events() {

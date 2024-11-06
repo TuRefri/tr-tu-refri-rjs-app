@@ -37,9 +37,7 @@ export default function Root() {
               className={`relative h-full rounded-3xl overflow-hidden border border-transparent 
                           transition-all duration-500 ease-in-out ${currentColor.shadow}`} 
               style={{ backgroundColor: currentColor.hexColor }}>
-                  {(!location.pathname.includes("stores") && 
-                    !location.pathname.includes("events") &&
-                    !location.pathname.includes("profile"))
+                  {(location.pathname.includes("turefri"))
                   && <img src="/images/handle.png" className="absolute right-1 top-1/2 transform -translate-y-1/2 "/>}
                   <Outlet />
               </article>

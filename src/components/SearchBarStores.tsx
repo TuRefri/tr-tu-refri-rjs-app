@@ -1,7 +1,5 @@
-import React from 'react';
+;
 import './SearchBarStores.css';
-import { useGlobalContext } from '../context/global-context';
-import { motion } from 'framer-motion';
 import FilterButtonSearchbar from './FilterButtonSearchbar';
 interface SearchBarStoresProps {
   searchWords: string;

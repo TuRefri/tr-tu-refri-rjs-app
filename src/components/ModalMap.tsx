@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { MagnetRefriProps } from '../types'
 import { motion } from 'framer-motion'
 import { useGlobalContext } from '../context/global-context'

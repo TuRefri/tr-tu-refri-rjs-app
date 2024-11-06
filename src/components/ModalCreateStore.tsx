@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import categories from '../data/list-categories.json'
 import { toast } from 'sonner';
-import { scheduler } from 'timers/promises';
 interface ModalCreateStoreProps {
     handleCloseCreateStoreModal: () => void;
 }

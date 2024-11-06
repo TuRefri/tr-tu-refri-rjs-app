@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import StoreCard from './StoreCard';
 import { MagnetRefriProps } from '../types';
-import { toast } from 'sonner';
 interface StoreListProps {
     stores: MagnetRefriProps[]
 }
@@ -15,12 +14,6 @@ export default function StoreList({ stores }: StoreListProps ) {
     }),
   };
 
-  const sonnerTrigger = (type : string,msg : string) =>{
-    //@ts-ignore
-    toast[type](msg, {
-      position: 'bottom-center',
-    });
-  }
 
 
   return (

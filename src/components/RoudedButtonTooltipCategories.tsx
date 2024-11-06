@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGlobalContext } from "../context/global-context";
 
-export default function RoundedButtonTooltipCategories({ icon, className, options }: RoundedButtonTooltipCategoriesProps) {
+export default function RoundedButtonTooltipCategories({ icon, options }: RoundedButtonTooltipCategoriesProps) {
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
