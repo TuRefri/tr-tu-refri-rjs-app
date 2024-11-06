@@ -67,7 +67,7 @@ export default function RoundedButtonTooltipCategories({ icon, className, option
               <motion.li
                 key={index}
                 onClick={() => handleSelectCategoryList(item)}
-                className="cursor-pointer border bg-white rounded-r-full rounded-tl-full px-2 py-1 text-nowrap w-fit text-xs font-light my-[0.1rem] shadow-md"
+                className="cursor-pointer border bg-white rounded-r-full rounded-tl-full px-3 py-1 text-nowrap w-fit text-xs font-light my-[0.1rem] shadow-md"
                 custom={index} // Pasar el índice como prop "custom"
                 variants={variants}
               >

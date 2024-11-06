@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import stores from '../data/stores.json';
 
-const MapSection = () => {
+const MapSection = (props) => {
+  const {handleCloseModal, handleSelectStoreOnMap} = props
   const mapRef = useRef(null);
   const initializedRef = useRef(false);
 
@@ -17,7 +18,7 @@ const MapSection = () => {
     document.head.appendChild(script);
 
     window.initMap = async () => {
-      const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+      const { Map } = await google.maps.importLibrary("maps");
       const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
       const map = new Map(mapRef.current, {
@@ -25,9 +26,6 @@ const MapSection = () => {
         zoom: 17,
         mapId: "90f87356969d889c",
       });
-
-      // Crear un InfoWindow que será reutilizado para cada marcador
-      const infoWindow = new InfoWindow();
 
       allStores.forEach(item => {
         const imgElement = document.createElement("img");
@@ -46,14 +44,12 @@ const MapSection = () => {
           title: "Marcador con imagen PNG",
         });
 
-        // Añadir evento de clic al marcador para mostrar InfoWindow
         marker.addListener("click", () => {
-          infoWindow.setContent(item.name); // Muestra el nombre del marcador
-          infoWindow.open({
-            anchor: marker,
-            map,
-            shouldFocus: false,
-          });
+          handleCloseModal()
+          setTimeout(() => {
+            
+            handleSelectStoreOnMap(item)
+          }, 50);
         });
       });
     };

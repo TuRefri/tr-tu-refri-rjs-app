@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import close from '../../public/icons/close.svg';
 import categories from '../data/list-categories.json'
 import { toast } from 'sonner';
-import { scheduler } from 'timers/promises';
 interface ModalCreatePromotionProps {
     handleCloseCreatePromotionModal: () => void;
     selectedStoreForPromotion: number | null;
@@ -68,7 +66,7 @@ export default function ModalCreatePromotion({ handleCloseCreatePromotionModal, 
             className='overflow-y-scroll no-scrollbar py-12 px-8 z-30 cursor-pointer relative w-full h-full flex flex-col items-center rounded-2xl shadow-md bg-[#fdfcfc]'
         >
             <button className="absolute top-4 right-4 rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-md active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9] transition-transform duration-150" onClick={handleCloseCreatePromotionModal}>
-                <img src={close} alt='close' />
+                <img src={'/icons/close.svg'} alt='close' />
             </button>
             <section className='flex flex-col justify-start w-full'>
                 <h2 className='text-2xl text-gray-700 mb-4'>Nueva Promoción</h2>

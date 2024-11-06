@@ -10,7 +10,7 @@ interface GlobalContextType {
     zone: number;
     selectedTime: Open;
     handleSelectCategory: (category: Category | '') => void;
-    handleAddMagnet: (data: MagnetRefriProps) => void;
+    handleAddMagnet: (data: MagnetRefriProps | null) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
     handleZone: (value: number) => void;
     handleTime: (value: Open) => void;
@@ -30,7 +30,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
     const [addMagnet, setAddMagnet] = useState(0);
 
-    const handleAddMagnet = (data: MagnetRefriProps) => {
+    const handleAddMagnet = (data: MagnetRefriProps | null) => {
+        if(!data) return
         let msg = '';
         const result = addMagnetToSStorage(data);
 

@@ -1,6 +1,5 @@
 import { useDetailMagnetContext } from '../context/detail-magnet-context'
 import { AnimatePresence, motion } from 'framer-motion';
-import close from '../../public/icons/close.svg'
 import { day, Promotion } from '../types';
 import { useGlobalContext } from '../context/global-context';
 import promotions from '../data/promotions.json'
@@ -52,7 +51,7 @@ return (
         className='overflow-y-scroll no-scrollbar  py-12 px-4 z-30 cursor-pointer relative w-[95%] h-full flex flex-col items-center rounded-2xl shadow-md bg-[#fdfcfc]  '
             >
             <button className="absolute top-4 right-4 rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-md active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150" onClick={handleClose}>
-                <img src={close} alt='close' />
+                <img src={'/icons/close.svg'} alt='close' />
             </button>
             <section className='w-full flex justify-center pb-1'>
                 <div className='h-auto w-[60%] rounded-full overflow-hidden'>

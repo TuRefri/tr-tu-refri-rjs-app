@@ -1,10 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
-import filter from '../../public/icons/filter.svg';
+import { useRef, useState } from 'react';
 import categories from '../data/list-categories.json';
-import close from '../../public/icons/close.svg';
 import { motion } from 'framer-motion';
 import { useGlobalContext } from '../context/global-context';
-import { useFridgeContext } from '../context/fridge-color-context';
 const ranges : Record<'1' | '2' | '3' | '4', number>= {
     1: 1000,
     2: 2000,
@@ -28,7 +25,7 @@ export default function FilterButtonSearchbar() {
                 onClick={() => setOpen(!open)}
                 className='bg-gray-50 px-2 h-full w-auto rounded-lg border-2 border-gray-300 active:bg-gray-100 active:border-black active:scale-95'
             >
-                <img src={filter} alt='filter' height={30} width={30} />
+                <img src={'/icons/filter.svg'} alt='filter' height={30} width={30} />
             </button>
 
             {selectedCategory && (

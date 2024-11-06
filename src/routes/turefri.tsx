@@ -1,29 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { useDetailMagnetContext } from "../context/detail-magnet-context";
-import { AnimatePresence, motion } from "framer-motion";
 import MagnetRefri from "../components/MagnetRefri";
 import Slider from "../components/Slider";
-import magnets from "../data/stores.json"
-import banner1 from "../../public/images/banner/banner_coca_cola.avif"
-import banner2 from "../../public/images/banner/burguer-king-banner.avif"
-import banner3 from "../../public/images/banner/pepsi-banner.avif"
-import banner4 from "../../public/images/banner/starbucks-banner.avif"
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
-import { MagnetRefriProps } from "../types";
 import { useGlobalContext } from "../context/global-context";
-type magnets = MagnetRefriProps[] | null
 const IMAGES =[
-  {url: banner1, alt: "banner 1"},
-  {url: banner2, alt: "banner 2"},
-  {url: banner3, alt: "banner 3"},
-  {url: banner4, alt: "banner 4"},
+  {url: '/images/banner/banner_coca_cola.avif', alt: "banner 1"},
+  {url: '/images/banner/burguer-king-banner.avif', alt: "banner 2"},
+  {url: '/images/banner/pepsi-banner.avif', alt: "banner 3"},
+  {url: '/images/banner/starbucks-banner.avif', alt: "banner 4"},
 ]
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
   const { magnets } = useGlobalContext();
-  const {isOpen, handleClose} = useDetailMagnetContext();
+  const {isOpen} = useDetailMagnetContext();
 
   
   const logHeight = () => {

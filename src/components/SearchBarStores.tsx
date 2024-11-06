@@ -1,7 +1,4 @@
 import React from 'react';
-import search from '../../public/icons/search.svg';
-import filter from '../../public/icons/filter.svg';
-import close from '../../public/icons/close.svg'
 import './SearchBarStores.css';
 import { useGlobalContext } from '../context/global-context';
 import { motion } from 'framer-motion';
@@ -23,7 +20,7 @@ export default function SearchBarStores({ searchWords, setSearchWords }: SearchB
             onChange={(e) => setSearchWords(e.target.value)} // Actualiza el estado al cambiar el input
             className='bg-gray-50 w-full py-2 px-6 rounded-lg border-2 border-gray-300'
           />
-          <img src={search} alt='search' height={25} width={25} className='absolute right-3 top-1/2 transform -translate-y-1/2' />
+          <img src={'/icons/search.svg'} alt='search' height={25} width={25} className='absolute right-3 top-1/2 transform -translate-y-1/2' />
         </div>
         <FilterButtonSearchbar />
       </div>

@@ -1,9 +1,7 @@
 import { useStorePageContext } from '../context/store-page-context'
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import close from '../../public/icons/close.svg'
 import { day } from '../types';
-import add from '../../public/icons/add.svg'
 export default function ModalStoreCard() {
   const { data, handleClose } = useStorePageContext();
   const [showSchedule, setShowSchedule] = useState(false);
@@ -22,7 +20,7 @@ export default function ModalStoreCard() {
             className='overflow-y-scroll no-scrollbar  py-12 px-4 z-30 cursor-pointer relative w-[95%] h-full flex flex-col items-center rounded-2xl shadow-md bg-[#fdfcfc]  '
         >
           <button className="absolute top-4 right-4 rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-md active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150" onClick={handleClose}>
-            <img src={close} alt='close' />
+            <img src={'/icons/close.svg'} alt='close' />
         </button>
         <section className='relative w-full flex justify-center pb-1'>
             <div className='h-auto w-[60%] rounded-full overflow-hidden'>
@@ -34,13 +32,13 @@ export default function ModalStoreCard() {
         <section className='flex items-center'>
           <h1 className='text-2xl font-semibold text-center p-3 text-nowrap'>{data?.name}</h1>
           <button className='h-fit p-[.1rem] rounded-full  bg-blue-500'>
-            <img src={add} alt='add store to turefri' />
+            <img src={'/icons/add.svg'} alt='add store to turefri' />
           </button>
         </section>
         <div className='w-full border-b'/>
         <p className='text-sm font-light text-center p-1 text-wrap text-blue-500'>{data?.address}</p>
         <div className='w-full border-b'/>
-        <p className='flex items-center text-sm text-center p-1 text-wrap font-medium'>Hoy {data?.schedule[day]} <img className='ml-2 p-[.1rem] rounded-full  bg-gray-500 ' src={add} alt="show more days" onClick={toggleSchedule}/></p>
+        <p className='flex items-center text-sm text-center p-1 text-wrap font-medium'>Hoy {data?.schedule[day]} <img className='ml-2 p-[.1rem] rounded-full  bg-gray-500 ' src={'/icons/add.svg'} alt="show more days" onClick={toggleSchedule}/></p>
         <div className='w-full border-b'/>
       {showSchedule && (
         <div className="py-2">
