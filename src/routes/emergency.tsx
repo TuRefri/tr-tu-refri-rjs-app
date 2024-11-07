@@ -15,17 +15,20 @@ const entities = [
 
 export default function Emergency() {
   return (
-    <div className='w-full px-6 pt-12 overflow-y-scroll h-full no-scrollbar'>
+    <div className="w-full px-3 pt-12 overflow-y-scroll h-full no-scrollbar">
       <h2 className="text-lg font-light text-gray-700">Ayuda inmediata</h2>
       <h1 className="text-4xl font-semibold pb-4 text-gray-700">A un solo click</h1>
       <ul className="flex flex-col w-full gap-y-3 pb-20">
-        {entities.map(item => (
+        {entities.map((item) => (
           <li
             key={item.number}
             style={{ backgroundColor: item.background, color: item.text }}
-            className="cursor-pointer py-4 px-8 rounded-md flex items-center text-xl h-20 font-bold"
+            className="cursor-pointer py-3 px-6 rounded-md flex items-center text-md sm:text-xl h-20 font-bold max-w-full"
           >
-            <span className="text-4xl font-extrabold pr-10">{item.number}</span> {item.entity}
+            <span className="w-[30%] text-3xl sm:text-4xl font-extrabold pr-2 sm:pr-3">
+              {item.number}
+            </span>
+            {item.entity}
           </li>
         ))}
       </ul>
