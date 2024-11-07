@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       errorElement: <ErrorPage />,
       children: [
         {
-          path: "turefri",
+          path: "/",
           element: 
           <DetailMagnetProvider>
             <TuRefri />
