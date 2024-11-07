@@ -71,7 +71,7 @@ return (
             <div className='w-full border-b'/>
             
             <p className='relative w-full rounded-full bg-green-600 text-white font-semibold text-lg mt-3 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#16a34a,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150'>
-                <img src='/icons/social-media/whatsapp-icon.png' 
+                <img src='/icons/social-media/whatsapp-icon.webp' 
                     height={24} 
                     width={24} 
                     className='absolute left-[.9rem] top-1/2 transform -translate-y-1/2 '/>
@@ -91,7 +91,7 @@ return (
             <div className='w-full border-b'/>
             <h2 className='relative text-xl font-bold  py-4 px-8 m-2'>
                 Promociones
-                <img src='/images/promotion.png' 
+                <img src='/images/promotion.webp' 
                         height={30} 
                         width={30} 
                         className='absolute left-0 top-2'

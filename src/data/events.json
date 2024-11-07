@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Colombia de fiesta para ti",
         "description": "Descripción del evento 1.",
-        "image": "event_1.jpg",
+        "image": "event_1.webp",
         "day": "21 de Noviembre",
         "hour": "8:00 pm",
         "location": "Bogotá, Colombia"
@@ -21,7 +21,7 @@
         "id": 3,
         "name": "Festival nacional de la Música",
         "description": "Descripción del evento 3.",
-        "image": "event_3.jpg",
+        "image": "event_3.webp",
         "day": "13 de Marzo",
         "hour": "6:00 pm",
         "location": "Cali, Colombia"
@@ -30,7 +30,7 @@
         "id": 4,
         "name": "Fiesta de Colombia",
         "description": "Descripción del evento 4.",
-        "image": "event_4.jpeg",
+        "image": "event_4.webp",
         "day": "21 de Julio",
         "hour": "3:00 pm",
         "location": "Barranquilla, Colombia"

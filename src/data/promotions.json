@@ -6,7 +6,7 @@
         "description": "Aprovecha un 20% de descuento en todos los cafés.",
         "initial_date": "2024-11-01",
         "end_date": "2024-11-30",
-        "image": "promo-cafe.png"
+        "image": "promo-cafe.webp"
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "description": "Compra una hamburguesa y lleva otra gratis.",
         "initial_date": "2024-11-05",
         "end_date": "2024-11-15",
-        "image": "promo-burger.png"
+        "image": "promo-burger.webp"
     },
     {
         "id": 3,
@@ -24,7 +24,7 @@
         "description": "Descuento en todos los productos de aseo personal.",
         "initial_date": "2024-11-10",
         "end_date": "2024-11-20",
-        "image": "promo-aseo.png"
+        "image": "promo-aseo.webp"
     },
     {
         "id": 4,
@@ -33,7 +33,7 @@
         "description": "25% de descuento en todas las bebidas.",
         "initial_date": "2024-11-01",
         "end_date": "2024-11-30",
-        "image": "promo-bebidas.png"
+        "image": "promo-bebidas.webp"
     },
     {
         "id": 5,
@@ -42,7 +42,7 @@
         "description": "15% de descuento en bebidas de temporada.",
         "initial_date": "2024-11-15",
         "end_date": "2024-12-15",
-        "image": "promo-temporada.png"
+        "image": "promo-temporada.webp"
     },
     {
         "id": 6,
@@ -51,7 +51,7 @@
         "description": "Lleva un regalo sorpresa en tu compra mayor a $50,000.",
         "initial_date": "2024-11-20",
         "end_date": "2024-11-30",
-        "image": "promo-regalo.png"
+        "image": "promo-regalo.webp"
     },
     {
         "id": 7,
@@ -60,7 +60,7 @@
         "description": "Aprovecha un 10% de descuento en productos seleccionados.",
         "initial_date": "2024-11-01",
         "end_date": "2024-11-30",
-        "image": "promo-electronicos.png"
+        "image": "promo-electronicos.webp"
     },
     {
         "id": 8,
@@ -69,7 +69,7 @@
         "description": "Descuento en toda la colección de libros.",
         "initial_date": "2024-11-05",
         "end_date": "2024-11-25",
-        "image": "promo-libros.png"
+        "image": "promo-libros.webp"
     },
     {
         "id": 9,
@@ -78,7 +78,7 @@
         "description": "20% de descuento en todas las vitaminas y suplementos.",
         "initial_date": "2024-11-10",
         "end_date": "2024-11-30",
-        "image": "promo-vitaminas.png"
+        "image": "promo-vitaminas.webp"
     },
     {
         "id": 10,
@@ -87,7 +87,7 @@
         "description": "Llévate dos analgésicos por el precio de uno.",
         "initial_date": "2024-11-01",
         "end_date": "2024-11-15",
-        "image": "promo-analgesicos.png"
+        "image": "promo-analgesicos.webp"
     },
     {
         "id": 11,
@@ -96,7 +96,7 @@
         "description": "Combo Whopper por solo $15,000.",
         "initial_date": "2024-11-12",
         "end_date": "2024-11-18",
-        "image": "promo-whopper.png"
+        "image": "promo-whopper.webp"
     },
     {
         "id": 12,
@@ -105,7 +105,7 @@
         "description": "Recibe 6 nuggets gratis al comprar un combo grande.",
         "initial_date": "2024-11-20",
         "end_date": "2024-11-25",
-        "image": "promo-nuggets.png"
+        "image": "promo-nuggets.webp"
     },
     {
         "id": 13,
@@ -114,7 +114,7 @@
         "description": "Un café gratis en tu primera compra.",
         "initial_date": "2024-11-01",
         "end_date": "2024-11-30",
-        "image": "promo-cafe-gratis.png"
+        "image": "promo-cafe-gratis.webp"
     },
     {
         "id": 14,
@@ -123,7 +123,7 @@
         "description": "15% de descuento en todos los productos de pastelería.",
         "initial_date": "2024-11-05",
         "end_date": "2024-11-20",
-        "image": "promo-pasteleria.png"
+        "image": "promo-pasteleria.webp"
     },
     {
         "id": 15,
@@ -132,6 +132,6 @@
         "description": "Gana puntos dobles en cada compra con tu tarjeta de cliente frecuente.",
         "initial_date": "2024-11-15",
         "end_date": "2024-12-15",
-        "image": "promo-puntos-dobles.png"
+        "image": "promo-puntos-dobles.webp"
     }
 ]

@@ -17,7 +17,7 @@ export default function MagnetRefri({item}: MagnetRefriProps1) {
         <div className='w-full border-b'/>
         <h1 className='text-xs font-semibold text-center p-1 text-nowrap'>{item.name}</h1>
         <p className='relative w-full rounded-full bg-green-600 text-white font-semibold text-[9px] mt-2 text-center py-[0.1rem] cursor-pointer'>
-            <img src='/icons/social-media/whatsapp-icon.png' 
+            <img src='/icons/social-media/whatsapp-icon.webp' 
                 height={10} 
                 width={10} 
                 className='absolute left-[0.3rem] top-1/2 transform -translate-y-1/2 '/>

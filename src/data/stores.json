@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "image": "bakery-logo.png",
+        "image": "bakery-logo.webp",
         "category": "Panadería",
         "name": "Bakery & Cafe",
         "phone": "+57 1 555 1234",
@@ -21,7 +21,7 @@
     },
     {
         "id": 2,
-        "image": "burguer-king-logo.png",
+        "image": "burguer-king-logo.webp",
         "category": "Comida Rápida",
         "name": "Burger King",
         "phone": "+57 1 555 5678",
@@ -41,7 +41,7 @@
     },
     {
         "id": 3,
-        "image": "farmacy-logo.png",
+        "image": "farmacy-logo.webp",
         "category": "Droguería",
         "name": "El pueblo",
         "phone": "+57 1 555 8765",
@@ -61,7 +61,7 @@
     },
     {
         "id": 4,
-        "image": "pepsi-logo.png",
+        "image": "pepsi-logo.webp",
         "category": "Comida Rápida",
         "name": "Pepsi",
         "phone": "+57 1 555 4321",
@@ -81,7 +81,7 @@
     },
     {
         "id": 7,
-        "image": "starbucks-logo.png",
+        "image": "starbucks-logo.webp",
         "category": "Café",
         "name": "Starbucks",
         "phone": "+57 1 565 2168",
@@ -101,7 +101,7 @@
     },
     {
         "id": 8,
-        "image": "mcdonals-logo.png",
+        "image": "mcdonals-logo.webp",
         "category": "Comida Rápida",
         "name": "Mc Donalds",
         "phone": "+57 1 712 3461",
@@ -121,7 +121,7 @@
     },
     {
         "id": 9,
-        "image": "electronic-store-logo.png",
+        "image": "electronic-store-logo.webp",
         "category": "Electrónica",
         "name": "ElectroShop",
         "phone": "+57 1 555 9876",
@@ -141,7 +141,7 @@
     },
     {
         "id": 10,
-        "image": "book-store-logo.jpg",
+        "image": "book-store-logo.webp",
         "category": "Librería",
         "name": "Libros y Más",
         "phone": "+57 1 555 5432",
@@ -161,7 +161,7 @@
     },
     {
         "id": 11,
-        "image": "farmers-logo.png",
+        "image": "farmers-logo.webp",
         "category": "Frutas y Verduras",
         "name": "Farmers",
         "phone": "+57 1 555 3456",
@@ -181,7 +181,7 @@
     },
     {
         "id": 12,
-        "image": "fruit-logo.jpeg",
+        "image": "fruit-logo.webp",
         "category": "Frutas y Verduras",
         "name": "Fruit store",
         "phone": "+57 1 555 6789",
@@ -201,7 +201,7 @@
     },
     {
         "id": 13,
-        "image": "kfc-logo.png",
+        "image": "kfc-logo.webp",
         "category": "Muebles",
         "name": "Comida Rápida",
         "phone": "+57 1 555 2345",
@@ -221,7 +221,7 @@
     },
     {
         "id": 14,
-        "image": "pet-shop-logo.png",
+        "image": "pet-shop-logo.webp",
         "category": "Mascotas",
         "name": "Pet Shop 1",
         "phone": "+57 1 555 8765",
@@ -241,7 +241,7 @@
     },
     {
         "id": 15,
-        "image": "pet-shop2-logo.png",
+        "image": "pet-shop2-logo.webp",
         "category": "Mascotas",
         "name": "Pet Corner",
         "phone": "+57 1 555 3210",

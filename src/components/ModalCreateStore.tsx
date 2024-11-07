@@ -21,7 +21,7 @@ const initialForm = {
         "sábado": "8:00 AM - 9:00 PM",
         "domingo": "8:00 AM - 7:00 PM"
     },
-    image: "default-store-logo.png",
+    image: "default-store-logo.webp",
 }
 export default function ModalCreateStore({ handleCloseCreateStoreModal }: ModalCreateStoreProps) {
     const [form, setForm] = useState(initialForm);

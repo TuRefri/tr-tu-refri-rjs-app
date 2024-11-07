@@ -21,7 +21,7 @@ const initialForm : initialFormProp = {
     description: '',
     initial_date: '',
     end_date: '',
-    image: "default-store-logo.png",
+    image: "default-store-logo.webp",
 }
 export default function ModalCreatePromotion({ handleCloseCreatePromotionModal, selectedStoreForPromotion }: ModalCreatePromotionProps) {
     const [form, setForm] = useState(initialForm);
