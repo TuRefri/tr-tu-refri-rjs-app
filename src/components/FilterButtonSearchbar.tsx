@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import categories from '../data/list-categories.json';
 import { motion } from 'framer-motion';
 import { useGlobalContext } from '../context/global-context';
+import { useStorePageContext } from '../context/store-page-context';
 const ranges : Record<'1' | '2' | '3' | '4', number>= {
     1: 1000,
     2: 2000,
@@ -13,12 +14,29 @@ export default function FilterButtonSearchbar() {
     const [open, setOpen] = useState(false);
     const [rangeValue, setRangeValue] = useState('1');
     const buttonRef = useRef<HTMLButtonElement | null>(null);
-
+    const divRef = useRef<HTMLDivElement | null>(null);
 
     const handleSelectRange = (value: '1' | '2' | '3' | '4') => {
         setRangeValue(value)
         handleZone(ranges[value])
     }
+    const handleClickOutside = (event: MouseEvent) => {
+        if (divRef.current && !divRef.current.contains(event.target as Node)) {
+            setOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (open) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [open]);
     return (
         <div className='relative'>
             <button
@@ -43,6 +61,7 @@ export default function FilterButtonSearchbar() {
                 animate={{ scaleX: 1, scaleY: 1, y: buttonRef.current ? buttonRef.current.offsetHeight -50 : 0, transformOrigin: 'right top' }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-gray-50 p-3 flex flex-col items-center`}
+                ref={divRef}
             >
                     <h2 className='text-gray-500 text-xs text-start w-full'>Categorías</h2>
                     <ul className='flex flex-wrap overflow-hidden gap-x-1'>

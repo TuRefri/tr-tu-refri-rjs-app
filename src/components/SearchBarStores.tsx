@@ -22,12 +22,6 @@ export default function SearchBarStores({ searchWords, setSearchWords }: SearchB
         </div>
         <FilterButtonSearchbar />
       </div>
-     {/*  {selectedCategory !== '' &&
-        <button onClick={() =>{handleSelectCategory('')}} className='py-1 px-3 bg-gray-200 flex items-center rounded-md text-xs text-gray-600 font-medium w-fit mt-1'>
-          {selectedCategory}
-          <img src={close} height={12} width={12} className='ml-2'/>
-        </button>
-      } */}
     </nav>
   );
 }

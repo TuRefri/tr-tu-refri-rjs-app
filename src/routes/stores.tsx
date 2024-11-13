@@ -4,9 +4,11 @@ import stores from '../data/stores.json';
 import SearchBarStores from '../components/SearchBarStores';
 import { useStorePageContext } from '../context/store-page-context';
 import ModalStoreCard from '../components/ModalStoreCard';
+import { useGlobalContext } from '../context/global-context';
 
 export default function StorePage() {
   const { isOpen } = useStorePageContext();
+  const { selectedCategory } = useGlobalContext()
   const [searchWords, setSearchWords] = useState('');
   const [userStores, setUserStores] = useState([]);
 
@@ -22,10 +24,14 @@ export default function StorePage() {
   const filterStores = searchWords === ''
     ? allStores
     : allStores.filter(item => item.name.toLowerCase().includes(searchWords.toLowerCase()));
+
+  const filterByCategory = selectedCategory === ''
+  ? filterStores
+  : filterStores.filter(item => item.category === selectedCategory.name)
   return (
     <section className='w-full h-full py-10 px-4 flex flex-col items-center'>
       <SearchBarStores setSearchWords={setSearchWords} searchWords={searchWords} />
-      <StoreList stores={filterStores} />
+      <StoreList stores={filterByCategory} />
       {isOpen && (
         <div className="absolute inset-0 flex items-end justify-center z-20 my-2 ">
           <ModalStoreCard />
