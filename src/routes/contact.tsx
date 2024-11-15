@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { useFridgeContext } from "../context/fridge-color-context";
 const initialForm = {
   email: '',
   name: '',
@@ -7,6 +8,7 @@ const initialForm = {
   message: '',
 }
 export default function Contact() {
+    const { currentColor } = useFridgeContext()
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false)
 
@@ -30,11 +32,11 @@ export default function Contact() {
   return (
     <div className='w-full px-6 pt-12'>
       <section>
-        <h1 className="text-2xl font-medium">¿En qué podemos ayudarte?</h1>
+        <h1 className="text-2xl font-medium" style={{ color: currentColor.textPrimaryColor}}>¿En qué podemos ayudarte?</h1>
       </section>
       <section className="pt-6">
       <form onSubmit={handleSubmit} className='flex flex-col'>
-                    <label className='text-lg text-gray-600'>Correo</label>
+                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Correo</label>
                     <input 
                         type='email' 
                         name='email'
@@ -43,7 +45,7 @@ export default function Contact() {
                         onChange={handleChange} 
                         className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg text-gray-600'>Nombre y apellido</label>
+                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Nombre y apellido</label>
                     <input 
                         type='text' 
                         name='name' 
@@ -52,7 +54,7 @@ export default function Contact() {
                         onChange={handleChange} 
                         className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg text-gray-600'>Asunto</label>
+                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Asunto</label>
                     <input 
                         type='text' 
                         name='subject'
@@ -61,7 +63,7 @@ export default function Contact() {
                         onChange={handleChange} 
                         className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg text-gray-600'>Mensaje</label>
+                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Mensaje</label>
                     <textarea 
                         name='message'
                         placeholder='Cuerpo de correo electrónico'
@@ -72,7 +74,7 @@ export default function Contact() {
                     ></textarea>
 
                    
-                    <button type="submit" className='py-2 border rounded-md bg-green-600 text-white font-medium active:bg-green-700'>
+                    <button type="submit" className='py-2 border border-green-600 rounded-md bg-green-600 text-white font-medium active:bg-green-700'>
                         {loading?
                             <div role="status">
                                 <svg aria-hidden="true" className="inline w-4 h-4 text-green-600 animate-spin dark:text-green-600 fill-gray-100 dark:fill-gray-100" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

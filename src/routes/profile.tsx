@@ -3,8 +3,10 @@ import ModalCreateStore from '../components/ModalCreateStore';
 import ModalCreatePromotion from '../components/ModalCreatePromotion';
 import { MagnetRefriProps } from '../types';
 import CardStoreUserProfile from '../components/CardStoreUserProfile';
+import { useFridgeContext } from '../context/fridge-color-context';
 
 export default function Profile() {
+  const { currentColor } = useFridgeContext()
   const [createStoreModal, setCreateStoreModal] = useState(false);
   const [createPromotionModal, setCreatePromotionModal] = useState(false);
   const [userStores, setUserStores] = useState<MagnetRefriProps[]>([]);
@@ -48,16 +50,16 @@ export default function Profile() {
       <article className='w-full px-6 pt-9'>
         <section className='flex w-full items-start justify-between'>
           <div>
-            <h1 className='text-base font-semibold text-gray-700'>Usuario 1</h1>
-            <h4 className='text-xs text-gray-700'>@loow3</h4>
+            <h1 className='text-base font-semibold' style={{color: currentColor.textPrimaryColor}}>Usuario 1</h1>
+            <h4 className='text-xs' style={{color: currentColor.textSecondaryColor}}>@loow3</h4>
           </div>
         </section>
 
-        <div className='my-3 border border-gray-300' />
+        <div className='my-3 border' style={{color: currentColor.border}} />
         {/* Tus tiendas */}
         <section className='flex flex-col w-full'>
           <header className='flex justify-between items-end'>
-            <h2 className='text-lg font-medium text-gray-700'>Tus tiendas</h2>
+            <h2 className='text-lg font-medium'  style={{color: currentColor.textPrimaryColor}}>Tus tiendas</h2>
             <button
               onClick={() => setCreateStoreModal(!createStoreModal)} 
               className='py-1 px-4 rounded-md text-white bg-green-700 text-xs font-medium active:bg-green-800'>
@@ -65,7 +67,7 @@ export default function Profile() {
             </button>
           </header>
           {userStores.length === 0 ? (
-            <p className='w-full text-center py-10 text-gray-400'>Aún no creaste ninguna tienda</p>
+            <p className='w-full text-center py-10'  style={{color: currentColor.textSecondaryColor}}>Aún no creaste ninguna tienda</p>
           ) : (
             <ul className='mt-4'>
               {userStores.map(store => (

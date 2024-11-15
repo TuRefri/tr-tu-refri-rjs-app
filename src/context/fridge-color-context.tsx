@@ -5,6 +5,10 @@ interface Color {
     name: string;
     hexColor: string;
     shadow: string;
+    textPrimaryColor: string;
+    textSecondaryColor:string;
+    border: string
+    cardBackground: string
 }
 
 interface FridgeContextType {

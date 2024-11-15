@@ -33,6 +33,8 @@ export interface ColorFridge {
     name: string;
     hexColor: string;
     shadow: string;
+    textPrimaryColor: string
+    textSecondaryColor: string
 }
 
 interface Category {
