@@ -32,11 +32,11 @@ export default function RoundedButtonTooltipColors({ icon, theme, className, opt
   }, []);
 
   const variants = {
-    hidden: (i: number) => (i === 0 ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }),
+    hidden: (i: number) => (i === 0 ? { opacity: .8, x: -5 } : { opacity: 0, x: -10 }),
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: { delay: i * 0.08 }, // Retraso basado en el índice
+      transition: { delay: i * 0.2 }, // Retraso basado en el índice
     }),
   };
 
