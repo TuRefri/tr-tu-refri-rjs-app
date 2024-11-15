@@ -4,30 +4,34 @@ import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';
 
 interface GlobalContextType {
-    magnets: MagnetRefriProps[]; // Añadido para almacenar los imanes
-    addMagnet: number; // Mantener el estado existente
+    magnets: MagnetRefriProps[]; 
+    addMagnet: number; 
     selectedCategory: Category | '';
     zone: number;
     selectedTime: Open;
+    sharingPosition: boolean; // Agregado para saber si se está compartiendo la ubicación
+    position: { latitude: number; longitude: number } | null; // Para almacenar la posición
     handleSelectCategory: (category: Category | '') => void;
     handleAddMagnet: (data: MagnetRefriProps | null) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
     handleZone: (value: number) => void;
     handleTime: (value: Open) => void;
-
+    handleToggleSharePosition: () => void; // Handler para activar/desactivar la compartición de ubicación
+    handleUpdatePosition: () => void; // Handler para obtener la posición del usuario
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
-    const [selectedCategory, setSelectedCategory] = useState<Category | ''>('')
+    const [sharingPosition, setSharingPosition] = useState(false); // Estado para saber si se está compartiendo la ubicación
+    const [position, setPosition] = useState<{ latitude: number; longitude: number } | null>(null); // Estado para la ubicación
+    const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
     const [zone, setZone] = useState(5000);
-    const [selectedTime, setSelectedTime] = useState<Open>(null)
+    const [selectedTime, setSelectedTime] = useState<Open>(null);
     const [magnets, setMagnets] = useState<MagnetRefriProps[]>(() => {
         const savedMagnets = sessionStorage.getItem('magnets');
         return savedMagnets ? JSON.parse(savedMagnets) : [];
     });
-
     const [addMagnet, setAddMagnet] = useState(0);
 
     const handleAddMagnet = (data: MagnetRefriProps | null) => {
@@ -57,7 +61,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             const result = removeMagnetFromSStorage(id);
 
             if (result.removed) {
-                const updatedMagnets = magnets.filter(magnet => magnet.id !== id); // Filtrar por id
+                const updatedMagnets = magnets.filter(magnet => magnet.id !== id); 
                 setMagnets(updatedMagnets);
                 sessionStorage.setItem('magnets', JSON.stringify(updatedMagnets));
                 setAddMagnet(-1);
@@ -68,6 +72,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             }
         }
     };
+
     const handleSelectCategory = (category: Category | '') =>{
         if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
             setSelectedCategory('')
@@ -75,9 +80,11 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             setSelectedCategory(category)
         }
     }
+
     const handleZone = (value : number) =>{
         setZone(value)
     }
+
     const handleTime = (value : Open) =>{
         if(value === selectedTime){
             setSelectedTime(null)
@@ -85,8 +92,45 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             setSelectedTime(value)
         }
     }
+
+    // Manejador para activar/desactivar la compartición de ubicación
+    const handleToggleSharePosition = () => {
+        setSharingPosition(prev => !prev);
+        if (!sharingPosition) {
+            handleUpdatePosition(); // Actualizar posición cuando se activa la compartición
+        }else{
+            setSharingPosition(false)
+            setPosition(null)
+
+        }
+    };
+
+    // Manejador para obtener la posición del usuario
+    const handleUpdatePosition = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setPosition({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    });
+                },
+                (error) => {
+                    toast("Error al obtener la ubicación");
+                    console.error(error);
+                }
+            );
+        } else {
+            toast("Geolocalización no soportada en este navegador");
+        }
+    };
+
     return (
-        <GlobalContext.Provider value={{ magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory, selectedCategory, zone, handleZone, handleTime, selectedTime }}>
+        <GlobalContext.Provider value={{
+            magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory,
+            selectedCategory, zone, handleZone, handleTime, selectedTime, sharingPosition, 
+            position, handleToggleSharePosition, handleUpdatePosition
+        }}>
             {children}
         </GlobalContext.Provider>
     );

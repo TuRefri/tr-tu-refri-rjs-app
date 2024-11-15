@@ -8,6 +8,7 @@ import RoudedButtonTooltipCategories from './RoudedButtonTooltipCategories';
 import colorsFridge from '../data/colors-fridge.json';
 import categories from '../data/list-categories.json';
 import RoundedFridgeButton from './RoundedFridgeButton';
+import RoundedButtonSharingPosition from './RoundedButtonSharingPosition';
 
 export default function SideBar() {
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -16,7 +17,6 @@ export default function SideBar() {
   const logHeight = () => {
     if (sidebarRef.current) {
       setSideBarDim(sidebarRef.current.clientHeight)
-      //console.log(`Altura del contenedor: ${sidebarRef.current.clientHeight}px`);
     }
   };
 
@@ -35,7 +35,9 @@ export default function SideBar() {
 
   return (
     <aside ref={sidebarRef} className=' pt-4 px-2 py-4 flex flex-col justify-center items-center h-[90%]'>
-      <RoundedButton className={""} href='/profile' icon='icons/person.svg' />
+      <div className={`border border-gray-300 p-1 rounded-full`}>
+        <RoundedButton className={""} href='/profile' icon='icons/person.svg' />
+      </div>
 
       <ul className={`${sideBarDim < 642? "mt-2" : "mt-6"} border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center`}>
         {firstSection.map((item, index: number) => {
@@ -74,11 +76,15 @@ export default function SideBar() {
         })}
       </ul>
       
-      <div className={`${sideBarDim < 642? "mt-2" : "mt-6"} border border-gray-300 p-1 rounded-full`}>
+      <div className={`mt-4 border border-gray-300 p-1 rounded-full`}>
         <RoundedButton href='' icon='/icons/qr-scanner.svg' />
       </div>
 
-      <ul className={`${sideBarDim < 642? "mt-2" : "mt-8"} w-full flex flex-col items-center`}>
+      <div className={`${sideBarDim < 642? "mt-1" : "mt-2"} border border-gray-300 p-1 rounded-full`}>
+        <RoundedButtonSharingPosition />
+      </div>
+
+      <ul className={`mt-2 w-full flex flex-col items-center`}>
         {redes.map((item, index: number) => {
           return (
             <li key={index}>

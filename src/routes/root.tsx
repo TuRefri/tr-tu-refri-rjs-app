@@ -34,7 +34,7 @@ export default function Root() {
             <SideBar />
             <section ref={refriDimRef} id="detail" className=" h-[90%]  max-w-[25rem] rounded-3xl w-full bg-transparent mr-4">
             <article 
-              className={`relative h-full rounded-3xl overflow-hidden border border-transparent 
+              className={`relative h-full rounded-3xl overflow-hidden
                           transition-all duration-500 ease-in-out ${currentColor.shadow}`} 
               style={{ backgroundColor: currentColor.hexColor }}>
                   {(location.pathname === "/")
