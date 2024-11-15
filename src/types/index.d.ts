@@ -35,6 +35,8 @@ export interface ColorFridge {
     shadow: string;
     textPrimaryColor: string
     textSecondaryColor: string
+    border: string
+    cardBackground: string
 }
 
 interface Category {
