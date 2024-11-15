@@ -35,7 +35,7 @@ export default function Root() {
             <section ref={refriDimRef} id="detail" className=" h-[90%]  max-w-[25rem] rounded-3xl w-full bg-transparent mr-4">
             <article 
               className={`relative h-full rounded-3xl overflow-hidden
-                          transition-all duration-500 ease-in-out ${currentColor.shadow}`} 
+                          ${currentColor.shadow}`} 
               style={{ backgroundColor: currentColor.hexColor }}>
                   {(location.pathname === "/")
                   && <img src="/images/handle.webp" className="absolute right-1 top-1/2 transform -translate-y-1/2 "/>}
