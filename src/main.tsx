@@ -16,6 +16,7 @@ import Scan from './routes/scan.tsx';
 import Events from './routes/events.tsx';
 import Profile from './routes/profile.tsx';
 import StorePage from './routes/stores.tsx';
+import Login from './routes/login.tsx'
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
           <DetailMagnetProvider>
             <TuRefri />
           </DetailMagnetProvider>,
+        },
+        {
+            path: "login",
+            element: <Login />, 
         },
         {
             path: "profile",
