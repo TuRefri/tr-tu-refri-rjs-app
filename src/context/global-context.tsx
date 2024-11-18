@@ -74,7 +74,11 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleSelectCategory = (category: Category | '') =>{
-        if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
+        if(category !== '' && category.id === 16){
+            console.log('entra aqui')
+            setSelectedCategory('')
+        }
+        else if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
             setSelectedCategory('')
         }else{
             setSelectedCategory(category)

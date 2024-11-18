@@ -9,8 +9,9 @@ import colorsFridge from '../data/colors-fridge.json';
 import categories from '../data/list-categories.json';
 import RoundedFridgeButton from './RoundedFridgeButton';
 import RoundedButtonSharingPosition from './RoundedButtonSharingPosition';
-
+/* import { useLocation } from 'react-router-dom'; */
 export default function SideBar() {
+  /* const location = useLocation(); */
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
 
@@ -47,20 +48,19 @@ export default function SideBar() {
                 <RoudedButtonTooltipColors options={colorsFridge} className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-2"} href='' icon={`/icons/${item.icon}`} />
               </li>
             );
-          } else if (item.name === 'burguer-menu') {
-            return (
-              <li key={index}>
+          }else if( item.name === 'burguer-menu') {
+              return (<li key={index}>
                 <RoudedButtonTooltipCategories options={categories} href='' icon={`/icons/${item.icon}`} />
-              </li>
-            );
-          } else if( item.name === 'fridge') {
+              </li>)
+          } 
+          else if( item.name === 'fridge') {
             return (<li key={index}>
                 <RoundedFridgeButton className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-2"} href={item.href ? item.href : ''} icon={`/icons/${item.icon}`} />
               </li>)
           }
           return (
             <li key={index}>
-              <RoundedButton className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-2"} href={item.href ? item.href : ''} icon={`/icons/${item.icon}`} />
+              <RoundedButton className={index === 0 || index === firstSection.length - 1 ? "my-1" : "my-1"} href={item.href ? item.href : ''} icon={`/icons/${item.icon}`} />
             </li>
           );
         })}
@@ -86,11 +86,12 @@ export default function SideBar() {
 
       <ul className={`mt-2 w-full flex flex-col items-center`}>
         {redes.map((item, index: number) => {
-          return (
+          if(index < 2){
+            return (
             <li key={index}>
               <RoundedButton className="my-1" href='' icon={`/icons/social-media/${item.icon}`} theme="dark" />
             </li>
-          );
+          );}
         })}
       </ul>
     </aside>

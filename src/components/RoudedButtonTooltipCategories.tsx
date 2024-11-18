@@ -28,10 +28,8 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
   }, []);
 
   const handleSelectCategoryList = (item: Category) => {
-    navigate("stores");
-    if (item.id !== 16) {
-      handleSelectCategory(item)
-    }
+    navigate("/");
+    handleSelectCategory(item)
     setVisible(false);
   };
 
@@ -45,12 +43,12 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block mt-1">
       <button
         ref={buttonRef}
         onClick={() => setVisible(!visible)}
         type="button"
-        className="my-2 rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-[inset_-3px_3px_11px_#ededed,inset_3px_-3px_11px_#ffffff] active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9] transition-transform duration-150"
+        className="rounded-[50px] h-8 w-8 p-1 flex justify-center items-center bg-white shadow-[inset_-3px_3px_11px_#ededed,inset_3px_-3px_11px_#ffffff] active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9] transition-transform duration-150"
       >
         <img src={icon} alt='icon' />
       </button>

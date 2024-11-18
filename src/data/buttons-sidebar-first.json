@@ -6,7 +6,12 @@
     },
     {
         "name": "burguer-menu",
-        "icon":"burguer-menu.svg"
+        "icon": "burguer-menu.svg"
+    },
+    {
+        "name": "search",
+        "icon":"search_434343.svg",
+        "href": "/stores"
     },
     {
         "name": "location",

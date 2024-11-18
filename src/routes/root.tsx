@@ -37,8 +37,16 @@ export default function Root() {
               className={`relative h-full rounded-3xl overflow-hidden
                           ${currentColor.shadow}`} 
               style={{ backgroundColor: currentColor.hexColor }}>
-                  {(location.pathname === "/")
-                  && <img src="/images/handle.webp" className="absolute right-1 top-1/2 transform -translate-y-1/2 "/>}
+                  {
+                  (location.pathname === "/")
+                  && (
+                    <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col items-end">
+                      {/* <img src="/turefri-logo.png" className="w-24 mr-4 pb-2" /> */}
+                      <img src="/images/handle.webp" className="" />
+                    </div>
+
+                  )}
+                  
                   <Outlet />
               </article>
             </section>

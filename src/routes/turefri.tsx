@@ -14,7 +14,7 @@ const IMAGES =[
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
-  const { magnets } = useGlobalContext();
+  const { magnets, selectedCategory } = useGlobalContext();
   const {isOpen} = useDetailMagnetContext();
 
   
@@ -37,12 +37,13 @@ export default function TuRefri() {
     };
   }, []);
 
+  let magnetsToShow = selectedCategory !== '' ? magnets.filter(item => item.category === selectedCategory.name) : magnets
   return (
     <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
       <Slider images={IMAGES} />
       <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4`}>
-          {magnets && magnets.length > 0 ? (
-            magnets.map((item) => (
+          {magnetsToShow && magnetsToShow.length > 0 ? (
+            magnetsToShow.map((item) => (
               <li key={item.id}>
                 <MagnetRefri item={item} />
               </li>
@@ -52,10 +53,10 @@ export default function TuRefri() {
               <AddMagnets />
             </li>
           )}
-          {magnets.length < 6 && (
+          {magnetsToShow.length < 6 && (
             <li className={`col-span-2 ${sideBarDim < 650 ? "h-20" : "h-32"}`}></li>
           )}
-          {magnets.length < 4 && (
+          {magnetsToShow.length < 4 && (
             <li className={`col-span-2 ${sideBarDim < 650 ? "h-20" : "h-32"}`}></li>
           )}
         </ul>

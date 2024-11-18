@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import categories from '../data/list-categories.json';
 import { motion } from 'framer-motion';
 import { useGlobalContext } from '../context/global-context';
+import { useStorePageContext } from '../context/store-page-context';
 const ranges : Record<'1' | '2' | '3' | '4', number>= {
     1: 1000,
     2: 2000,
@@ -9,7 +10,8 @@ const ranges : Record<'1' | '2' | '3' | '4', number>= {
     4: 10000
 }
 export default function FilterButtonSearchbar() {
-    const { handleZone, handleSelectCategory, selectedCategory, handleTime, selectedTime} = useGlobalContext()
+    const { handleZone, handleTime, selectedTime} = useGlobalContext()
+    const {handleSelectCategory, selectedCategory} = useStorePageContext()
     const [open, setOpen] = useState(false);
     const [rangeValue, setRangeValue] = useState('1');
     const buttonRef = useRef<HTMLButtonElement | null>(null);

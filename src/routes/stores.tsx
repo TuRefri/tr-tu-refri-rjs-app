@@ -4,11 +4,10 @@ import stores from '../data/stores.json';
 import SearchBarStores from '../components/SearchBarStores';
 import { useStorePageContext } from '../context/store-page-context';
 import ModalStoreCard from '../components/ModalStoreCard';
-import { useGlobalContext } from '../context/global-context';
 
 export default function StorePage() {
   const { isOpen } = useStorePageContext();
-  const { selectedCategory } = useGlobalContext()
+  const { selectedCategory } = useStorePageContext()
   const [searchWords, setSearchWords] = useState('');
   const [userStores, setUserStores] = useState([]);
 

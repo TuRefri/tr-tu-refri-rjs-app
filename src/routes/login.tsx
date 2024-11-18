@@ -55,7 +55,7 @@ export default function Login() {
     <div className="w-full h-full flex flex-col overflow-y-scroll items-center no-scrollbar px-4 pt-8 sm:pt-16">
       <img src="/turefri-logo.png" className="w-56 pb-8" />
 
-      <form onSubmit={handleSubmit} className="flex flex-col w-5/6 pb-3">
+      <form onSubmit={handleSubmit} className="flex flex-col w-[90%] pb-3">
         <input
           type="text"
           name="username"
@@ -109,7 +109,7 @@ export default function Login() {
         </button>
       </form>
       {/* Separador */}
-      <div className="relative my-4 w-5/6 border-t-2 border-gray-300 ">
+      <div className="relative my-4 w-[90%] border-t-2 border-gray-300 ">
         <div className="absolute inset-0 flex items-center justify-center">
           <p
             className="px-4"
@@ -122,7 +122,7 @@ export default function Login() {
           </p>
         </div>
       </div>
-      <section className="w-5/6 flex flex-col gap-y-3 py-4">
+      <section className="w-[90%] flex flex-col gap-y-3 py-4">
         <button className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           <img
             src="/icons/social-media/logo-facebook.svg"
@@ -144,7 +144,7 @@ export default function Login() {
       >
         ¿Olvidaste tu contraseña?
       </p>
-      <div className="relative my-4 w-5/6 border border-gray-300 mt-4" />
+      <div className="relative my-4 w-[90%] border border-gray-300 mt-4" />
       <p
         className="text-sm"
         style={{ color: currentColor.textSecondaryColor }}

@@ -1,10 +1,9 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react';
-import { MagnetRefriProps } from '../types';
+import { useState, createContext, useContext, ReactNode } from 'react';
+import { MagnetRefriProps, Category } from '../types';
 
 interface StorePageContextType {
-    filterCategory: string
-    setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
-    
+    selectedCategory: Category | '';
+    handleSelectCategory: (category: Category | '') => void;
     isOpen: boolean;
     handleOpen: (data: MagnetRefriProps) => void,
     handleClose: () => void,
@@ -15,7 +14,7 @@ interface StorePageContextType {
 const StorePageContext = createContext<StorePageContextType | undefined>(undefined);
 
 export const StorePageProvider = ({ children }: { children: ReactNode }) => {
-    const [filterCategory, setFilterCategory] = useState('')  
+    const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [data, setData] = useState<MagnetRefriProps | null>(null)
 
@@ -32,8 +31,20 @@ export const StorePageProvider = ({ children }: { children: ReactNode }) => {
         setData(null)
     }
 
+    const handleSelectCategory = (category: Category | '') =>{
+        if(category !== '' && category.id === 16){
+            console.log('entra aqui')
+            setSelectedCategory('')
+        }
+        else if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
+            setSelectedCategory('')
+        }else{
+            setSelectedCategory(category)
+        }
+    }
+
     return (
-        <StorePageContext.Provider value={{ isOpen, data, handleOpen, handleClose, setFilterCategory, filterCategory}}>
+        <StorePageContext.Provider value={{ isOpen, data, handleOpen, handleClose, handleSelectCategory, selectedCategory}}>
             {children}
         </StorePageContext.Provider>
     );
