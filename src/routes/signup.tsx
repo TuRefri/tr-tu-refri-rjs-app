@@ -2,53 +2,55 @@ import { useState } from "react";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { Link } from "react-router-dom";
 
-const initialForm = { username: "", password: "" };
+const initialForm = { username: "", password: "", email: "", confirmPassword: "" };
+const initialErrors = { username: "", password: "", email: "", confirmPassword: "" };
+const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/; // Al menos 8 caracteres, incluyendo uno numérico
 
-export default function Login() {
+export default function SignUp() {
   const { currentColor } = useFridgeContext();
   const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const validateForm = () => {
+    const newErrors = { ...initialErrors };
+
+    if (!form.username) newErrors.username = "El nombre de usuario es obligatorio.";
+    if (!form.email) newErrors.email = "El correo electrónico es obligatorio.";
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "El correo electrónico no es válido.";
+
+    if (!form.password) newErrors.password = "La contraseña es obligatoria.";
+    else if (!passwordRegex.test(form.password)) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres e incluir un número.";
+    }
+
+    if (!form.confirmPassword) newErrors.confirmPassword = "La confirmación de contraseña es obligatoria.";
+    else if (form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden.";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => error === "");
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Limpiar error al escribir
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Evita la recarga de la página
-    setError(null); // Limpia errores previos
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (!form.username || !form.password) {
-      setError("Por favor, completa todos los campos.");
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
-
-    try {
-      // Simular una llamada a una API
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (form.username === "admin" && form.password === "1234") {
-            resolve("Autenticación exitosa");
-          } else {
-            reject(new Error("Usuario o contraseña incorrectos"));
-          }
-        }, 2000);
-      });
-
+    // Simular un envío de datos
+    setTimeout(() => {
       console.log("Formulario enviado:", form);
-      setForm(initialForm); // Reinicia el formulario
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message); // Muestra el mensaje del error
-      } else {
-        setError("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
-      }
-    } finally {
-      setLoading(false); // Detiene el estado de carga
-    }
+      setLoading(false);
+      setForm(initialForm);
+    }, 2000);
   };
 
   return (
@@ -62,27 +64,43 @@ export default function Login() {
           placeholder="Nombre de usuario"
           value={form.username}
           onChange={handleChange}
-          className="border-2 rounded-md px-3 py-3 shadow-sm mb-2 text-sm"
+          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.username ? "border-red-500" : 'mb-2'}`}
         />
+        {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo electrónico"
+          value={form.email}
+          onChange={handleChange}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.email ? "border-red-500" : 'mb-2'}`}
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
         <input
           type="password"
           name="password"
           placeholder="Contraseña"
           value={form.password}
           onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${!error &&'mb-5' }`}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.password ? "border-red-500" : 'mb-2'}`}
         />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
-        {error && (
-          <p className="text-red-500 text-sm mb-3">{error}</p>
-        )}
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirmar contraseña"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.confirmPassword ? "border-red-500 mb2" : 'mb-5'}`}
+        />
+        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
 
         <button
           type="submit"
-          className={`py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium shadow-sm ${
-            loading ? "cursor-not-allowed" : "active:bg-blue-600"
-          }`}
-          disabled={loading}
+          className="py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium active:bg-blue-600 shadow-sm"
         >
           {loading ? (
             <div role="status">
@@ -123,14 +141,14 @@ export default function Login() {
         </div>
       </div>
       <section className="w-5/6 flex flex-col gap-y-3 py-4">
-        <button className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
+        <button className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm">
           <img
             src="/icons/social-media/logo-facebook.svg"
             className="h-8 w-8 mr-3"
           />
           <span>Ingresar con Facebook</span>
         </button>
-        <button className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
+        <button className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm">
           <img
             src="/icons/social-media/logo-google-color.svg"
             className="h-8 w-8 mr-3"
@@ -149,8 +167,8 @@ export default function Login() {
         className="text-sm"
         style={{ color: currentColor.textSecondaryColor }}
       >
-        ¿No tienes una cuenta?{" "}
-        <Link to='/signup'className="text-blue-500 font-medium">Regístrate</Link>
+        ¿Ya tienes una cuenta?{" "}
+        <Link to={'/login'} className="text-blue-500 font-medium">Ingresar</Link >
       </p>
     </div>
   );

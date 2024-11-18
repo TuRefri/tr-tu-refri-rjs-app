@@ -20,6 +20,7 @@ import Login from './routes/login.tsx'
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
+import SignUp from './routes/signup.tsx';
 const router = createBrowserRouter([
     {
       path: "/",
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
             path: "login",
             element: <Login />, 
+        },
+        {
+            path: "signup",
+            element: <SignUp />, 
         },
         {
             path: "profile",
