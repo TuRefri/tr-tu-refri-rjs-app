@@ -21,6 +21,7 @@ import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import SignUp from './routes/signup.tsx';
+import UserProfile from './routes/user-profile.tsx';
 const router = createBrowserRouter([
     {
       path: "/",
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         {
             path: "profile",
             element: <Profile />, 
+        },
+        {
+            path: "user-profile",
+            element: <UserProfile />, 
         },
         {
             path: "stores",
