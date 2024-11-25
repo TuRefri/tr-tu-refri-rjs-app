@@ -18,7 +18,10 @@ export default defineConfig({
     tsconfigPaths(),
     VitePWA({
       registerType:'autoUpdate',
-      includeAssets:['maskable-icon.png'],
+      includeAssets:['pwa-512x512.png'],
+      devOptions: {
+        enabled: true
+      },
       manifest: {
         display: 'standalone',
         display_override: ['window-controls-overlay'],
@@ -30,18 +33,18 @@ export default defineConfig({
         background_color:'#d4d4d4',
         icons:[
           {
-            src:"maskable-icon.png",
+            src:"pwa-512x512.png",
             sizes:'512x512',
             type:'image/png',
             purpose: 'maskable'
           },
           {
-            src:"maskable-icon.png",
+            src:"pwa-512x512.png",
             sizes:'512x512',
             type:'image/png',
             purpose: 'any'
           }
-        ]
+        ],
       }
     })]
 })
