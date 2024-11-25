@@ -5,6 +5,7 @@ import Slider from "../components/Slider";
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
 import { useGlobalContext } from "../context/global-context";
+//import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
   {url: '/images/banner/banner_coca_cola.avif', alt: "banner 1"},
   {url: '/images/banner/burguer-king-banner.avif', alt: "banner 2"},
@@ -40,7 +41,11 @@ export default function TuRefri() {
   let magnetsToShow = selectedCategory !== '' ? magnets.filter(item => item.category === selectedCategory.name) : magnets
   return (
     <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
+      <div className="w-full flex justify-center pt-6 pb-4">
+        <img src="/turefri-logo.png" className="w-56" />
+      </div>
       <Slider images={IMAGES} />
+     {/*  <DropDownRefri /> */}
       <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4`}>
           {magnetsToShow && magnetsToShow.length > 0 ? (
             magnetsToShow.map((item) => (

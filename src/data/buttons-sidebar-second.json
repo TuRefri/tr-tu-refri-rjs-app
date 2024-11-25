@@ -16,6 +16,7 @@
     },
     {
         "name":"power",
+        "href": "/login",
         "icon":"power.svg"
     }
 ]

@@ -35,7 +35,7 @@ export default function Slider({ images }: ImageSliderProps) {
 
   return (
     <section
-      style={{ width: "100%", height: "8rem", position: "relative", marginTop:"1.5rem" }}
+      style={{ width: "100%", height: "8rem", position: "relative" }}
     >
       <div
         style={{
