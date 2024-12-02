@@ -18,6 +18,7 @@ interface GlobalContextType {
     handleTime: (value: Open) => void;
     handleToggleSharePosition: () => void; // Handler para activar/desactivar la compartición de ubicación
     handleUpdatePosition: () => void; // Handler para obtener la posición del usuario
+    handleSetStaticPosition: (lat : number,lng : number) => void
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -129,11 +130,17 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    const handleSetStaticPosition = (lat : number,lng : number) =>{
+        setPosition({
+            latitude: lat,
+            longitude: lng,
+        });
+    }
     return (
         <GlobalContext.Provider value={{
             magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory,
             selectedCategory, zone, handleZone, handleTime, selectedTime, sharingPosition, 
-            position, handleToggleSharePosition, handleUpdatePosition
+            position, handleToggleSharePosition, handleUpdatePosition, handleSetStaticPosition
         }}>
             {children}
         </GlobalContext.Provider>

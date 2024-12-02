@@ -18,7 +18,16 @@ export default defineConfig({
     tsconfigPaths(),
     VitePWA({
       registerType:'autoUpdate',
-      includeAssets:['pwa-512x512.png'],
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,png,webp}'],
+      },
+      includeAssets:[
+        'pwa-512x512.png',
+        'pwa-64x64.png', 
+        'pwa-192x192.png', 
+        'maskable-icon-512x512.png', 
+        'apple-touch-icon-180x180.png'
+      ],
       devOptions: {
         enabled: true
       },
