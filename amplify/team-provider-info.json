@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-turefribackend-dev-a8155-authRole",
+      "UnauthRoleArn": "arn:aws:iam::266735804192:role/amplify-turefribackend-dev-a8155-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::266735804192:role/amplify-turefribackend-dev-a8155-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-turefribackend-dev-a8155-deployment",
+      "UnauthRoleName": "amplify-turefribackend-dev-a8155-unauthRole",
+      "StackName": "amplify-turefribackend-dev-a8155",
+      "StackId": "arn:aws:cloudformation:us-east-1:266735804192:stack/amplify-turefribackend-dev-a8155/948b64e0-b1f2-11ef-97f3-0ef338eb6921",
+      "AmplifyAppId": "d36guiggozg269"
+    }
+  }
+}
