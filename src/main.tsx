@@ -1,5 +1,5 @@
 import { Amplify } from 'aws-amplify';
-import config from './amplifyconfiguration.json'; // Ruta a tu archivo de configuración
+import config from './amplifyconfiguration.json';
 import { createRoot } from 'react-dom/client';
 import {
     createBrowserRouter,
@@ -24,12 +24,6 @@ import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import SignUp from './routes/signup.tsx';
 import UserProfile from './routes/user-profile.tsx';
-/* import App from './components/App.tsx'; */
-
-{/* <DetailMagnetProvider>
-            <TuRefri />
-          </DetailMagnetProvider> */}
-
 // Configurar Amplify
 Amplify.configure(config);
 
