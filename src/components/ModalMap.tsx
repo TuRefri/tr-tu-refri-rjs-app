@@ -2,12 +2,24 @@
 import { MagnetRefriProps } from '../types'
 import { motion } from 'framer-motion'
 import { useGlobalContext } from '../context/global-context'
+import useUserAuth from '../hooks/useUserAuth'
 interface ModalMapProps {
     data: MagnetRefriProps | null
     handleCloseModal: () => void
+    handleOpenNotAuthModal: () => void
 }
-export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
+export default function ModalMap({data, handleCloseModal, handleOpenNotAuthModal} : ModalMapProps) {
   const { handleAddMagnet } = useGlobalContext()
+  const { authenticated } = useUserAuth()
+
+  const handleActionButton = (data : MagnetRefriProps | null) =>{
+    if(!authenticated){
+      handleOpenNotAuthModal()
+      handleCloseModal()
+    } else{
+      handleAddMagnet(data)
+    }
+  }
   return (
     <motion.div
       initial={{scale: 1, y: 400}}
@@ -32,7 +44,7 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
             </section>
         </div>
         <button 
-          onClick={() =>handleAddMagnet(data)}
+          onClick={() => handleActionButton(data)}
           className='w-full border py-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'
           >Agregar a tu refri</button>
     </motion.div>

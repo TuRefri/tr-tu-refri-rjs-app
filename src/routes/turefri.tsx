@@ -5,6 +5,7 @@ import Slider from "../components/Slider";
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
 import { useGlobalContext } from "../context/global-context";
+import ModalNotAuth from "../components/ModalNotAuth";
 //import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
   {url: '/images/banner/banner_coca_cola.avif', alt: "banner 1"},
@@ -15,10 +16,16 @@ const IMAGES =[
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
+  const [showNotAuthModal, setShowNotAuthModal] = useState(false)
   const { magnets, selectedCategory } = useGlobalContext();
   const {isOpen} = useDetailMagnetContext();
 
-  
+  const handleCloseNotAuthModal = () =>{
+    setShowNotAuthModal(false)
+  }
+  const handleOpenNotAuthModal = () =>{
+    setShowNotAuthModal(true)
+  }
   const logHeight = () => {
     if (sidebarRef.current) {
       setSideBarDim(sidebarRef.current.clientHeight)
@@ -55,7 +62,7 @@ export default function TuRefri() {
             ))
           ) : (
             <li className="absolute h-full w-full">
-              <AddMagnets />
+              <AddMagnets handleOpenModal={handleOpenNotAuthModal}/>
             </li>
           )}
           {magnetsToShow.length < 6 && (
@@ -66,10 +73,17 @@ export default function TuRefri() {
           )}
         </ul>
         {isOpen && (
-        <div className="absolute inset-0 flex items-end justify-center z-20 my-2 ">
+          <div className="absolute inset-0 flex items-end justify-center z-20 my-2 ">
           <ModalMagnetRefri />
         </div>
       )}
+      {
+        showNotAuthModal &&
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full">
+          <ModalNotAuth handleCloseModal={handleCloseNotAuthModal}/>
+        </div>
+        
+      }
     </div>
   );
 }

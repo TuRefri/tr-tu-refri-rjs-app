@@ -6,6 +6,7 @@ export const getUser = /* GraphQL */ `
         username
         avatar
         bannerProfile
+        birthday
         email
     }
  }

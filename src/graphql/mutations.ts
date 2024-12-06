@@ -8,3 +8,19 @@ export const createUser =`
     }
   }
 `;
+
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      name
+      username
+      email
+      avatar
+      bannerProfile
+    }
+  }
+`;

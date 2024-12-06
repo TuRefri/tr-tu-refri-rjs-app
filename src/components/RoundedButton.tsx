@@ -1,6 +1,6 @@
-import { LogOutUser } from "../functions/auth";
 import { RoundedButtonProps } from "../types";
 import { Link } from "react-router-dom";
+import LogOutButton from "./LogOutButton";
 
 export default function RoundedButton({ href, icon, theme, className }: RoundedButtonProps) {
   const classNameTheme = theme === 'dark'
@@ -10,9 +10,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
   const combinedClassName = `${classNameTheme} ${className || ''}`.trim();
 
   if(href === '/logout') return(
-    <button onClick={() => LogOutUser()} className={combinedClassName}>
-      <img src={icon} alt='icon' />
-    </button>
+    <LogOutButton combinedClassName={combinedClassName} icon={icon}/>
   )
   return (
     <Link to={href} className={combinedClassName}>

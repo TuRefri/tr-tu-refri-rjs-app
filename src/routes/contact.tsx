@@ -34,42 +34,42 @@ export default function Contact() {
       <section>
         <h1 className="text-2xl font-medium" style={{ color: currentColor.textPrimaryColor}}>¿En qué podemos ayudarte?</h1>
       </section>
-      <section className="pt-6">
+      <section className="pt-6 pb-56">
       <form onSubmit={handleSubmit} className='flex flex-col'>
-                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Correo</label>
+                    <label className='text-md' style={{ color: currentColor.textSecondaryColor}}>Correo</label>
                     <input 
                         type='email' 
                         name='email'
                         placeholder='Tu dirección de correo'
                         value={form.email} 
                         onChange={handleChange} 
-                        className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
+                        className='border-2 rounded-md px-3 py-2 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Nombre y apellido</label>
+                    <label className='text-md' style={{ color: currentColor.textSecondaryColor}}>Nombre y apellido</label>
                     <input 
                         type='text' 
                         name='name' 
                         placeholder='Tu nombre'
                         value={form.name} 
                         onChange={handleChange} 
-                        className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
+                        className='border-2 rounded-md px-3 py-2 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Asunto</label>
+                    <label className='text-md' style={{ color: currentColor.textSecondaryColor}}>Asunto</label>
                     <input 
                         type='text' 
                         name='subject'
                         placeholder='Título del mensaje'
                         value={form.subject} 
                         onChange={handleChange} 
-                        className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
+                        className='border-2 rounded-md px-3 py-2 shadow-sm mb-5 text-md' 
                     />
-                    <label className='text-lg' style={{ color: currentColor.textSecondaryColor}}>Mensaje</label>
+                    <label className='text-md' style={{ color: currentColor.textSecondaryColor}}>Mensaje</label>
                     <textarea 
                         name='message'
                         placeholder='Cuerpo de correo electrónico'
                         value={form.message} 
                         onChange={handleChange} 
-                        className='border-2 rounded-md px-3 py-3 shadow-sm mb-5 text-md' 
+                        className='border-2 rounded-md px-3 py-2 shadow-sm mb-5 text-md' 
                         rows={4} // Puedes ajustar el número de filas según lo que necesites
                     ></textarea>
 

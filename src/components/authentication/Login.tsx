@@ -44,7 +44,8 @@ export default function Login() {
             name: userDB.data.name,
             avatar: userDB.data.avatar,
             bannerProfile: userDB.data.bannerProfile,
-            email: userDB.data.email
+            email: userDB.data.email,
+            birthday: userDB.data.birthday
         })
         }
         navigate('/user-profile')
@@ -54,7 +55,7 @@ export default function Login() {
     } catch (error) {
       console.error(error)
     } finally{
-      setLoading(true);
+      setLoading(false);
     }
 
 

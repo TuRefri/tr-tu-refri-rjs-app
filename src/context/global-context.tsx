@@ -11,7 +11,6 @@ interface GlobalContextType {
     selectedTime: Open;
     sharingPosition: boolean; // Agregado para saber si se está compartiendo la ubicación
     position: { latitude: number; longitude: number } | null; // Para almacenar la posición
-    userData: UserData | null;
     handleSelectCategory: (category: Category | '') => void;
     handleAddMagnet: (data: MagnetRefriProps | null) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
@@ -28,7 +27,6 @@ const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     const [sharingPosition, setSharingPosition] = useState(false); // Estado para saber si se está compartiendo la ubicación
     const [position, setPosition] = useState<{ latitude: number; longitude: number } | null>(null); // Estado para la ubicación
-    const [userData, setUserData] = useState<UserData | null>(null)
     const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
     const [zone, setZone] = useState(5000);
     const [selectedTime, setSelectedTime] = useState<Open>(null);
@@ -134,22 +132,18 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleSetStaticPosition = (lat : number,lng : number) =>{
-        setPosition({
-            latitude: lat,
-            longitude: lng,
-        });
+        window.localStorage.setItem('aprox_position', JSON.stringify({lat, lng}))
     }
 
     const handleSetUserData = ( user: UserData) =>{
-        console.log(user, 'handleSetUserData')
-        setUserData(user)
+        window.localStorage.setItem('user_data', JSON.stringify(user))
     }
     return (
         <GlobalContext.Provider value={{
             magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory,
             selectedCategory, zone, handleZone, handleTime, selectedTime, sharingPosition, 
             position, handleToggleSharePosition, handleUpdatePosition, handleSetStaticPosition,
-            userData, handleSetUserData
+            handleSetUserData
         }}>
             {children}
         </GlobalContext.Provider>

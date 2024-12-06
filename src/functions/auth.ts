@@ -104,6 +104,7 @@ export const signInUser = async (user : FormSignInUser) => {
 export const LogOutUser = async () =>{
   try {
     await signOut()
+    window.localStorage.removeItem('user_data')
     window.location.replace('/user-profile')
   } catch (error) {
     console.error(error)

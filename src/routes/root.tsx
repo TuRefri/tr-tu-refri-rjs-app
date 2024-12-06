@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { useLocation } from 'react-router-dom';
-import { getCurrentUser } from "aws-amplify/auth";
 /* import axios from "axios"; */
 /* import { useGlobalContext } from "../context/global-context"; */
 export default function Root() {
@@ -22,7 +21,9 @@ export default function Root() {
     };
   
     useEffect(() => {
-        /* axios.get(`https://ipinfo.io/json?token=${import.meta.env.VITE_IP_INFO_API_KEY}`)
+      /* if(!window.localStorage.getItem('aprox_position')){
+
+        axios.get(`https://ipinfo.io/json?token=${import.meta.env.VITE_IP_INFO_API_KEY}`)
         .then(response => {
           handleSetStaticPosition(
             parseInt(response.data.loc.split(',')[0]),
@@ -31,15 +32,14 @@ export default function Root() {
         })
         .catch(e => {
           console.log(e);
-        }); */
+        });
+      } */
 
       // Log initial height
       logHeight();
   
       // Add a resize event listener
       window.addEventListener('resize', logHeight);
-  
-      getCurrentUser().then(data => console.log(data))
       // Clean up event listener on component unmount
       return () => {
         window.removeEventListener('resize', logHeight);

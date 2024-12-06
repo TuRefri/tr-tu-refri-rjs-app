@@ -3,18 +3,25 @@ import { useState } from "react";
 import MapSection from "../components/MapSection";
 import ModalMap from "../components/ModalMap";
 import { MagnetRefriProps } from "../types";
+import ModalNotAuth from "../components/ModalNotAuth";
 //Area dentro de refri donde se montan componentes
 export default function Map() {
   const [openModalMap, setOpenModalMap] = useState(false)
   const [data, setData] = useState<MagnetRefriProps | null>(null)
-
+  const [showNotAuthModal, setShowNotAuthModal] = useState(false)
+  
+  const handleCloseNotAuthModal = () =>{
+    setShowNotAuthModal(false)
+  }
+  const handleOpenNotAuthModal = () =>{
+    setShowNotAuthModal(true)
+  }
   const handleSelectStoreOnMap = (item : MagnetRefriProps) =>{
     setData(item)
     setOpenModalMap(true)
   }
 
   const handleCloseModal = () =>{
-    console.log('click')
     setOpenModalMap(false)
     setData(null)
   }
@@ -25,10 +32,17 @@ export default function Map() {
          {
           openModalMap &&
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full">
-            <ModalMap data={data} handleCloseModal={handleCloseModal}/>
+            <ModalMap data={data} handleCloseModal={handleCloseModal} handleOpenNotAuthModal={handleOpenNotAuthModal}/>
           </div>
           
          }
+         {
+          showNotAuthModal &&
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full">
+            <ModalNotAuth handleCloseModal={handleCloseNotAuthModal}/>
+          </div>
+          
+        }
         </div>
 
   )

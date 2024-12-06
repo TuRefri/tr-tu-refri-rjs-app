@@ -1,6 +1,8 @@
 import { generateClient } from "aws-amplify/api"
-import { createUser } from "../graphql/mutations";
+import { createUser, updateUser } from "../graphql/mutations";
 import { NewUserInput } from "../types/graphql";
+import { UserData } from "../types";
+import { getCurrentUser } from "aws-amplify/auth";
 export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
@@ -32,4 +34,35 @@ export const createUserOnDB = async (data: NewUserInput) => {
       };
     }
   };
+
+export const updateUserOnDB = async (data: UserData) => {
+  const { userId } = await getCurrentUser()
+  try {
+    const input = {
+      ...data,
+      id: userId
+    }
+    const response = await client.graphql({
+      query: updateUser,
+      variables: { input: input }
+    });
+    console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Usuario modificado exitosamente',
+      data: response
+    })
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'Usuario modificado exitosamente',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: STATUS.FAIL,
+      msg: 'Error al modificar usuario',
+      data: null
+    };
+  }
+}
   
