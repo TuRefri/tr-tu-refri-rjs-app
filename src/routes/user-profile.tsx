@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { RiImageEditLine } from "react-icons/ri";
-import { useLocation } from "react-router-dom";
-import { getCurrentUser } from "aws-amplify/auth";
 import { useGlobalContext } from "../context/global-context";
 const initialForm = {
   email: "ignaciodiaznanni@gmail.com",
