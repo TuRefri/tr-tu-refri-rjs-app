@@ -24,6 +24,8 @@ import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import SignUp from './routes/signup.tsx';
 import UserProfile from './routes/user-profile.tsx';
+import ConfirmCode from './routes/confirm-code.tsx';
+import ResetPasswordPage from './routes/reset-password.tsx';
 // Configurar Amplify
 Amplify.configure(config);
 
@@ -41,12 +43,20 @@ const router = createBrowserRouter([
                     </DetailMagnetProvider>,
             },
             {
-                path: "login",
+                path: "auth/login",
                 element: <Login />,
             },
             {
-                path: "signup",
+                path: "auth/signup",
                 element: <SignUp />,
+            },
+            {
+                path: "auth/confirm-code",
+                element: <ConfirmCode />,
+            },
+            {
+                path: "auth/reset-password",
+                element: <ResetPasswordPage />,
             },
             {
                 path: "profile",

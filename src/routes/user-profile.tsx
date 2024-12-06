@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { RiImageEditLine } from "react-icons/ri";
-
+import { useLocation } from "react-router-dom";
+import { getCurrentUser } from "aws-amplify/auth";
 const initialForm = {
   email: "ignaciodiaznanni@gmail.com",
   name: "Usuario 1",
@@ -10,10 +11,18 @@ const initialForm = {
 
 export default function UserProfile() {
   const { currentColor } = useFridgeContext();
+  const location = useLocation()
   const [editProfile, setEditProfile] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
-
+  const { updateProfile } =location.state || {}
+  useEffect(() =>{
+    getCurrentUser().then(data=>console.log(data))
+    if(updateProfile){
+      setEditProfile(true)
+      location.state = {}
+    }
+  },[])
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {

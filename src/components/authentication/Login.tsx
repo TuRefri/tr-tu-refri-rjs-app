@@ -1,86 +1,54 @@
 import { useState } from "react";
-import { useFridgeContext } from "../context/fridge-color-context";
+import { useFridgeContext } from "../../context/fridge-color-context";
 import { Link, useNavigate } from "react-router-dom";
-import { SignUpUser } from "../functions/auth";
+import { signInWithRedirect } from "aws-amplify/auth";
+import { signInUser } from "../../functions/auth";
 import { toast } from "sonner";
 enum STATUS {
-  SUCCESS = 'SUCCESS',
-  FAIL = 'FAIL',
-}
-const initialForm = { username: "", password: "", email: "", confirmPassword: "" };
-const initialErrors = { username: "", password: "", email: "", confirmPassword: "" };
-const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/; // Al menos 8 caracteres, incluyendo uno numérico
+    SUCCESS = 'SUCCESS',
+    FAIL = 'FAIL',
+  }
+const initialForm = { username: "", password: "" };
 
-export default function SignUp() {
+export default function Login() {
+  const navigate = useNavigate()
   const { currentColor } = useFridgeContext();
   const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
-  const validateForm = () => {
-    const newErrors = { ...initialErrors };
-
-    if (!form.username) newErrors.username = "El nombre de usuario es obligatorio.";
-    if (!form.email) newErrors.email = "El correo electrónico es obligatorio.";
-    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "El correo electrónico no es válido.";
-
-    if (!form.password) newErrors.password = "La contraseña es obligatoria.";
-    else if (!passwordRegex.test(form.password)) {
-      newErrors.password = "La contraseña debe tener al menos 8 caracteres e incluir un número.";
-    }
-
-    if (!form.confirmPassword) newErrors.confirmPassword = "La confirmación de contraseña es obligatoria.";
-    else if (form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = "Las contraseñas no coinciden.";
-    }
-
-    setErrors(newErrors);
-    return Object.values(newErrors).every((error) => error === "");
-  };
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    setErrors({ ...errors, [name]: "" }); // Limpiar error al escribir
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!validateForm()) return;
+    e.preventDefault(); 
+    setError(null);
+    setLoading(true)
+    if (!form.username || !form.password) {
+      setError("Por favor, completa todos los campos.");
+      return;
+    }
     try {
-      setLoading(true);
-      const result = await SignUpUser(form)
-      console.log(result, 'result')
-      if (result.status === STATUS.SUCCESS) {
-        const { userID, nextStep } = result;
-        
-        if(result.nextStep?.signUpStep === 'CONFIRM_SIGN_UP'){
-          navigate('/auth/confirm-code', {
-            state: {
-              userID,
-              email: form.email,
-              username: form.username,
-              codeDeliveryDetails: nextStep || null,
-            },
-          });
-        }
-      } else{
+      const result = await signInUser(form)
+      if(result.status === STATUS.SUCCESS && result.isSignedIn){
+        navigate('/')
+      } else {
         toast.error(result.msg)
       }
     } catch (error) {
       console.error(error)
-      toast.error  
-    } finally {
-      setLoading(false)
+    } finally{
+      setLoading(true);
     }
-    
+
+
   };
 
   return (
     <div className="w-full h-full flex flex-col overflow-y-scroll items-center no-scrollbar px-4 pt-8 sm:pt-16">
       <img src="/turefri-logo.png" className="w-56 pb-8" style={{ aspectRatio: '55/20'}} />
-
       <form onSubmit={handleSubmit} className="flex flex-col w-[90%] pb-3">
         <input
           type="text"
@@ -88,43 +56,27 @@ export default function SignUp() {
           placeholder="Nombre de usuario"
           value={form.username}
           onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.username ? "border-red-500" : 'mb-2'}`}
+          className="border-2 rounded-md px-3 py-3 shadow-sm mb-2 text-sm"
         />
-        {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Correo electrónico"
-          value={form.email}
-          onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.email ? "border-red-500" : 'mb-2'}`}
-        />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-
         <input
           type="password"
           name="password"
           placeholder="Contraseña"
           value={form.password}
           onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.password ? "border-red-500" : 'mb-2'}`}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${!error &&'mb-5' }`}
         />
-        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirmar contraseña"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.confirmPassword ? "border-red-500 mb2" : 'mb-5'}`}
-        />
-        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+        {error && (
+          <p className="text-red-500 text-sm mb-3">{error}</p>
+        )}
 
         <button
           type="submit"
-          className="py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium active:bg-blue-600 shadow-sm"
+          className={`py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium shadow-sm ${
+            loading ? "cursor-not-allowed" : "active:bg-blue-600"
+          }`}
+          disabled={loading}
         >
           {loading ? (
             <div role="status">
@@ -146,7 +98,7 @@ export default function SignUp() {
               </svg>
             </div>
           ) : (
-            "Registrarme"
+            "Ingresar"
           )}
         </button>
       </form>
@@ -165,14 +117,18 @@ export default function SignUp() {
         </div>
       </div>
       <section className="w-[90%] flex flex-col gap-y-3 py-4">
-        <button className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm">
+        <button 
+          onClick={() => signInWithRedirect({ provider: "Facebook"})}
+          className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           <img
             src="/icons/social-media/logo-facebook.svg"
             className="h-8 w-8 mr-3"
           />
           <span>Ingresar con Facebook</span>
         </button>
-        <button className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm">
+        <button 
+           onClick={() => signInWithRedirect({ provider: "Google"})}
+          className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
           <img
             src="/icons/social-media/logo-google-color.svg"
             className="h-8 w-8 mr-3"
@@ -180,13 +136,22 @@ export default function SignUp() {
           <span>Ingresar con Google</span>
         </button>
       </section>
+      <p
+        onClick={() =>{
+          navigate('/auth/reset-password')
+        }}
+        className="text-sm cursor-pointer"
+        style={{ color: currentColor.textSecondaryColor }}
+      >
+        ¿Olvidaste tu contraseña?
+      </p>
       <div className="relative my-4 w-[90%] border border-gray-300 mt-4" />
       <p
         className="text-sm"
         style={{ color: currentColor.textSecondaryColor }}
       >
-        ¿Ya tienes una cuenta?{" "}
-        <Link to={'/auth/login'} className="text-blue-500 font-medium">Ingresar</Link >
+        ¿No tienes una cuenta?{" "}
+        <Link to='/auth/signup'className="text-blue-500 font-medium">Regístrate</Link>
       </p>
     </div>
   );

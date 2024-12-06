@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { useLocation } from 'react-router-dom';
+import { getCurrentUser } from "aws-amplify/auth";
 /* import axios from "axios"; */
 /* import { useGlobalContext } from "../context/global-context"; */
 export default function Root() {
@@ -38,6 +39,7 @@ export default function Root() {
       // Add a resize event listener
       window.addEventListener('resize', logHeight);
   
+      getCurrentUser().then(data => console.log(data))
       // Clean up event listener on component unmount
       return () => {
         window.removeEventListener('resize', logHeight);
