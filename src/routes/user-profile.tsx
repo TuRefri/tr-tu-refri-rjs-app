@@ -3,6 +3,7 @@ import { useFridgeContext } from "../context/fridge-color-context";
 import { RiImageEditLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 import { getCurrentUser } from "aws-amplify/auth";
+import { useGlobalContext } from "../context/global-context";
 const initialForm = {
   email: "ignaciodiaznanni@gmail.com",
   name: "Usuario 1",
@@ -11,17 +12,11 @@ const initialForm = {
 
 export default function UserProfile() {
   const { currentColor } = useFridgeContext();
-  const location = useLocation()
+  const { userData } = useGlobalContext()
   const [editProfile, setEditProfile] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
-  const { updateProfile } =location.state || {}
   useEffect(() =>{
-    getCurrentUser().then(data=>console.log(data))
-    if(updateProfile){
-      setEditProfile(true)
-      location.state = {}
-    }
   },[])
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -77,13 +72,13 @@ export default function UserProfile() {
               className="text-lg font-semibold"
               style={{ color: currentColor.textPrimaryColor }}
             >
-              Usuario 1
+              {userData?.name || userData?.username }
             </h1>
             <h4
               className="text-xs"
               style={{ color: currentColor.textSecondaryColor }}
             >
-              @loow3
+              @{userData?.username}
             </h4>
           </div>
         </section>

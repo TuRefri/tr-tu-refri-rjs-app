@@ -91,3 +91,11 @@ export interface Promotion {
     initial_date: string;
     end_date: string;
 }
+
+export interface UserData {
+    name: string;
+    username: string;
+    email: string;
+    avatar?: string;
+    bannerProfile?: string;
+}

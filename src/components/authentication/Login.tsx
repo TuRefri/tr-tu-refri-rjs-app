@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useFridgeContext } from "../../context/fridge-color-context";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithRedirect } from "aws-amplify/auth";
+import { getCurrentUser, signInWithRedirect } from "aws-amplify/auth";
 import { signInUser } from "../../functions/auth";
 import { toast } from "sonner";
+import { getUserInfo } from "../../functions/user";
+import { useGlobalContext } from "../../context/global-context";
 enum STATUS {
     SUCCESS = 'SUCCESS',
     FAIL = 'FAIL',
@@ -12,6 +14,7 @@ const initialForm = { username: "", password: "" };
 
 export default function Login() {
   const navigate = useNavigate()
+  const { handleSetUserData } = useGlobalContext()
   const { currentColor } = useFridgeContext();
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
@@ -33,7 +36,18 @@ export default function Login() {
     try {
       const result = await signInUser(form)
       if(result.status === STATUS.SUCCESS && result.isSignedIn){
-        navigate('/')
+        const userdata = await getCurrentUser()
+        const userDB = await getUserInfo(userdata.userId)
+        if(userDB.data){
+          handleSetUserData({
+            username: userDB.data.username,
+            name: userDB.data.name,
+            avatar: userDB.data.avatar,
+            bannerProfile: userDB.data.bannerProfile,
+            email: userDB.data.email
+        })
+        }
+        navigate('/user-profile')
       } else {
         toast.error(result.msg)
       }

@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, ReactNode } from 'react';
-import { Category, MagnetRefriProps, Open } from '../types';
+import { Category, MagnetRefriProps, Open, UserData } from '../types';
 import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';
 
@@ -11,6 +11,7 @@ interface GlobalContextType {
     selectedTime: Open;
     sharingPosition: boolean; // Agregado para saber si se está compartiendo la ubicación
     position: { latitude: number; longitude: number } | null; // Para almacenar la posición
+    userData: UserData | null;
     handleSelectCategory: (category: Category | '') => void;
     handleAddMagnet: (data: MagnetRefriProps | null) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
@@ -19,6 +20,7 @@ interface GlobalContextType {
     handleToggleSharePosition: () => void; // Handler para activar/desactivar la compartición de ubicación
     handleUpdatePosition: () => void; // Handler para obtener la posición del usuario
     handleSetStaticPosition: (lat : number,lng : number) => void
+    handleSetUserData: (user: UserData) => void
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -26,6 +28,7 @@ const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     const [sharingPosition, setSharingPosition] = useState(false); // Estado para saber si se está compartiendo la ubicación
     const [position, setPosition] = useState<{ latitude: number; longitude: number } | null>(null); // Estado para la ubicación
+    const [userData, setUserData] = useState<UserData | null>(null)
     const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
     const [zone, setZone] = useState(5000);
     const [selectedTime, setSelectedTime] = useState<Open>(null);
@@ -136,11 +139,17 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             longitude: lng,
         });
     }
+
+    const handleSetUserData = ( user: UserData) =>{
+        console.log(user, 'handleSetUserData')
+        setUserData(user)
+    }
     return (
         <GlobalContext.Provider value={{
             magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory,
             selectedCategory, zone, handleZone, handleTime, selectedTime, sharingPosition, 
-            position, handleToggleSharePosition, handleUpdatePosition, handleSetStaticPosition
+            position, handleToggleSharePosition, handleUpdatePosition, handleSetStaticPosition,
+            userData, handleSetUserData
         }}>
             {children}
         </GlobalContext.Provider>
