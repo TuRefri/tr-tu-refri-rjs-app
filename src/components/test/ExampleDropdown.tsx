@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { MagnetGroup } from '../../types/magnetGroup';
 import { useGlobalContext } from '../../context/global-context';
+import { toast } from 'sonner';
 interface DrowDropTuRefriProps {
     magnetgroups: MagnetGroup[],
     loading: boolean
@@ -30,7 +31,7 @@ export default function Example({magnetgroups, loading } : DrowDropTuRefriProps)
         className="absolute right-0 z-10 mt-2 w-fit origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
 
-        <div className="py-1 relative overflow-hidden">
+        <div className="py-1 relative overflow-hidden flex flex-col">
             {magnetgroups.map(item =>{
                 return(
                     <MenuItem key={item.id}>
@@ -45,12 +46,22 @@ export default function Example({magnetgroups, loading } : DrowDropTuRefriProps)
                 )
             })}
           <MenuItem>
-            <a
-              href="#"
-              className="flex mx-1 rounded-md justify-center px-12 text-nowrap py-2 text-sm bg-blue-200 text-blue-500 data-[focus]:bg-blue-400 data-[focus]:text-white data-[focus]:outline-none"
-            >
-             <img src={"icons/add-white.svg"} height={20} width={20} alt='add refri icon'/>
-            </a>
+          <button
+            onClick={() =>
+              toast.info(
+                'Por el momento sólo puedes tener un Refri. ¡Muy pronto podrás disfrutar de múltiples refris! 😁'
+              )
+            }
+            className="flex mx-1 rounded-md justify-center items-center px-12 py-2 text-sm bg-blue-200 text-blue-500 hover:bg-blue-300 focus:bg-blue-400 focus:text-white focus:outline-none"
+          >
+            <img
+              src="icons/add-white.svg"
+              height={20}
+              width={20}
+              alt="Añadir Refri"
+            />
+          </button>
+
           </MenuItem>
           {/* disable for the moment */}
           {/* <div className='absolute top-0 lef-0 rounded-md w-full h-full flex items-center justify-center bg-black opacity-60 text-white'>

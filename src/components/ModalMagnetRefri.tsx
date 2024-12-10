@@ -108,12 +108,12 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                     </h2>
                     <div className="my-4 w-full border-b" />
                     {data && (
-                        <p
+                        <button
                             onClick={() => handleDeleteMagnet(data?.id)}
                             className="relative text-red-500 py-2 font-light text-sm active:underline"
                         >
                             Eliminar tienda de mi Refri
-                        </p>
+                        </button>
                     )}
                 </motion.div>
             </AnimatePresence>

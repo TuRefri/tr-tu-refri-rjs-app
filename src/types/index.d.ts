@@ -76,13 +76,13 @@ export type themeButton = "dark" | "white";
 
 
 export interface Event {
-    id: number;
-    name: string;
+    id: string;
+    zoneID: string;
+    title: string;
     description: string;
     image: string;
-    day: string;
-    hour: string;
     location: string;
+    date: string;
 }
 
 export interface Promotion {

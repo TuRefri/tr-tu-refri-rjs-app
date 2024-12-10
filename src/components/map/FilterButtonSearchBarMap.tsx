@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { useGlobalContext } from '../../context/global-context';
 import useListCategories from '../../hooks/userListCategories';
 const ranges : Record<'1' | '2' | '3' | '4', number>= {
-    1: 1000,
-    2: 2000,
-    3: 5000,
-    4: 10000
+    1: 500,
+    2: 1000,
+    3: 2000,
+    4: 5000
 }
 export default function FilterButtonSearchbarMap() {
     const { categories } = useListCategories()
@@ -45,7 +45,7 @@ export default function FilterButtonSearchbarMap() {
             <button
                 ref={buttonFilterRef}
                 onClick={() => setOpen(!open)}
-                className='bg-white px-1 py-1 shadow-lg h-full w-auto rounded-full active:bg-gray-100 active:border-black active:scale-95'
+                className='bg-white px-2 py-2 shadow-lg h-full w-auto rounded-full active:bg-gray-100 active:border-black active:scale-95'
             >
                 <img src={'/icons/filter.svg'} alt='filter' height={25} width={25} />
             </button>
@@ -64,7 +64,7 @@ export default function FilterButtonSearchbarMap() {
                 initial={{ scaleX: 0, scaleY: 0, y: 0, transformOrigin: 'right top' }}
                 animate={{ scaleX: 1, scaleY: 1, y: buttonRef.current ? buttonRef.current.offsetHeight -50 : 0, transformOrigin: 'right top' }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-white p-3 flex flex-col items-center`}
+                className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-white p-5 flex flex-col items-center`}
                 ref={divRef}
             >
                     <h2 className='text-gray-500 text-xs text-start w-full'>Categorías</h2>
@@ -92,10 +92,10 @@ export default function FilterButtonSearchbarMap() {
                             className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                         />
                         <div className="flex justify-between absolute w-full -bottom-4">
-                            <span className={`${rangeValue === "1"? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
-                            <span className={`${rangeValue === "2"? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
-                            <span className={`${rangeValue === "3"? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
-                            <span className={`${rangeValue === "4"? "text-blue-500" : "text-gray-500"} text-xs`}>10km</span>
+                            <span className={`${rangeValue === "1"? "text-blue-500" : "text-gray-500"} text-xs`}>.5km</span>
+                            <span className={`${rangeValue === "2"? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
+                            <span className={`${rangeValue === "3"? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
+                            <span className={`${rangeValue === "4"? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
                         </div>
                     </div>
 

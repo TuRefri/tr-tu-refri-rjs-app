@@ -1,10 +1,11 @@
-import { useState, createContext, useContext, ReactNode} from 'react';
+import { useState, createContext, useContext, ReactNode, useEffect} from 'react';
 import { Open, UserData } from '../types';
 import {  Location } from '../types/location';
 import { CategoryQuery } from '../types/graphql';
 import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';
 import { MagnetGroup } from '../types/magnetGroup';
+import useGetMagnets from '../hooks/useGetMagnets';
 
 interface GlobalContextType {
     magnets: Location[]; 
@@ -32,6 +33,7 @@ interface GlobalContextType {
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
+    const { magnetgroups } = useGetMagnets()
     const [sharingPosition, setSharingPosition] = useState(false); // Estado para saber si se está compartiendo la ubicación
     const [position, setPosition] = useState<{ latitude: number; longitude: number } | null>(null); // Estado para la ubicación
     const [selectedCategory, setSelectedCategory] = useState<CategoryQuery | ''>('');
@@ -43,6 +45,12 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     });
     const [addMagnet, setAddMagnet] = useState(0);
     const [selectedMagnetGroup, setSelectedMagnetGroup] = useState<MagnetGroup | null>(null)
+    
+    useEffect(() =>{
+        if(!selectedMagnetGroup && magnetgroups.length > 0){
+          handleSelectMagnetGroup(magnetgroups[0])
+        }
+      },[magnetgroups])
     const handleAddMagnet = (data: Location | null) => {
         if(!data) return
         let msg = '';

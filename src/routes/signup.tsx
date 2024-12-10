@@ -182,7 +182,7 @@ export default function SignUp() {
       </section>
       <div className="relative my-4 w-[90%] border border-gray-300 mt-4" />
       <p
-        className="text-sm"
+        className="text-sm pb-12"
         style={{ color: currentColor.textSecondaryColor }}
       >
         ¿Ya tienes una cuenta?{" "}

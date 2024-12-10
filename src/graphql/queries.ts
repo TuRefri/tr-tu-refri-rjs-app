@@ -105,3 +105,19 @@ export const listMagnetGroups = /* GraphQL */ `
     }
   }
 `;
+
+export const listEvents = `
+  query Listevents($zoneID: ID!) {
+    listEvents(filter: {zoneID: {eq: $zoneID}}) {
+      items {
+        id
+        zoneID
+        title
+        description
+        image
+        location
+        date
+      }
+    }
+  }
+`

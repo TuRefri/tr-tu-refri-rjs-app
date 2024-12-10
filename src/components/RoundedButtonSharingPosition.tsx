@@ -8,7 +8,7 @@ export default function RoundedButtonSharingPosition() {
         >
       {(!sharingPosition && !position)?
         <img 
-          src="icons/crosshairs-off.svg" 
+          src="/icons/crosshairs-off.svg" 
           alt="Descripción de la imagen" 
           height={18}
           width={18}
@@ -19,7 +19,7 @@ export default function RoundedButtonSharingPosition() {
         :
         (sharingPosition && !position)?
         <img 
-          src="icons/crosshairs.svg" 
+          src="/icons/crosshairs.svg" 
           alt="Descripción de la imagen" 
           height={18}
           width={18}
@@ -29,7 +29,7 @@ export default function RoundedButtonSharingPosition() {
         />
         :
         <img 
-          src="icons/crosshairs-gps.svg" 
+          src="/icons/crosshairs-gps.svg" 
           alt="Descripción de la imagen" 
           height={18}
           width={18}
