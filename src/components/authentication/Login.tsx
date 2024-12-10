@@ -27,7 +27,7 @@ export default function Login() {
       switch (payload.event) {
         case "signInWithRedirect":
           setLoadingExternalProvider('')
-          navigate('/')
+          navigate('/', { replace: true });
           break;
         case "signInWithRedirect_failure":
           setLoadingExternalProvider('')
