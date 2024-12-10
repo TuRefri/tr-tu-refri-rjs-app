@@ -27,7 +27,8 @@ export default function Login() {
       switch (payload.event) {
         case "signInWithRedirect":
           setLoadingExternalProvider('')
-          navigate('/', { replace: true });
+          navigate('/');
+          window.localStorage.removeItem('login_provider')
           break;
         case "signInWithRedirect_failure":
           setLoadingExternalProvider('')
@@ -81,6 +82,16 @@ export default function Login() {
 
   };
 
+  const SignInWithExtProvider = (provider: string) =>{ 
+    window.localStorage.setItem('login_provider', provider)
+    if(provider === 'Google'){
+      setLoadingExternalProvider(provider)
+      signInWithRedirect({ provider: "Google"})
+    }else if( provider === 'Facebook'){
+      setLoadingExternalProvider(provider)
+      signInWithRedirect({ provider: "Google"})}
+    }
+    
   return (
     <div className="w-full h-full flex flex-col overflow-y-scroll items-center no-scrollbar px-4 pt-8 sm:pt-16">
       <img src="/turefri-logo.png" className="w-56 pb-8" style={{ aspectRatio: '55/20'}} />
@@ -153,13 +164,13 @@ export default function Login() {
       </div>
       <section className="w-[90%] flex flex-col gap-y-3 py-4">
         <button 
-          onClick={() =>{ 
-            setLoadingExternalProvider('Facebook')
-            signInWithRedirect({ provider: "Facebook"})}}
+          onClick={() =>SignInWithExtProvider('Facebook')}
           className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           
           {
-            loadingExternalProvider === 'Facebook'?(
+            (loadingExternalProvider === 'Facebook' ||
+              window.localStorage.getItem('login_provider') === 'Facebook'
+            )?(
             <div role="status">
               <svg
                   aria-hidden="true"
@@ -189,12 +200,12 @@ export default function Login() {
           }
         </button>
         <button 
-           onClick={() =>{ 
-            setLoadingExternalProvider('Google')
-            signInWithRedirect({ provider: "Google"})}}
+           onClick={() =>SignInWithExtProvider('Google')}
           className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
           {
-            loadingExternalProvider === 'Google'?(
+            (loadingExternalProvider === 'Google' ||
+              window.localStorage.getItem('login_provider') === 'Google'
+            )?(
             <div role="status">
               <svg
                   aria-hidden="true"

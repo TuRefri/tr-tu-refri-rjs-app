@@ -20,7 +20,7 @@ export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDrop
             <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500">
             {selectedMagnetGroup && selectedMagnetGroup?.name}
             {(!selectedMagnetGroup && magnetgroups.length > 0 )&& magnetgroups[0].name }
-            <img src="icons/chrevron-down.svg" alt='open refris' />
+            <img src="/icons/chrevron-down.svg" alt='open refris' />
           </MenuButton>
           </>
         }
@@ -55,7 +55,7 @@ export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDrop
             className="flex mx-1 rounded-md justify-center items-center px-12 py-2 text-sm bg-blue-200 text-blue-500 hover:bg-blue-300 focus:bg-blue-400 focus:text-white focus:outline-none"
           >
             <img
-              src="icons/add-white.svg"
+              src="/icons/add-white.svg"
               height={20}
               width={20}
               alt="Añadir Refri"

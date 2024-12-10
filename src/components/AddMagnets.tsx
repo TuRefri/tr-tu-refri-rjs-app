@@ -20,7 +20,7 @@ export default function AddMagnets({ handleOpenModal} : AddMagnetProps) {
   }
   return (
     <button onClick={handleActionButton} className='relative w-full h-full flex flex-col justify-center items-center'>
-        <img src='icons/add-icon.svg' height={120} width={120} alt='add icon' />
+        <img src='/icons/add-icon.svg' height={120} width={120} alt='add icon' />
         <h1 className='font-medium pt-4' style={{color: currentColor.textSecondaryColor}}>Añade imanes a TuRefri</h1>
     </button>
   )

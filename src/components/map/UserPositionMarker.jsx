@@ -19,7 +19,7 @@ export default function UserPositionMarker({ map }) {
           map: map,
           draggable: true,
           icon: {
-            url: 'icons/user-position/current_location_2.png',
+            url: '/icons/user-position/current_location_2.png',
             scaledSize: new window.google.maps.Size(50, 50),
             anchor: new window.google.maps.Point(25, 25),
           },
