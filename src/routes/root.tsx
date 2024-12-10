@@ -5,9 +5,9 @@ import SideBar from "../components/SideBar";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { useLocation } from 'react-router-dom';
 /* import axios from "axios"; */
-/* import { useGlobalContext } from "../context/global-context"; */
+import { useGlobalContext } from "../context/global-context";
 export default function Root() {
-    /* const { handleSetStaticPosition } = useGlobalContext() */
+    const { handleSetStaticPosition } = useGlobalContext()
     const location = useLocation();
     const { currentColor, setRefriDim } = useFridgeContext();
     const refriDimRef = useRef<HTMLDivElement>(null);
@@ -21,26 +21,23 @@ export default function Root() {
     };
   
     useEffect(() => {
-      /* if(!window.localStorage.getItem('aprox_position')){
-
-        axios.get(`https://ipinfo.io/json?token=${import.meta.env.VITE_IP_INFO_API_KEY}`)
+      if(!window.localStorage.getItem('aprox_position')){
+        handleSetStaticPosition(
+          4.597481838468723, -74.07294921612525
+        )
+        /* axios.get(`https://ipinfo.io/json?token=${import.meta.env.VITE_IP_INFO_API_KEY}`)
         .then(response => {
-          handleSetStaticPosition(
+          handleUpdatePosition(
             parseInt(response.data.loc.split(',')[0]),
             parseInt(response.data.loc.split(',')[1])
           )
         })
         .catch(e => {
           console.log(e);
-        });
-      } */
-
-      // Log initial height
+        }); */
+      }
       logHeight();
-  
-      // Add a resize event listener
       window.addEventListener('resize', logHeight);
-      // Clean up event listener on component unmount
       return () => {
         window.removeEventListener('resize', logHeight);
       };

@@ -2,12 +2,12 @@ import { useState } from "react";
 //@ts-ignore
 import MapSection from "../components/MapSection";
 import ModalMap from "../components/ModalMap";
-import { MagnetRefriProps } from "../types";
+import { Location } from "../types/location";
 import ModalNotAuth from "../components/ModalNotAuth";
 //Area dentro de refri donde se montan componentes
 export default function Map() {
   const [openModalMap, setOpenModalMap] = useState(false)
-  const [data, setData] = useState<MagnetRefriProps | null>(null)
+  const [data, setData] = useState<Location | null>(null)
   const [showNotAuthModal, setShowNotAuthModal] = useState(false)
   
   const handleCloseNotAuthModal = () =>{
@@ -16,7 +16,7 @@ export default function Map() {
   const handleOpenNotAuthModal = () =>{
     setShowNotAuthModal(true)
   }
-  const handleSelectStoreOnMap = (item : MagnetRefriProps) =>{
+  const handleSelectStoreOnMap = (item : Location) =>{
     setData(item)
     setOpenModalMap(true)
   }

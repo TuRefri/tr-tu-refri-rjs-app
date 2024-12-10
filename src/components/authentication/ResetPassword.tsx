@@ -46,12 +46,11 @@ export default function ConfirmCode() {
     try {
       setLoading(true);
       const result = await resetPasswordUser(form.username)
-      console.log(result)
       if(result.status === STATUS.SUCCESS && result.nextStep?.resetPasswordStep === 'CONFIRM_RESET_PASSWORD_WITH_CODE'){
         setDeliveryDetails(result.nextStep.codeDeliveryDetails.destination || '')
         setStep(2)
       } else{
-        toast.error(result.msg)
+        toast.error(result.msg, {duration: 1200})
       }
     } catch (error) {
       console.error(error)  
@@ -66,14 +65,13 @@ export default function ConfirmCode() {
     try {
       setLoading(true);
       const result = await confirmResetPasswordUser(form)
-      console.log(result)
       if(result.status === STATUS.SUCCESS){
-        toast.success('La contraseña ha sido actualizada correctamente. Será redirigido en un instante.')
+        toast.success('La contraseña ha sido actualizada correctamente. Será redirigido en un instante.', {duration: 1200})
         setTimeout(() => {
             navigate('/auth/login')
         }, 1500);
       } else{
-        toast.error(result.msg)
+        toast.error(result.msg, {duration: 1200})
       }
     } catch (error) {
       console.error(error)  

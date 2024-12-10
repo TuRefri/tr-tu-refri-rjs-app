@@ -1,32 +1,33 @@
-import { useRef, useState, useEffect } from 'react';
-import categories from '../data/list-categories.json';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useGlobalContext } from '../context/global-context';
-import { useStorePageContext } from '../context/store-page-context';
+import { useGlobalContext } from '../../context/global-context';
+import useListCategories from '../../hooks/userListCategories';
 const ranges : Record<'1' | '2' | '3' | '4', number>= {
     1: 1000,
     2: 2000,
     3: 5000,
     4: 10000
 }
-export default function FilterButtonSearchbar() {
-    const { handleRadius, handleTime, selectedTime} = useGlobalContext()
-    const {handleSelectCategory, selectedCategory} = useStorePageContext()
+export default function FilterButtonSearchbarMap() {
+    const { categories } = useListCategories()
+    const { handleRadius, handleTime, selectedTime, handleSelectCategory, selectedCategory} = useGlobalContext()
     const [open, setOpen] = useState(false);
     const [rangeValue, setRangeValue] = useState('1');
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const divRef = useRef<HTMLDivElement | null>(null);
-
+    const buttonFilterRef = useRef<HTMLButtonElement | null>(null)
+    const categoriesShown = useMemo(() =>{
+        return categories
+    },[categories])
     const handleSelectRange = (value: '1' | '2' | '3' | '4') => {
         setRangeValue(value)
         handleRadius(ranges[value])
     }
     const handleClickOutside = (event: MouseEvent) => {
-        if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        if (divRef.current && !divRef.current.contains(event.target as Node) && !buttonFilterRef.current?.contains(event.target as Node)) {
             setOpen(false);
         }
     };
-
     useEffect(() => {
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -38,13 +39,15 @@ export default function FilterButtonSearchbar() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [open]);
+
     return (
         <div className='relative'>
             <button
+                ref={buttonFilterRef}
                 onClick={() => setOpen(!open)}
-                className='bg-gray-50 px-2 h-full w-auto rounded-lg border-2 border-gray-300 active:bg-gray-100 active:border-black active:scale-95'
+                className='bg-white px-1 py-1 shadow-lg h-full w-auto rounded-full active:bg-gray-100 active:border-black active:scale-95'
             >
-                <img src={'/icons/filter.svg'} alt='filter' height={30} width={30} />
+                <img src={'/icons/filter.svg'} alt='filter' height={25} width={25} />
             </button>
 
             {selectedCategory && (
@@ -61,13 +64,13 @@ export default function FilterButtonSearchbar() {
                 initial={{ scaleX: 0, scaleY: 0, y: 0, transformOrigin: 'right top' }}
                 animate={{ scaleX: 1, scaleY: 1, y: buttonRef.current ? buttonRef.current.offsetHeight -50 : 0, transformOrigin: 'right top' }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-gray-50 p-3 flex flex-col items-center`}
+                className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-white p-3 flex flex-col items-center`}
                 ref={divRef}
             >
                     <h2 className='text-gray-500 text-xs text-start w-full'>Categorías</h2>
                     <ul className='flex flex-wrap overflow-hidden gap-x-1'>
-                        {categories.map(item => (
-                            item.id !== 16 && (
+                        {categoriesShown.map(item => (
+                            item.id !== "16" && (
                                 <li onClick={() => handleSelectCategory(item)} key={item.id} 
                                     className={`cursor-pointer py-1 px-3 ${selectedCategory !== '' && item.id === selectedCategory.id ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px]  font-medium mt-1 whitespace-nowrap`}>
                                     {item.name}

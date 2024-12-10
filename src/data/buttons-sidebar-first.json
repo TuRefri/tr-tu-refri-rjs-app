@@ -9,11 +9,6 @@
         "icon": "burguer-menu.svg"
     },
     {
-        "name": "search",
-        "icon":"search_434343.svg",
-        "href": "/stores"
-    },
-    {
         "name": "location",
         "icon":"explore.svg",
         "href": "/map"

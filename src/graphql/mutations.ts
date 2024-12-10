@@ -1,3 +1,6 @@
+
+/* USERS */
+
 export const createUser =`
   mutation CreateUser(
     $input: CreateUserInput!
@@ -24,3 +27,25 @@ export const updateUser = /* GraphQL */ `
     }
   }
 `;
+
+/* Magnets */
+
+export const deleteMagnet = /* GraphQL */ `
+  mutation DeleteMagnet(
+    $input: DeleteMagnetInput!
+  ) {
+    deleteMagnet(input: $input) {
+      id
+    }
+  }
+`
+
+export const createMagnet =  /* GraphQL */ `
+  mutation CreateMagnet(
+    $input: CreateMagnetInput!
+  ) {
+    createMagnet(input: $input) {
+      id
+    }
+  }
+`

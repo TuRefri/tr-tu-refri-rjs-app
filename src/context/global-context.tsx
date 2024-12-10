@@ -1,25 +1,32 @@
-import { useState, createContext, useContext, ReactNode } from 'react';
-import { Category, MagnetRefriProps, Open, UserData } from '../types';
+import { useState, createContext, useContext, ReactNode} from 'react';
+import { Open, UserData } from '../types';
+import {  Location } from '../types/location';
+import { CategoryQuery } from '../types/graphql';
 import { toast } from 'sonner';
 import { addMagnetToSStorage, removeMagnetFromSStorage } from '../utils/addTuRefriMagnets';
+import { MagnetGroup } from '../types/magnetGroup';
 
 interface GlobalContextType {
-    magnets: MagnetRefriProps[]; 
+    magnets: Location[]; 
     addMagnet: number; 
-    selectedCategory: Category | '';
-    zone: number;
+    selectedCategory: CategoryQuery | '';
+    radius: number;
     selectedTime: Open;
     sharingPosition: boolean; // Agregado para saber si se está compartiendo la ubicación
     position: { latitude: number; longitude: number } | null; // Para almacenar la posición
-    handleSelectCategory: (category: Category | '') => void;
-    handleAddMagnet: (data: MagnetRefriProps | null) => void;
+    selectedMagnetGroup: MagnetGroup | null,
+    handleSelectCategory: (category: CategoryQuery | '') => void;
+    handleAddMagnet: (data: Location | null) => void;
     handleRemoveMagnet: (id: number | undefined) => void;
-    handleZone: (value: number) => void;
+    handleRadius: (value: number) => void;
     handleTime: (value: Open) => void;
     handleToggleSharePosition: () => void; // Handler para activar/desactivar la compartición de ubicación
-    handleUpdatePosition: () => void; // Handler para obtener la posición del usuario
+    handleUpdatePosition: (lat?: number, lng?: number) => void; // Handler para obtener la posición del usuario
     handleSetStaticPosition: (lat : number,lng : number) => void
     handleSetUserData: (user: UserData) => void
+    handleSetZone: () => void
+    handleGetZone: () => string | null,
+    handleSelectMagnetGroup: (magnetGroup : MagnetGroup) => void
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -27,16 +34,16 @@ const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     const [sharingPosition, setSharingPosition] = useState(false); // Estado para saber si se está compartiendo la ubicación
     const [position, setPosition] = useState<{ latitude: number; longitude: number } | null>(null); // Estado para la ubicación
-    const [selectedCategory, setSelectedCategory] = useState<Category | ''>('');
-    const [zone, setZone] = useState(5000);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryQuery | ''>('');
+    const [radius, setRadius] = useState(1000);
     const [selectedTime, setSelectedTime] = useState<Open>(null);
-    const [magnets, setMagnets] = useState<MagnetRefriProps[]>(() => {
+    const [magnets, setMagnets] = useState<Location[]>(() => {
         const savedMagnets = sessionStorage.getItem('magnets');
         return savedMagnets ? JSON.parse(savedMagnets) : [];
     });
     const [addMagnet, setAddMagnet] = useState(0);
-
-    const handleAddMagnet = (data: MagnetRefriProps | null) => {
+    const [selectedMagnetGroup, setSelectedMagnetGroup] = useState<MagnetGroup | null>(null)
+    const handleAddMagnet = (data: Location | null) => {
         if(!data) return
         let msg = '';
         const result = addMagnetToSStorage(data);
@@ -63,7 +70,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
             const result = removeMagnetFromSStorage(id);
 
             if (result.removed) {
-                const updatedMagnets = magnets.filter(magnet => magnet.id !== id); 
+                //TODO Esto no es un number, es un string
+                const updatedMagnets = magnets.filter(magnet => Number(magnet.id) !== id); 
                 setMagnets(updatedMagnets);
                 sessionStorage.setItem('magnets', JSON.stringify(updatedMagnets));
                 setAddMagnet(-1);
@@ -75,9 +83,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const handleSelectCategory = (category: Category | '') =>{
-        if(category !== '' && category.id === 16){
-            console.log('entra aqui')
+    const handleSelectCategory = (category: CategoryQuery | '') =>{
+        if(category !== '' && category.id === '16'){
             setSelectedCategory('')
         }
         else if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
@@ -87,8 +94,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
-    const handleZone = (value : number) =>{
-        setZone(value)
+    const handleRadius = (value : number) =>{
+        setRadius(value)
     }
 
     const handleTime = (value : Open) =>{
@@ -112,7 +119,13 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     };
 
     // Manejador para obtener la posición del usuario
-    const handleUpdatePosition = () => {
+    const handleUpdatePosition = (lat?: number, lng?: number) => {
+        if(lat && lng){
+            return setPosition({
+                    latitude: lat,
+                    longitude: lng,
+                });
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -132,18 +145,28 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const handleSetStaticPosition = (lat : number,lng : number) =>{
-        window.localStorage.setItem('aprox_position', JSON.stringify({lat, lng}))
+        window.localStorage.setItem('aprox_position', JSON.stringify({latitude: lat, longitude: lng}))
     }
 
     const handleSetUserData = ( user: UserData) =>{
         window.localStorage.setItem('user_data', JSON.stringify(user))
     }
+    //TODO zone debe ser determinado por el api creado para ello, como no tenemos suficientes comercios se setea zona = '3' estatico
+    const handleSetZone = () =>{
+        window.localStorage.setItem('user_zone', '3')
+    }
+    const handleGetZone = () =>{
+        return window.localStorage.getItem('user_zone')
+    }
+    const handleSelectMagnetGroup = (magnetGroup: MagnetGroup) =>{
+        setSelectedMagnetGroup(magnetGroup)
+    }
     return (
         <GlobalContext.Provider value={{
             magnets, addMagnet, handleAddMagnet, handleRemoveMagnet, handleSelectCategory,
-            selectedCategory, zone, handleZone, handleTime, selectedTime, sharingPosition, 
+            selectedCategory, radius, handleRadius, handleTime, selectedTime, sharingPosition, 
             position, handleToggleSharePosition, handleUpdatePosition, handleSetStaticPosition,
-            handleSetUserData
+            handleSetUserData, handleSetZone, handleGetZone, handleSelectMagnetGroup, selectedMagnetGroup
         }}>
             {children}
         </GlobalContext.Provider>

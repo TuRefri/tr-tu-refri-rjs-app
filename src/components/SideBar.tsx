@@ -6,15 +6,15 @@ import secondSection from "../data/buttons-sidebar-second.json";
 import RoudedButtonTooltipColors from './RoudedButtonTooltipColors';
 import RoudedButtonTooltipCategories from './RoudedButtonTooltipCategories';
 import colorsFridge from '../data/colors-fridge.json';
-import categories from '../data/list-categories.json';
 import RoundedFridgeButton from './RoundedFridgeButton';
 import RoundedButtonSharingPosition from './RoundedButtonSharingPosition';
+import useListCategories from '../hooks/userListCategories';
 /* import { useLocation } from 'react-router-dom'; */
 export default function SideBar() {
   /* const location = useLocation(); */
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
-
+  const { categories } = useListCategories()
   const logHeight = () => {
     if (sidebarRef.current) {
       setSideBarDim(sidebarRef.current.clientHeight)

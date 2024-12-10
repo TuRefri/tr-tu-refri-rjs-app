@@ -48,7 +48,7 @@ export default function ModalCreateStore({ handleCloseCreateStoreModal }: ModalC
     
         setTimeout(() => {
             setLoading(false);
-            toast.success('¡Creación exitosa!');
+            toast.success('¡Creación exitosa!', {duration: 1200});
             handleCloseCreateStoreModal()
         }, 2000);
     };

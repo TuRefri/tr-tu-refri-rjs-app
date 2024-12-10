@@ -35,7 +35,7 @@ export default function Slider({ images }: ImageSliderProps) {
 
   return (
     <section
-      style={{ width: "100%", height: "8rem", position: "relative" }}
+      style={{ width: "100%", position: "relative" }}
     >
       <div
         style={{
@@ -51,8 +51,8 @@ export default function Slider({ images }: ImageSliderProps) {
             src={url}
             alt={alt}
             aria-hidden={imageIndex !== index}
-            className="img-slider-img aspect-square object-cover"
-            style={{ translate: `${-100 * imageIndex}%` }}
+            className="img-slider-img object-cover"
+            style={{ translate: `${-100 * imageIndex}%`, aspectRatio:'30/9' }}
           />
         ))}
       </div>

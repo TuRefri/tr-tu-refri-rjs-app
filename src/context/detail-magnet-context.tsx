@@ -1,11 +1,10 @@
 import { useState, createContext, useContext, ReactNode } from 'react';
-import { MagnetRefriProps } from '../types';
-
+import { MagnetsItem } from '../types/magnetGroup';
 interface DetailMagnetContextType {
     isOpen: boolean;
-    handleOpen: (data: MagnetRefriProps) => void,
+    handleOpen: (data: MagnetsItem) => void,
     handleClose: () => void,
-    data: MagnetRefriProps | null
+    data: MagnetsItem | null
 }
 
 // Create the context with a default value of the correct type
@@ -13,17 +12,13 @@ const DetailMagnetContext = createContext<DetailMagnetContextType | undefined>(u
 
 export const DetailMagnetProvider = ({ children }: { children: ReactNode }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [data, setData] = useState<MagnetRefriProps | null>(null)
+    const [data, setData] = useState<MagnetsItem | null>(null)
 
-    const handleOpen = (data : MagnetRefriProps) =>{
-        console.log('handleOpen')
+    const handleOpen = (data : MagnetsItem) =>{
         setIsOpen(true)
         setData(data)
-        console.log(!isOpen)
-        console.log(data)
     }
     const handleClose = () =>{
-        console.log('handleClose')
         setIsOpen(false)
         setData(null)
     }

@@ -1,5 +1,10 @@
 import { generateClient } from "aws-amplify/api"
-import { createUser, updateUser } from "../graphql/mutations";
+import { 
+  createUser,
+  updateUser,
+  deleteMagnet,
+  createMagnet
+ } from "../graphql/mutations";
 import { NewUserInput } from "../types/graphql";
 import { UserData } from "../types";
 import { getCurrentUser } from "aws-amplify/auth";
@@ -15,13 +20,8 @@ export const createUserOnDB = async (data: NewUserInput) => {
         query: createUser,
         variables: { input: data }
       });
-      console.log({
-        status: STATUS.SUCCESS,
-        msg: 'Usuario creado exitosamente',
-        data: response
-      })
       return {
-        status: 'success',
+        status: STATUS.SUCCESS,
         msg: 'Usuario creado exitosamente',
         data: response
       };
@@ -46,11 +46,11 @@ export const updateUserOnDB = async (data: UserData) => {
       query: updateUser,
       variables: { input: input }
     });
-    console.log({
+    /* console.log({
       status: STATUS.SUCCESS,
       msg: 'Usuario modificado exitosamente',
       data: response
-    })
+    }) */
     return {
       status: STATUS.SUCCESS,
       msg: 'Usuario modificado exitosamente',
@@ -66,3 +66,65 @@ export const updateUserOnDB = async (data: UserData) => {
   }
 }
   
+
+/* Magnets */
+export const createMagnetOndDB = async (locationID: string, magentGroupID: string) =>{
+  try {
+    const input = {
+      locationID,
+      magentGroupID
+    }
+    const response = await client.graphql({
+      query: createMagnet,
+      variables: { input: input }
+    });
+    /* console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Magnet creado',
+      data: response
+    }) */
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'Magnet creado',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    throw {
+      status: STATUS.FAIL,
+      msg: 'Error al crear Magnet',
+      data: null
+    };
+  }
+}
+
+export const deleteMagnetOnDB = async(id: string) =>{
+  try {
+    const input = {
+      id: id
+    }
+    const response = await client.graphql({
+      query: deleteMagnet,
+      variables: { input: input }
+    });
+    /* console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Magnet eliminado',
+      data: response
+    }) */
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'Magnet eliminado',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    throw {
+      status: STATUS.FAIL,
+      msg: 'Error al eliminar Magnet',
+      data: null
+    };
+  }
+}
+
+/* Magnets */

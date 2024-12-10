@@ -66,7 +66,7 @@ export default function SignUp() {
           });
         }
       } else{
-        toast.error(result.msg)
+        toast.error(result.msg, {duration: 1200})
       }
     } catch (error) {
       console.error(error)

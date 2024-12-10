@@ -42,7 +42,7 @@ export default function ConfirmCode() {
       if(result.status === STATUS.SUCCESS && result.isSignUpComplete){
         navigate('/auth/login')
       } else{
-        toast.error(result.msg)
+        toast.error(result.msg, {duration: 1200})
       }
     } catch (error) {
       console.error(error)  

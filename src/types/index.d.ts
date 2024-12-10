@@ -1,3 +1,6 @@
+import { CategoryQuery } from "./graphql";
+import { CategoryItem } from "./location";
+
 export type day = "lunes" | "martes" | "miércoles" | "jueves" | "viernes" | "sábado" | "domingo"
 
 export interface SideBarButton {
@@ -25,7 +28,7 @@ export interface RoundedButtonCategoriesProps {
   }
 
 export interface RoundedButtonTooltipCategoriesProps extends RoundedButtonCategoriesProps {
-    options: Category[];
+    options: CategoryQuery[];
 }
 
 export interface ColorFridge {

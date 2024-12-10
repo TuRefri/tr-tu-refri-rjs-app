@@ -47,7 +47,6 @@ export const confirmSignUpUser = async ( user: FormConfirmSignUpUser) =>{
       username: user.username,
       confirmationCode: user.confirmationCode,
     });
-    console.log(nextStep)
     return {
       status: STATUS.SUCCESS,
       msg: 'codigo valido',
@@ -146,10 +145,10 @@ export const confirmResetPasswordUser = async (data: FormConfirmResetPasswordUse
       newPassword: data.newPassword,
       confirmationCode: data.confirmationCode
     });
-    console.log(result)
     return {
       status: STATUS.SUCCESS,
       msg: 'successfull password reset',
+      data: result
     }
   } catch (error : any) {
     console.log(error)

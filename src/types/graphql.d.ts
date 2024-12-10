@@ -4,3 +4,8 @@ export interface NewUserInput {
     username: string;
     userType: string;
 }
+
+export interface CategoryQuery {
+    id: string;
+    name : string;
+}

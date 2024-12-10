@@ -40,7 +40,6 @@ export default function ModalCreatePromotion({ handleCloseCreatePromotionModal, 
         setLoading(true);
         form.id = Math.floor(Math.random() * 4000) + 1;
         form.store_id = selectedStoreForPromotion
-        console.log(form)
         const storedPromotions = sessionStorage.getItem("promotions_user");
         let userPromotions = storedPromotions ? JSON.parse(storedPromotions) : [];
     
@@ -49,7 +48,7 @@ export default function ModalCreatePromotion({ handleCloseCreatePromotionModal, 
     
         setTimeout(() => {
             setLoading(false);
-            toast.success('¡Creación exitosa!');
+            toast.success('¡Creación exitosa!', {duration: 1200});
             handleCloseCreatePromotionModal()
         }, 2000);
     };

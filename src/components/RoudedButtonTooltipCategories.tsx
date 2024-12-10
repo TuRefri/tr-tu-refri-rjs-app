@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Category, RoundedButtonTooltipCategoriesProps } from "../types";
+import {  RoundedButtonTooltipCategoriesProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGlobalContext } from "../context/global-context";
 import useUserAuth from "../hooks/useUserAuth";
 import { toast } from "sonner";
+import { CategoryQuery } from "../types/graphql";
 
 export default function RoundedButtonTooltipCategories({ icon, options }: RoundedButtonTooltipCategoriesProps) {
   const [visible, setVisible] = useState(false);
@@ -29,7 +30,7 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
     };
   }, []);
 
-  const handleSelectCategoryList = (item: Category) => {
+  const handleSelectCategoryList = (item: CategoryQuery) => {
     navigate("/");
     handleSelectCategory(item)
     setVisible(false);

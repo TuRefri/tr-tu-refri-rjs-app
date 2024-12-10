@@ -1,24 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFridgeContext } from "../../context/fridge-color-context";
 import { UserData } from "../../types";
 import { updateUserOnDB } from "../../functions/mutations_grapql";
 import { toast } from "sonner";
+import useUserInfoDB from "../../hooks/useGetUserInfoDB";
 export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
 }
-/* const initialForm = {
+const initialForm = {
   email: "",
+  username: "",
   name: "",
   birthday:  "",
-}; */
+};
 
 export default function UserProfile() {
   const { currentColor } = useFridgeContext();
+  const { user, refetch, loadingUserData } = useUserInfoDB()
   const [editProfile, setEditProfile] = useState(false);
-  const userData = JSON.parse(window.localStorage.getItem('user_data') || '{}');
-  const [form, setForm] = useState<UserData>(userData);
+  const [form, setForm] = useState<UserData>(user || initialForm);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() =>{
+    if(user){
+      setForm(user)
+    }
+  },[user])
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -33,30 +41,24 @@ export default function UserProfile() {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log(form)
       const result = await updateUserOnDB(form)
       if(result.status === STATUS.SUCCESS){
-        //@ts-ignore
-        console.log(result.data.data.updateUser, 'result.data.data.updateUser')
-        //@ts-ignore
-        window.localStorage.setItem('user_data', JSON.stringify(result.data.data.updateUser || '{}'))
-        toast.success(result.msg)
+        refetch()
+        toast.success(result.msg, {duration: 1200})
       } else{
-        toast.error(result.msg)
+        toast.error(result.msg, {duration: 1200})
       }
     } catch (error) {
       console.error(error)
-      toast.error('Error al modificar el usuario.')
-    }
-    setTimeout(() => {
+      toast.error('Error al modificar el usuario.', {duration: 1200})
+    } finally{
       setLoading(false);
       setEditProfile(false); // Salir del modo de edición
-      console.log("Formulario enviado:", form);
-    }, 2000);
+    }
   };
 
   const cancelUpdateProfile = () =>{
-    setForm(userData)
+    setForm(user || initialForm)
     setEditProfile(false)
   }
   return (
@@ -84,20 +86,31 @@ export default function UserProfile() {
         {!editProfile ? 
         <>
         <section className="flex w-full items-start justify-between">
+          {!loadingUserData? 
           <div>
             <h1
-              className="text-lg font-semibold"
+              className="text-lg font-semibold truncate"
               style={{ color: currentColor.textPrimaryColor }}
             >
-              {userData?.name || userData?.username }
+              {user?.name || user?.username}
             </h1>
             <h4
               className="text-xs"
               style={{ color: currentColor.textSecondaryColor }}
             >
-              @{userData?.username}
+              @{user?.username}
             </h4>
           </div>
+          : 
+          <div className="w-[60%]">
+            <div className="animate-pulse flex space-x-4">
+              <div className="flex-1 space-y-3 py-1">
+                <div className="h-4 bg-slate-300 rounded"></div>
+                <div className="h-3 bg-slate-300 rounded"></div>
+              </div>
+            </div>
+          </div>
+          }
         </section>
 
         <div className="my-3 border" style={{ color: currentColor.border }} />

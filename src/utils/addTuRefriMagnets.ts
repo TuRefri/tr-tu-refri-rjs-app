@@ -1,9 +1,9 @@
-import { MagnetRefriProps } from "../types";
+import { Location } from "../types/location";
 
-export const addMagnetToSStorage = (data: MagnetRefriProps) => {
+export const addMagnetToSStorage = (data: Location) => {
   try {
     const storedMagnets = window.sessionStorage.getItem('magnets');
-    let newArrMagnets: MagnetRefriProps[] = [];
+    let newArrMagnets: Location[] = [];
 
     if (storedMagnets) {
       newArrMagnets = JSON.parse(storedMagnets);
@@ -11,7 +11,6 @@ export const addMagnetToSStorage = (data: MagnetRefriProps) => {
 
     const exists = newArrMagnets.some(magnet => magnet.id === data.id);
     if (exists) {
-      console.log("El imán ya existe en sessionStorage.");
       return { save: false, cause: 'already exists' };
     }
 
@@ -28,14 +27,13 @@ export const addMagnetToSStorage = (data: MagnetRefriProps) => {
 export const removeMagnetFromSStorage = (id: number) => {
   try {
     const storedMagnets = window.sessionStorage.getItem('magnets');
-    let newArrMagnets: MagnetRefriProps[] = [];
+    let newArrMagnets: Location[] = [];
 
     if (storedMagnets) {
       newArrMagnets = JSON.parse(storedMagnets);
     }
-    const filteredMagnets = newArrMagnets.filter(magnet => magnet.id !== id);
+    const filteredMagnets = newArrMagnets.filter(magnet => Number(magnet.id) !== id);
     if (filteredMagnets.length === newArrMagnets.length) {
-      console.log("No se encontró el imán con el id especificado.");
       return { removed: false, cause: 'not found' };
     }
     window.sessionStorage.setItem('magnets', JSON.stringify(filteredMagnets));

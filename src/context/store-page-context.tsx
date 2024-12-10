@@ -19,21 +19,16 @@ export const StorePageProvider = ({ children }: { children: ReactNode }) => {
     const [data, setData] = useState<MagnetRefriProps | null>(null)
 
     const handleOpen = (data : MagnetRefriProps) =>{
-        console.log('handleOpen')
         setIsOpen(true)
         setData(data)
-        console.log(!isOpen)
-        console.log(data)
     }
     const handleClose = () =>{
-        console.log('handleClose')
         setIsOpen(false)
         setData(null)
     }
 
     const handleSelectCategory = (category: Category | '') =>{
         if(category !== '' && category.id === 16){
-            console.log('entra aqui')
             setSelectedCategory('')
         }
         else if(category !== '' && selectedCategory !== '' && category.id === selectedCategory.id){
