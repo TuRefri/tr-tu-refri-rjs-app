@@ -27,7 +27,7 @@ export default function TuRefri() {
   const {isOpen, handleClose } = useDetailMagnetContext();
   const { magnetgroups, loadingMagnets, refetch } = useGetMagnets()
   const { authenticated } = useUserAuth()
-
+  console.log(authenticated, 'authenticated')
   useEffect(() =>{
     if(!selectedMagnetGroup && magnetgroups.length > 0){
       handleSelectMagnetGroup(magnetgroups[0])

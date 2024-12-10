@@ -7,8 +7,8 @@ export default function UserProfilePage() {
   const [ authenticated, setAuthenticated] = useState(false)
   useEffect(() =>{
     getCurrentUser()
-    .then(()=> setAuthenticated(true))
-    .catch(() => setAuthenticated(false))
+    .then((data)=>{console.log(data); setAuthenticated(true)})
+    .catch((error) => {console.log(error);setAuthenticated(false)})
   })
 
   if (!authenticated) return <UserNotAuthenticated />
