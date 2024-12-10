@@ -32,7 +32,6 @@ const ResetPasswordPage = lazy(() => import('./routes/reset-password.tsx'));
 
 // Configure Amplify
 Amplify.configure(config);
-console.log(config ,'Amplify.configure(config)')
 const router = createBrowserRouter([
     {
         path: "",
