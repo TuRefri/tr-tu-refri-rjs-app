@@ -45,7 +45,7 @@ export default function FilterButtonSearchbarMap() {
             <button
                 ref={buttonFilterRef}
                 onClick={() => setOpen(!open)}
-                className='bg-white px-2 py-2 shadow-lg h-full w-auto rounded-full active:bg-gray-100 active:border-black active:scale-95'
+                className='bg-white p-2 shadow-lg h-full w-auto rounded-full active:bg-gray-100 active:border-black active:scale-95'
             >
                 <img src={'/icons/filter.svg'} alt='filter' height={25} width={25} />
             </button>

@@ -77,9 +77,9 @@ export default function LocationsToShowInMap({ map, handleCloseModal, handleSele
     handleCreateMarkers(filteredLocations);
   }, [locations, selectedCategory, radius, position]);
 
-  if (loading) {
+  if (true) {
     return (
-      <div className='flex gap-x-2 text-sm px-6 py-2 bg-white shadow-lg text-gray-600 rounded-full items-center'>
+      <div className='flex gap-x-2 text-sm px-6 py-[.7rem] bg-white shadow-lg text-gray-600 rounded-full items-center w-fit '>
         <div role="status">
           <svg
             aria-hidden="true"
