@@ -15,7 +15,10 @@ export default function useGetMagnets() {
                 makeQuery(data.userId)
             }
         })
-        .catch(() => console.error('user not logged'))
+        .catch(() => {
+            console.error('user not logged')
+            setLoadingMagnets(false)
+        })
     },[])
 
     const makeQuery = async (userID : string) =>{

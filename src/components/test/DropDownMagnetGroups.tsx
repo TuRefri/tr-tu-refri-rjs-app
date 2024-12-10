@@ -6,7 +6,7 @@ interface DrowDropTuRefriProps {
     magnetgroups: MagnetGroup[],
     loading: boolean
 }
-export default function Example({magnetgroups, loading } : DrowDropTuRefriProps) {
+export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDropTuRefriProps) {
     const { selectedMagnetGroup , handleSelectMagnetGroup } = useGlobalContext()
     return (
     <Menu as="div" className="w-fit relative inline-block text-left">
