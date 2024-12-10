@@ -133,7 +133,7 @@ export default function Login() {
       </div>
       <section className="w-[90%] flex flex-col gap-y-3 py-4">
         <button 
-          onClick={(e) =>{ e.preventDefault(); signInWithRedirect({ provider: "Facebook"})}}
+          onClick={() => signInWithRedirect({ provider: "Facebook"})}
           className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           <img
             src="/icons/social-media/logo-facebook.svg"
@@ -142,7 +142,7 @@ export default function Login() {
           <span>Ingresar con Facebook</span>
         </button>
         <button 
-           onClick={(e) =>{ e.preventDefault(); signInWithRedirect({ provider: "Google"})}}
+           onClick={() => signInWithRedirect({ provider: "Google"})}
           className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
           <img
             src="/icons/social-media/logo-google-color.svg"
