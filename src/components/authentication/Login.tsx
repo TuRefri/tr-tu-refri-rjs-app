@@ -24,14 +24,11 @@ export default function Login() {
 
   useEffect(() => {
     const unsubscribe = Hub.listen("auth", ({ payload }) => {
+      console.log(payload, 'payload')
       switch (payload.event) {
         case "signInWithRedirect":
-          setLoadingExternalProvider('')
-          navigate('/');
-          window.localStorage.removeItem('login_provider')
           break;
         case "signInWithRedirect_failure":
-          setLoadingExternalProvider('')
           toast.error('Error al ingresar')
           console.log('signInWithRedirect_failure', 'google login')
           break;
@@ -83,7 +80,6 @@ export default function Login() {
   };
 
   const SignInWithExtProvider = (provider: string) =>{ 
-    window.localStorage.setItem('login_provider', provider)
     if(provider === 'Google'){
       setLoadingExternalProvider(provider)
       signInWithRedirect({ provider: "Google"})
@@ -168,9 +164,7 @@ export default function Login() {
           className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           
           {
-            (loadingExternalProvider === 'Facebook' ||
-              window.localStorage.getItem('login_provider') === 'Facebook'
-            )?(
+            (loadingExternalProvider === 'Facebook')?(
             <div role="status">
               <svg
                   aria-hidden="true"
@@ -203,9 +197,7 @@ export default function Login() {
            onClick={() =>SignInWithExtProvider('Google')}
           className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
           {
-            (loadingExternalProvider === 'Google' ||
-              window.localStorage.getItem('login_provider') === 'Google'
-            )?(
+            (loadingExternalProvider === 'Google')?(
             <div role="status">
               <svg
                   aria-hidden="true"

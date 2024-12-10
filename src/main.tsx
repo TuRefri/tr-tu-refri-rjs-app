@@ -13,6 +13,7 @@ import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import SuspenseComponent from './components/suspense/SuspenseComponent.tsx';
+import 'aws-amplify/auth/enable-oauth-listener';
 // Lazy load components
 const Root = lazy(() => import('./routes/root'));
 const TuRefri = lazy(() => import('./routes/turefri'));
