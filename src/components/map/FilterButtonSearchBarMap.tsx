@@ -23,22 +23,31 @@ export default function FilterButtonSearchbarMap() {
         setRangeValue(value)
         handleRadius(ranges[value])
     }
-    const handleClickOutside = (event: MouseEvent) => {
-        if (divRef.current && !divRef.current.contains(event.target as Node) && !buttonFilterRef.current?.contains(event.target as Node)) {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+        if (
+            divRef.current && 
+            !divRef.current.contains(event.target as Node) && 
+            !buttonFilterRef.current?.contains(event.target as Node)
+        ) {
             setOpen(false);
         }
     };
+    
     useEffect(() => {
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('touchstart', handleClickOutside); // Agrega touchstart
         } else {
             document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside); // Remueve touchstart
         }
-
+    
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
         };
     }, [open]);
+    
 
     return (
         <div className='relative'>

@@ -32,7 +32,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
     <LogOutButton combinedClassName={combinedClassName} icon={icon}/>
   )
 
-  if(href === '/events') return(
+  if(href === '/events' || href === '/map') return(
     <button
         onClick={() => handleActionButton()}
         type="button"
