@@ -12,7 +12,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
   
   const combinedClassName = `${classNameTheme} ${className || ''}`.trim();
 
-  const handleActionButton = () =>{
+  const handleActionButton = (href : string) =>{
     if(!authenticated){
       toast('¡Inicia sesión para aprovechar esta función!', {
         action: <button 
@@ -25,7 +25,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
       position: 'top-center'
       });
     } else{
-      navigate('/events')
+      navigate(href)
     }
   }
   if(href === '/logout') return(
@@ -34,7 +34,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
 
   if(href === '/events' || href === '/map') return(
     <button
-        onClick={() => handleActionButton()}
+        onClick={() => handleActionButton(href)}
         type="button"
         className={combinedClassName}
       >
