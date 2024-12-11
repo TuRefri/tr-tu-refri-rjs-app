@@ -1,6 +1,5 @@
-import { Promotion } from '../types'
 interface PromotionCardProps {
-    data : Promotion
+    data : any
 }
 
 const formatDate = (date: string) => {
@@ -10,7 +9,7 @@ const formatDate = (date: string) => {
 
 export default function PromotionCard({data} : PromotionCardProps) {
 
-    const formattedDate = formatDate(data.end_date);
+    const formattedDate = formatDate(data.endDate);
     
   return (
     <article className='shadow-sm cursor-pointer w-full rounded-lg border bg-gray-50'>
@@ -21,7 +20,7 @@ export default function PromotionCard({data} : PromotionCardProps) {
         </div>
         <div className='flex flex-col pt-2 pb-4 px-4'>
                 <section className='relative w-full'>
-                    <h1 className='font-semibold text-md'>{data.name}</h1>
+                    <h1 className='font-semibold text-md'>{data.title}</h1>
                 </section>
                 <section className='flex flex-col gap-y-1 text-xs text-gray-600 font-regular pt-1 w-full justify-end'>
                     <p className='flex items-center gap-x-1'>{data.description}</p>

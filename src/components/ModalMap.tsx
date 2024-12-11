@@ -8,6 +8,7 @@ import useGetS3Data from '../hooks/useGetS3Data'
 import { createMagnetOndDB } from '../functions/mutations_grapql'
 import { toast } from 'sonner'
 import {  MagnetsItem } from '../types/magnetGroup'
+import useGetMagnets from '../hooks/useGetMagnets'
 interface ModalMapProps {
     data: Location | null
     handleCloseModal: () => void
@@ -15,6 +16,7 @@ interface ModalMapProps {
 export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   const { selectedMagnetGroup } = useGlobalContext()
   const { authenticated } = useUserAuth()
+  const { refetch } = useGetMagnets()
   const { awsS3Name, awsS3Region } = useGetS3Data()
   const [loading, setLoading] = useState(false)
   const handleActionButton = (data : Location | null) =>{
@@ -28,10 +30,12 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   }
   const handleAddMagnetToRefri = async (data: Location) =>{
     if(!selectedMagnetGroup) return toast.error('No hay un grupo de imanes seleccionado', {duration: 2000,  position: 'top-center'})
-    if(!magnetExistInMagnetGroup(data.id, selectedMagnetGroup.magnets.items)){
+      const result = magnetExistInMagnetGroup(data.id, selectedMagnetGroup.magnets.items)
+      if(!result){
         try {
           setLoading(true)
           await createMagnetOndDB(data.id, selectedMagnetGroup?.id )
+          refetch()
           toast.success('Imán agregado exitosamente', {duration: 2000,  position: 'top-center'})
         } catch (error) {
           toast.error('Error al agregar el imán de Tu Refri', {duration: 2000,  position: 'top-center'})

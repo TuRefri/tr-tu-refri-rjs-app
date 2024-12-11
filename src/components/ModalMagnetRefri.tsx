@@ -1,7 +1,7 @@
 import { useDetailMagnetContext } from '../context/detail-magnet-context'
 import { AnimatePresence, motion } from 'framer-motion';
 import { day, /* Promotion */ } from '../types';
-/* import PromotionCard from './PromotionCard'; */
+import PromotionCard from './PromotionCard';
 import useGetS3Data from '../hooks/useGetS3Data';
 import { Schedule } from '../types/magnetGroup';
 interface ModalMagnetRefriProps {
@@ -28,6 +28,7 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
         ? formatSchedule(data.location.schedules.items)
         : 'Horarios no disponibles';
     console.log(formattedSchedule)
+    console.log(data)
     return (
         <>
             <AnimatePresence>
@@ -107,13 +108,13 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                         />
                     </h2>
                     <ul className='w-[95%] flex flex-col gap-y-2'>
-                        {/* {promotionsStore.map(item =>{
+                        {data?.location.promotions.items.map((item) =>{
                             return(
-                                <li>
+                                <li key={item.id}>
                                     <PromotionCard data={item}/>
                                 </li>
                             )
-                        })} */}
+                        })}
                     </ul>
                     <div className="my-4 w-full border-b" />
                     {data && (

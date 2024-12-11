@@ -11,6 +11,7 @@ export interface Location {
     store:      Store;
     promotions: Magnets;
     schedules:  ScheduleItems;
+    promotions: Promotions
 }
 
 export interface MagnetsItem {
@@ -49,4 +50,17 @@ export interface Schedule {
 }
 export interface ScheduleItems {
     items: Schedule[]
+}
+
+export interface Promotions {
+    items: PromotionsItem[];
+}
+
+export interface PromotionsItem {
+    id:          string;
+    title:       string;
+    description: string;
+    startDate:   string;
+    endDate:     string;
+    image:       string;
 }

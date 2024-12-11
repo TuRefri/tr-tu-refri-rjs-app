@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { listMagnetGroupsQuery } from '../functions/queries_graphql'
 import { getCurrentUser } from 'aws-amplify/auth'
 import { MagnetGroup } from '../types/magnetGroup'
+import { useGlobalContext } from '../context/global-context'
 /* import { UserData } from '../types' */
 export default function useGetMagnets() {
     const [loadingMagnets, setLoadingMagnets] = useState(true)
     const [magnetgroups, setMagnetGroups] = useState<MagnetGroup[]>([])
     const [error, setErrors] = useState<unknown>(null)
-
+    const { handleSelectMagnetGroup } = useGlobalContext()
     useEffect(() =>{
         getCurrentUser()
         .then(data =>{
@@ -26,6 +27,8 @@ export default function useGetMagnets() {
             setLoadingMagnets(true)
             const response = await listMagnetGroupsQuery(userID)
             if(response.status === 'SUCCESS'){
+                //@ts-ignore
+                handleSelectMagnetGroup(response.data.data.listMagnetGroups.items[0])
                 //@ts-ignore
                 setMagnetGroups(response.data.data.listMagnetGroups.items)
             }
