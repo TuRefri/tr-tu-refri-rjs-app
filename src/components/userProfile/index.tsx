@@ -44,13 +44,13 @@ export default function UserProfile() {
       const result = await updateUserOnDB(form)
       if(result.status === STATUS.SUCCESS){
         refetch()
-        toast.success(result.msg, {duration: 1200})
+        toast.success(result.msg, {duration: 2000,  position: 'top-center'})
       } else{
-        toast.error(result.msg, {duration: 1200})
+        toast.error(result.msg, {duration: 2000,  position: 'top-center'})
       }
     } catch (error) {
       console.error(error)
-      toast.error('Error al modificar el usuario.', {duration: 1200})
+      toast.error('Error al modificar el usuario.', {duration: 2000,  position: 'top-center'})
     } finally{
       setLoading(false);
       setEditProfile(false); // Salir del modo de edición
@@ -88,12 +88,15 @@ export default function UserProfile() {
         <section className="flex w-full items-start justify-between">
           {!loadingUserData? 
           <div>
-            <h1
-              className="text-lg font-semibold truncate"
-              style={{ color: currentColor.textPrimaryColor }}
-            >
-              {user?.name || user?.username}
-            </h1>
+<h1
+  className="text-lg font-semibold truncate"
+  style={{ color: currentColor.textPrimaryColor }}
+>
+  {((user?.name || user?.username) && (user?.name || user?.username)?.length > 25
+    ? `${(user?.name || user?.username).substring(0, 20)}...`
+    : user?.name || user?.username) || ""}
+</h1>
+
             <h4
               className="text-xs"
               style={{ color: currentColor.textSecondaryColor }}

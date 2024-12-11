@@ -11,10 +11,10 @@ export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDrop
     return (
     <Menu as="div" className="w-fit relative inline-block text-left">
       <div>
-        {loading && !selectedMagnetGroup? 
-            <div role="status" className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
-                <div className="flex items-center justify-center w-24 h-8 bg-gray-200 rounded  dark:bg-gray-300" />
-            </div>
+        {loading || !selectedMagnetGroup? 
+            <MenuButton role="status" className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
+                <div className="flex items-center justify-center w-24 h-9 bg-gray-200 rounded  dark:bg-gray-300" />
+            </MenuButton>
             :
             <>
             <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500">
@@ -49,7 +49,8 @@ export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDrop
           <button
             onClick={() =>
               toast.info(
-                'Por el momento sólo puedes tener un Refri. ¡Muy pronto podrás disfrutar de múltiples refris! 😁'
+                'Por el momento sólo puedes tener un Refri. ¡Muy pronto podrás disfrutar de múltiples refris! 😁',
+                { duration: 2000,  position: 'top-center'}
               )
             }
             className="flex mx-1 rounded-md justify-center items-center px-12 py-2 text-sm bg-blue-200 text-blue-500 hover:bg-blue-300 focus:bg-blue-400 focus:text-white focus:outline-none"

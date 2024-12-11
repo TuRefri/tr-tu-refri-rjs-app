@@ -14,10 +14,10 @@ import SimpleLoadingComponent from "../components/SimpleLoadingComponent";
 import useUserAuth from "../hooks/useUserAuth";
 //import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
-  {url: '/images/banner/banner_coca_cola.avif', alt: "banner 1"},
-  {url: '/images/banner/burguer-king-banner.avif', alt: "banner 2"},
-  {url: '/images/banner/pepsi-banner.avif', alt: "banner 3"},
-  {url: '/images/banner/starbucks-banner.avif', alt: "banner 4"},
+  {url: '/images/banner/banner_coca_cola.webp', alt: "banner 1"},
+  {url: '/images/banner/burguer-king-banner.webp', alt: "banner 2"},
+  {url: '/images/banner/pepsi-banner_1.webp', alt: "banner 3"},
+  {url: '/images/banner/starbucks-banner_1.webp', alt: "banner 4"},
 ]
 export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,6 @@ export default function TuRefri() {
   const {isOpen, handleClose } = useDetailMagnetContext();
   const { magnetgroups, loadingMagnets, refetch } = useGetMagnets()
   const { authenticated } = useUserAuth()
-  console.log(authenticated, 'authenticated')
   useEffect(() =>{
     if(!selectedMagnetGroup && magnetgroups.length > 0){
       handleSelectMagnetGroup(magnetgroups[0])
@@ -62,9 +61,9 @@ export default function TuRefri() {
       await deleteMagnetOnDB(id)
       refetch()
       handleClose()
-      toast.success('Imán eliminado exitosamente', {duration: 1200})
+      toast.success('Imán eliminado exitosamente', {duration: 2000,  position: 'top-center'})
     } catch (error) {
-      toast.error('Error al eliminar el imán de Tu Refri', {duration: 1200})
+      toast.error('Error al eliminar el imán de Tu Refri', {duration: 2000,  position: 'top-center'})
     }
   }
   const magnetsToShow = () => {

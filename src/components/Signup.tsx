@@ -1,84 +1,83 @@
-import { useState, useEffect } from "react";
-import { useFridgeContext } from "../../context/fridge-color-context";
+import { useState } from "react";
+import { useFridgeContext } from "../context/fridge-color-context";
+import { signInWithRedirect } from "aws-amplify/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { getCurrentUser, signInWithRedirect } from "aws-amplify/auth";
-import { signInUser } from "../../functions/auth";
-import { Hub } from "aws-amplify/utils";
+import { SignUpUser } from "../functions/auth";
 import { toast } from "sonner";
-import { getUserInfo } from "../../functions/user";
-import { useGlobalContext } from "../../context/global-context";
 enum STATUS {
-    SUCCESS = 'SUCCESS',
-    FAIL = 'FAIL',
-  }
-const initialForm = { username: "", password: "" };
+  SUCCESS = 'SUCCESS',
+  FAIL = 'FAIL',
+}
+const initialForm = { username: "", password: "", email: "", confirmPassword: "" };
+const initialErrors = { username: "", password: "", email: "", confirmPassword: "" };
+const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/; // Al menos 8 caracteres, incluyendo uno numérico
 
-export default function Login() {
-  const navigate = useNavigate()
-  const { handleSetUserData } = useGlobalContext()
+export default function SignUp() {
   const { currentColor } = useFridgeContext();
   const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
   const [loadingExternalProvider, setLoadingExternalProvider] = useState('')
-  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate()
+  const validateForm = () => {
+    const newErrors = { ...initialErrors };
 
-  useEffect(() => {
-    const unsubscribe = Hub.listen("auth", ({ payload }) => {
-      console.log(payload, 'payload')
-      switch (payload.event) {
-        case "signInWithRedirect":
-          break;
-        case "signInWithRedirect_failure":
-          toast.error('Error al ingresar', { duration: 2000,  position: 'top-center'})
-          console.log('signInWithRedirect_failure', 'google login')
-          break;
-      }
-    });
+    if (!form.username) newErrors.username = "El nombre de usuario es obligatorio.";
+    if (!form.email) newErrors.email = "El correo electrónico es obligatorio.";
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "El correo electrónico no es válido.";
 
-    return unsubscribe;
-  }, []);
+    if (!form.password) newErrors.password = "La contraseña es obligatoria.";
+    else if (!passwordRegex.test(form.password)) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres e incluir un número.";
+    }
+
+    if (!form.confirmPassword) newErrors.confirmPassword = "La confirmación de contraseña es obligatoria.";
+    else if (form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden.";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => error === "");
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Limpiar error al escribir
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
-    setError(null);
-    setLoading(true)
-    if (!form.username || !form.password) {
-      setError("Por favor, completa todos los campos.");
-      return;
-    }
+    e.preventDefault();
+
+    if (!validateForm()) return;
     try {
-      const result = await signInUser(form)
-      if(result.status === STATUS.SUCCESS && result.isSignedIn){
-        const userdata = await getCurrentUser()
-        const userDB = await getUserInfo(userdata.userId)
-        if(userDB.data){
-          handleSetUserData({
-            username: userDB.data.username,
-            name: userDB.data.name,
-            avatar: userDB.data.avatar,
-            bannerProfile: userDB.data.bannerProfile,
-            email: userDB.data.email,
-            birthday: userDB.data.birthday
-        })
+      setLoading(true);
+      const result = await SignUpUser(form)
+      console.log(result, 'result')
+      if (result.status === STATUS.SUCCESS) {
+        const { userID, nextStep } = result;
+        
+        if(result.nextStep?.signUpStep === 'CONFIRM_SIGN_UP'){
+          navigate('/auth/confirm-code', {
+            state: {
+              userID,
+              email: form.email,
+              username: form.username,
+              codeDeliveryDetails: nextStep || null,
+            },
+          });
         }
-        navigate('/user-profile')
-      } else {
+      } else{
         toast.error(result.msg, {duration: 2000,  position: 'top-center'})
       }
     } catch (error) {
       console.error(error)
-    } finally{
-      setLoading(false);
+      toast.error('Erro al registrarse', { duration: 2000,  position: 'top-center'})  
+    } finally {
+      setLoading(false)
     }
-
-
+    
   };
-
   const SignInWithExtProvider = (provider: string) =>{ 
     if(provider === 'Google'){
       setLoadingExternalProvider(provider)
@@ -87,10 +86,10 @@ export default function Login() {
       setLoadingExternalProvider(provider)
       signInWithRedirect({ provider: "Google"})}
     }
-    
   return (
     <div className="w-full h-full flex flex-col overflow-y-scroll items-center no-scrollbar px-4 pt-8 sm:pt-16">
       <img src="/turefri-logo.png" className="w-56 pb-8" style={{ aspectRatio: '55/20'}} />
+
       <form onSubmit={handleSubmit} className="flex flex-col w-[90%] pb-3">
         <input
           type="text"
@@ -98,27 +97,43 @@ export default function Login() {
           placeholder="Nombre de usuario"
           value={form.username}
           onChange={handleChange}
-          className="border-2 rounded-md px-3 py-3 shadow-sm mb-2 text-sm"
+          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.username ? "border-red-500" : 'mb-2'}`}
         />
+        {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Correo electrónico"
+          value={form.email}
+          onChange={handleChange}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.email ? "border-red-500" : 'mb-2'}`}
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
         <input
           type="password"
           name="password"
           placeholder="Contraseña"
           value={form.password}
           onChange={handleChange}
-          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${!error &&'mb-5' }`}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm text-sm ${errors.password ? "border-red-500" : 'mb-2'}`}
         />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
-        {error && (
-          <p className="text-red-500 text-sm mb-3">{error}</p>
-        )}
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirmar contraseña"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          className={`border-2 rounded-md px-3 py-3 shadow-sm  text-sm ${errors.confirmPassword ? "border-red-500 mb2" : 'mb-5'}`}
+        />
+        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
 
         <button
           type="submit"
-          className={`py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium shadow-sm ${
-            loading ? "cursor-not-allowed" : "active:bg-blue-600"
-          }`}
-          disabled={loading}
+          className="py-2 border border-blue-500 rounded-md bg-blue-500 text-white font-medium active:bg-blue-600 shadow-sm"
         >
           {loading ? (
             <div role="status">
@@ -140,7 +155,7 @@ export default function Login() {
               </svg>
             </div>
           ) : (
-            "Ingresar"
+            "Registrarme"
           )}
         </button>
       </form>
@@ -227,22 +242,13 @@ export default function Login() {
           }
         </button>
       </section>
-      <p
-        onClick={() =>{
-          navigate('/auth/reset-password')
-        }}
-        className="text-sm cursor-pointer"
-        style={{ color: currentColor.textSecondaryColor }}
-      >
-        ¿Olvidaste tu contraseña?
-      </p>
       <div className="relative my-4 w-[90%] border border-gray-300 mt-4" />
       <p
-        className="text-sm"
+        className="text-sm pb-12"
         style={{ color: currentColor.textSecondaryColor }}
       >
-        ¿No tienes una cuenta?{" "}
-        <Link to='/auth/signup'className="text-blue-500 font-medium">Regístrate</Link>
+        ¿Ya tienes una cuenta?{" "}
+        <Link to={'/auth/login'} className="text-blue-500 font-medium">Ingresar</Link >
       </p>
     </div>
   );

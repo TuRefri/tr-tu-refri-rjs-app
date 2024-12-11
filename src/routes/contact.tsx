@@ -26,7 +26,7 @@ export default function Contact() {
     
         setTimeout(() => {
             setLoading(false);
-            toast.success('¡Envío exitoso! Gracias por comunicarte con nosotros.', {duration: 1200});
+            toast.success('¡Envío exitoso! Gracias por comunicarte con nosotros.', {duration: 2000,  position: 'top-center'});
         }, 2000);
     };
   return (

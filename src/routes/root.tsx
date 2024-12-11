@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef} from "react";
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useFridgeContext } from "../context/fridge-color-context";

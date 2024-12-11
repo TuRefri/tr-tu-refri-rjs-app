@@ -49,13 +49,13 @@ const MapSection = (props) => {
           <div className="animate-spin h-8 w-8 border-4 border-gray-800 border-t-transparent rounded-full"/>
         </div>
       )} */}
-      <div className="absolute top-8 right-6 z-20">
+      <div className="absolute bottom-20 right-6 z-20">
         <SearchBarMap />
       </div>
       <div id="map" ref={mapRef} style={{ height: `${refriDim.height}px`, width: "100%" }} />
       <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
       <UserPositionMarker map={map}/>
-      <div className="absolute top-8 inset-x-0 mx-auto z-20 w-fit">
+      <div className="absolute top-8 inset-x-0 mx-auto z-10 w-fit">
         <LocationsToShowInMap 
           map={map} 
           handleCloseModal={handleCloseModal} 

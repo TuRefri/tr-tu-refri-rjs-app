@@ -4,7 +4,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
@@ -22,11 +21,39 @@ export default defineConfig({
     react(), 
     tsconfigPaths(),
     VitePWA({
-      registerType:'autoUpdate',
+      registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,webp}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/?.*\?.*/, 
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'query-params-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, 
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/example\.com\/api\/.*$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+              },
+            },
+          },
+        ],
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [
+          new RegExp('^/api')
+        ],
       },
-      includeAssets:[
+      includeAssets: [
         'pwa-512x512.png',
         'pwa-64x64.png', 
         'pwa-192x192.png', 
@@ -39,12 +66,12 @@ export default defineConfig({
       manifest: {
         display: 'standalone',
         display_override: ['window-controls-overlay'],
-        lang:'en-US',
-        name:'turefri',
-        short_name:'TuRefri',
-        description:'pwa turefri',
+        lang: 'en-US',
+        name: 'turefri',
+        short_name: 'TuRefri',
+        description: 'pwa turefri',
         theme_color: '#19223c',
-        background_color:'#d4d4d4',
+        background_color: '#d4d4d4',
         icons: [
           {
             "src": "pwa-64x64.png",
@@ -74,6 +101,7 @@ export default defineConfig({
             "type": "image/png"
           },
         ],
-      }
-    })]
-})
+      },
+    }),
+  ],
+});

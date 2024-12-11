@@ -53,6 +53,8 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
         >
           Ingresar
       </button>,
+      duration: 2000,
+      position: 'top-center'
       });
     } else{
       setVisible(!visible)

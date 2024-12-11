@@ -59,57 +59,74 @@ export default function FilterButtonSearchbarMap() {
                 />
             )}
 
-            {open && (
-                <motion.div
-                initial={{ scaleX: 0, scaleY: 0, y: 0, transformOrigin: 'right top' }}
-                animate={{ scaleX: 1, scaleY: 1, y: buttonRef.current ? buttonRef.current.offsetHeight -50 : 0, transformOrigin: 'right top' }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className={`shadow-md z-30 absolute right-0 mt-1 h-fit rounded-md bg-white p-5 flex flex-col items-center`}
-                ref={divRef}
+{open && (
+    <motion.div
+        initial={{ scaleX: 0, scaleY: 0, y: 0, transformOrigin: 'right bottom' }}
+        animate={{
+            scaleX: 1,
+            scaleY: 1,
+            y: buttonRef.current ? -(buttonRef.current.offsetHeight + 10) : 0,
+            transformOrigin: 'right bottom',
+        }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className={`shadow-md absolute right-0 bottom-full mb-2 h-fit rounded-md bg-white p-5 flex flex-col items-center`}
+        ref={divRef}
+    >
+        <h2 className='text-gray-500 text-xs text-start w-full'>Categorías</h2>
+        <ul className='flex flex-wrap overflow-hidden gap-x-1'>
+            {categoriesShown.map(item => (
+                item.id !== "16" && (
+                    <li
+                        onClick={() => handleSelectCategory(item)}
+                        key={item.id}
+                        className={`cursor-pointer py-1 px-3 ${selectedCategory !== '' && item.id === selectedCategory.id
+                            ? "bg-blue-300 text-blue-600"
+                            : "bg-gray-200 text-gray-600"
+                            } flex items-center rounded-sm text-[10px] font-medium mt-1 whitespace-nowrap`}
+                    >
+                        {item.name}
+                    </li>
+                )
+            ))}
+        </ul>
+        <h2 className='pt-2 text-gray-500 text-xs text-start w-full'>Distancia</h2>
+        <div className="relative mb-6 w-[90%]">
+            <label htmlFor="labels-range-input" className="sr-only">Labels range</label>
+            <input
+                id="labels-range-input"
+                type="range"
+                value={rangeValue}
+                min="1"
+                max="4"
+                step={1}
+                onChange={(e) => handleSelectRange(e.target.value as '1' | '2' | '3' | '4')}
+                className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+            <div className="flex justify-between absolute w-full -bottom-4">
+                <span className={`${rangeValue === "1" ? "text-blue-500" : "text-gray-500"} text-xs`}>.5km</span>
+                <span className={`${rangeValue === "2" ? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
+                <span className={`${rangeValue === "3" ? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
+                <span className={`${rangeValue === "4" ? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
+            </div>
+        </div>
+        <h2 className='pt-2 text-gray-500 text-xs text-start w-full'>Horario</h2>
+        <div className='w-full flex gap-x-1'>
+            <button
+                onClick={() => handleTime("now")}
+                className={`cursor-pointer py-1 px-3 ${"now" === selectedTime ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px] font-medium mt-1 whitespace-nowrap`}
             >
-                    <h2 className='text-gray-500 text-xs text-start w-full'>Categorías</h2>
-                    <ul className='flex flex-wrap overflow-hidden gap-x-1'>
-                        {categoriesShown.map(item => (
-                            item.id !== "16" && (
-                                <li onClick={() => handleSelectCategory(item)} key={item.id} 
-                                    className={`cursor-pointer py-1 px-3 ${selectedCategory !== '' && item.id === selectedCategory.id ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px]  font-medium mt-1 whitespace-nowrap`}>
-                                    {item.name}
-                                </li>
-                            )
-                        ))}
-                    </ul>
-                    <h2 className='pt-2 text-gray-500 text-xs text-start w-full'>Distancia</h2>
-                    <div className="relative mb-6 w-[90%]">
-                        <label htmlFor="labels-range-input" className="sr-only">Labels range</label>
-                        <input
-                            id="labels-range-input"
-                            type="range"
-                            value={rangeValue}
-                            min="1"
-                            max="4"
-                            step={1}
-                            onChange={(e) => handleSelectRange(e.target.value as '1' | '2' | '3' | '4')}
-                            className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        />
-                        <div className="flex justify-between absolute w-full -bottom-4">
-                            <span className={`${rangeValue === "1"? "text-blue-500" : "text-gray-500"} text-xs`}>.5km</span>
-                            <span className={`${rangeValue === "2"? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
-                            <span className={`${rangeValue === "3"? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
-                            <span className={`${rangeValue === "4"? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
-                        </div>
-                    </div>
+                Abierto ahora
+            </button>
+            <button
+                onClick={() => handleTime("today")}
+                className={`cursor-pointer py-1 px-3 ${"today" === selectedTime ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px] font-medium mt-1 whitespace-nowrap`}
+            >
+                Abierto hoy
+            </button>
+        </div>
+    </motion.div>
+)}
 
-                    <h2 className='pt-2 text-gray-500 text-xs text-start w-full'>Horario</h2>
-                    <div className='w-full flex gap-x-1'>
-                        <button onClick={() => handleTime("now")} className={`cursor-pointer py-1 px-3 ${"now" === selectedTime ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px]  font-medium mt-1 whitespace-nowrap`}>
-                            Abierto ahora
-                        </button>
-                        <button onClick={() => handleTime("today")} className={`cursor-pointer py-1 px-3 ${"today" === selectedTime ? "bg-blue-300 text-blue-600" : "bg-gray-200 text-gray-600"} flex items-center rounded-sm text-[10px]  font-medium mt-1 whitespace-nowrap`}>
-                            Abierto hoy
-                        </button>
-                    </div>
-                </motion.div>
-            )}
         </div>
     );
 }

@@ -11,16 +11,14 @@ import {  MagnetsItem } from '../types/magnetGroup'
 interface ModalMapProps {
     data: Location | null
     handleCloseModal: () => void
-    handleOpenNotAuthModal: () => void
 }
-export default function ModalMap({data, handleCloseModal, handleOpenNotAuthModal} : ModalMapProps) {
+export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   const { selectedMagnetGroup } = useGlobalContext()
   const { authenticated } = useUserAuth()
   const { awsS3Name, awsS3Region } = useGetS3Data()
   const [loading, setLoading] = useState(false)
   const handleActionButton = (data : Location | null) =>{
     if(!authenticated){
-      handleOpenNotAuthModal()
       handleCloseModal()
     } else{
       if(data){
@@ -29,20 +27,20 @@ export default function ModalMap({data, handleCloseModal, handleOpenNotAuthModal
     }
   }
   const handleAddMagnetToRefri = async (data: Location) =>{
-    if(!selectedMagnetGroup) return toast.error('No hay un grupo de imanes seleccionado', {duration: 1200})
+    if(!selectedMagnetGroup) return toast.error('No hay un grupo de imanes seleccionado', {duration: 2000,  position: 'top-center'})
     if(!magnetExistInMagnetGroup(data.id, selectedMagnetGroup.magnets.items)){
         try {
           setLoading(true)
           await createMagnetOndDB(data.id, selectedMagnetGroup?.id )
-          toast.success('Imán agregado exitosamente', {duration: 1200})
+          toast.success('Imán agregado exitosamente', {duration: 2000,  position: 'top-center'})
         } catch (error) {
-          toast.error('Error al agregar el imán de Tu Refri', {duration: 1200})
+          toast.error('Error al agregar el imán de Tu Refri', {duration: 2000,  position: 'top-center'})
         } finally {
           setLoading(false)
           handleCloseModal()
         }
     }else{
-      toast.info('El imán ya existe en Tu Refri', { duration: 1200 })
+      toast.info('El imán ya existe en Tu Refri', { duration: 2000,  position: 'top-center' })
     }
   }
 

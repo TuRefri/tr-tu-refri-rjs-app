@@ -1,7 +1,6 @@
-import { lazy, Suspense } from 'react';
 import { Amplify } from 'aws-amplify';
 import config from './amplifyconfiguration.json';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -12,137 +11,117 @@ import { FridgeProvider } from './context/fridge-color-context.tsx';
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
-import SuspenseComponent from './components/suspense/SuspenseComponent.tsx';
 import 'aws-amplify/auth/enable-oauth-listener';
-// Lazy load components
-const Root = lazy(() => import('./routes/root'));
-const TuRefri = lazy(() => import('./routes/turefri'));
-const ErrorPage = lazy(() => import('./error-page'));
-const Map = lazy(() => import('./routes/map.tsx'));
-const Emergency = lazy(() => import('./routes/emergency.tsx'));
-const Contact = lazy(() => import('./routes/contact.tsx'));
-const Scan = lazy(() => import('./routes/scan.tsx'));
-const Events = lazy(() => import('./routes/events.tsx'));
-const Profile = lazy(() => import('./routes/profile.tsx'));
-const StorePage = lazy(() => import('./routes/stores.tsx'));
-const Login = lazy(() => import('./routes/login.tsx'));
-const SignUp = lazy(() => import('./routes/signup.tsx'));
-const UserProfile = lazy(() => import('./routes/user-profile.tsx'));
-const ConfirmCode = lazy(() => import('./routes/confirm-code.tsx'));
-const ResetPasswordPage = lazy(() => import('./routes/reset-password.tsx'));
+
+// Import components directly
+import RootComponent from './routes/root';
+import TuRefri from './routes/turefri';
+import ErrorPage from './error-page';
+import Map from './routes/map.tsx';
+import Emergency from './routes/emergency.tsx';
+import Contact from './routes/contact.tsx';
+import Scan from './routes/scan.tsx';
+import Events from './routes/events.tsx';
+import Profile from './routes/profile.tsx';
+import StorePage from './routes/stores.tsx';
+import Login from './routes/login.tsx';
+import SignUp from './routes/signup.tsx';
+import UserProfile from './routes/user-profile.tsx';
+import ConfirmCode from './routes/confirm-code.tsx';
+import ResetPasswordPage from './routes/reset-password.tsx';
 
 // Configure Amplify
 Amplify.configure(config);
+
+// Router configuration
 const router = createBrowserRouter([
     {
         path: "",
         element: (
             <GlobalProvider>
-                   <Suspense fallback={<SuspenseComponent />}>
-                        <Root />
-                    </Suspense>
+                <RootComponent />
             </GlobalProvider>
         ),
-        errorElement: (
-                <ErrorPage />
-        ),
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
                 element: (
                     <DetailMagnetProvider>
-                            <TuRefri />
+                        <TuRefri />
                     </DetailMagnetProvider>
                 ),
             },
             {
                 path: "auth/login",
-                element: (
-                        <Login />
-                ),
+                element: <Login />,
             },
             {
                 path: "auth/signup",
-                element: (
-                        <SignUp />
-                ),
+                element: <SignUp />,
             },
             {
                 path: "auth/confirm-code",
-                element: (
-                        <ConfirmCode />
-                ),
+                element: <ConfirmCode />,
             },
             {
                 path: "auth/reset-password",
-                element: (
-                        <ResetPasswordPage />
-                ),
+                element: <ResetPasswordPage />,
             },
             {
                 path: "profile",
-                element: (
-                        <Profile />
-                ),
+                element: <Profile />,
             },
             {
                 path: "user-profile",
-                element: (
-                        <UserProfile />
-                ),
+                element: <UserProfile />,
             },
             {
                 path: "stores",
                 element: (
                     <StorePageProvider>
-                            <StorePage />
+                        <StorePage />
                     </StorePageProvider>
                 ),
             },
             {
                 path: "stores/:id",
-                element: (
-                        <StorePage />
-                ),
+                element: <StorePage />,
             },
             {
                 path: "map",
-                element: (
-                        <Map />
-                ),
+                element: <Map />,
             },
             {
                 path: "events",
-                element: (
-                        <Events />
-                ),
+                element: <Events />,
             },
             {
                 path: "emergency",
-                element: (
-                        <Emergency />
-                ),
+                element: <Emergency />,
             },
             {
                 path: "contact",
-                element: (
-                        <Contact />
-                ),
+                element: <Contact />,
             },
             {
                 path: "scan",
-                element: (
-                        <Scan />
-                ),
+                element: <Scan />,
             },
         ],
     },
 ]);
 
+// Use a variable to hold the root instance
+let root: Root | null = null;
+
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-    createRoot(rootElement).render(
+    if (!root) {
+        root = createRoot(rootElement);
+    }
+    root.render(
         <FridgeProvider>
             <RouterProvider router={router} />
             <Toaster />
