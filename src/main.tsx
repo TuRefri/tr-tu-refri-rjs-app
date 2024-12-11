@@ -29,7 +29,9 @@ import SignUp from './routes/signup.tsx';
 import UserProfile from './routes/user-profile.tsx';
 import ConfirmCode from './routes/confirm-code.tsx';
 import ResetPasswordPage from './routes/reset-password.tsx';
+import { registerSW } from 'virtual:pwa-register'
 
+registerSW({ immediate: true })
 // Configure Amplify
 Amplify.configure(config);
 
