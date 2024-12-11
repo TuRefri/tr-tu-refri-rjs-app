@@ -107,10 +107,10 @@ export default function FilterButtonSearchbarMap() {
                 className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex justify-between absolute w-full -bottom-4">
-                <span className={`${rangeValue === "1"? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
-                <span className={`${rangeValue === "2"? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
-                <span className={`${rangeValue === "3"? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
-                <span className={`${rangeValue === "4"? "text-blue-500" : "text-gray-500"} text-xs`}>10km</span>
+                <span className={`${rangeValue === "1"? "text-blue-500" : "text-gray-500"} text-xs`}>.5km</span>
+                <span className={`${rangeValue === "2"? "text-blue-500" : "text-gray-500"} text-xs`}>1km</span>
+                <span className={`${rangeValue === "3"? "text-blue-500" : "text-gray-500"} text-xs`}>2km</span>
+                <span className={`${rangeValue === "4"? "text-blue-500" : "text-gray-500"} text-xs`}>5km</span>
             </div>
         </div>
 
