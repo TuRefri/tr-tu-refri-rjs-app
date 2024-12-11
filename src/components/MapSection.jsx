@@ -49,7 +49,7 @@ const MapSection = (props) => {
           <div className="animate-spin h-8 w-8 border-4 border-gray-800 border-t-transparent rounded-full"/>
         </div>
       )} */}
-      <div className="absolute bottom-20 right-6 z-20">
+      <div className="absolute top-32 right-6 z-20">
         <SearchBarMap />
       </div>
       <div id="map" ref={mapRef} style={{ height: `${refriDim.height}px`, width: "100%" }} />

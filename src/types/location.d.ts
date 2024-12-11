@@ -7,6 +7,7 @@ export interface Location {
     latitude: number;
     longitud: number;
     zoneID:   string;
+    promotions: Promotions
 }
 
 export interface StoreLocation {
@@ -30,3 +31,15 @@ export interface Category {
     name: string;
 }
 
+export interface Promotions {
+    items: PromotionsItem[];
+}
+
+export interface PromotionsItem {
+    id:          string;
+    title:       string;
+    description: string;
+    startDate:   string;
+    endDate:     string;
+    image:       string;
+}

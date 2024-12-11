@@ -106,6 +106,15 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                             className="absolute left-0 top-2"
                         />
                     </h2>
+                    <ul className='w-[95%] flex flex-col gap-y-2'>
+                        {/* {promotionsStore.map(item =>{
+                            return(
+                                <li>
+                                    <PromotionCard data={item}/>
+                                </li>
+                            )
+                        })} */}
+                    </ul>
                     <div className="my-4 w-full border-b" />
                     {data && (
                         <button

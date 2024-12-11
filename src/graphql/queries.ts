@@ -36,6 +36,16 @@ export const listLocationsByZone = /* GraphQL */ `
         latitude
         longitud
         zoneID
+        promotions {
+        items {
+          id
+          title
+          description
+          startDate
+          endDate
+          image
+        }
+      }
       }
       nextToken
     }

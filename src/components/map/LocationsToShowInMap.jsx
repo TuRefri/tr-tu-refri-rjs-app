@@ -10,7 +10,7 @@ export default function LocationsToShowInMap({ map, handleCloseModal, handleSele
   const { locations, loading } = useListLocations('3');
   const { selectedCategory, radius, position } = useGlobalContext();
   const { awsS3Name, awsS3Region } = useGetS3Data();
-
+  console.log(locations, 'locationslocations')
   const handleCreateMarkers = (filteredLocations) => {
     const dataIDs = filteredLocations.map(item => item.id);
 
