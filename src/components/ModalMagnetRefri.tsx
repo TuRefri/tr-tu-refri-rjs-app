@@ -32,7 +32,7 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
     const handleCopyToClipboard = (text: string) => {
         console.log(window.location.hostname)
         if(text === '') return
-        navigator.clipboard.writeText(`https://${window.location.hostname}:5173/location/${text}`)
+        navigator.clipboard.writeText(`https://${window.location.hostname}/location/${text}`)
             .then(() => {
                 toast.success('¡Url copiada en tu portapapeles! Ya puedes compartirlo con un amigo.', {duration: 2000,  position: 'top-center'});
             })
