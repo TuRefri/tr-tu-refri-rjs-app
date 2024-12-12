@@ -26,7 +26,8 @@ export default function LocationPage() {
         className="overflow-y-scroll no-scrollbar py-12 px-4 z-30 cursor-pointer relative w-full h-full flex flex-col items-center rounded-2xl shadow-md bg-[#fdfcfc]"
     >
         <section className="w-full flex justify-center pb-1">
-            <div className="h-auto w-[60%] rounded-full overflow-hidden">
+            <div className="h-auto w-[60%] rounded-full flex justify-center overflow-hidden">
+
                 <img
                     src={`https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${location?.store.avatarImage}`}
                     alt={location?.store.name}

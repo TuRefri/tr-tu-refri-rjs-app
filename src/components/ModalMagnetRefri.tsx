@@ -61,7 +61,7 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                         <img src={'/icons/close.svg'} alt="close" />
                     </button>
                     <section className="w-full flex justify-center pb-1">
-                        <div className="h-auto w-[60%] rounded-full overflow-hidden">
+                        <div className="h-auto w-[60%] rounded-full flex justify-center overflow-hidden">
                             <img
                                 src={`https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${data?.location.store.avatarImage}`}
                                 alt={data?.location.store.name}
