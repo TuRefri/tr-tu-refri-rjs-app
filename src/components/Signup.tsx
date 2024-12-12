@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Hub } from "aws-amplify/utils";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { signInWithRedirect } from "aws-amplify/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,6 +20,23 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [loadingExternalProvider, setLoadingExternalProvider] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const unsubscribe = Hub.listen("auth", ({ payload }) => {
+      console.log(payload, 'payload')
+      switch (payload.event) {
+        case "signInWithRedirect":
+          break;
+        case "signInWithRedirect_failure":
+          toast.error('Error al ingresar', { duration: 2000,  position: 'top-center'})
+          setLoadingExternalProvider('')
+          break;
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   const validateForm = () => {
     const newErrors = { ...initialErrors };
 
@@ -183,7 +201,7 @@ export default function SignUp() {
             <div role="status">
               <svg
                   aria-hidden="true"
-                  className={`inline w-6 h-6 text-transparent animate-spin dark:text-transparent fill-gray-500  dark:fill-gray-500 `}
+                  className={`inline w-8 h-8 text-transparent animate-spin dark:text-transparent fill-white  dark:fill-white `}
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

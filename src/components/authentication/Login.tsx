@@ -30,7 +30,7 @@ export default function Login() {
           break;
         case "signInWithRedirect_failure":
           toast.error('Error al ingresar', { duration: 2000,  position: 'top-center'})
-          console.log('signInWithRedirect_failure', 'google login')
+          setLoadingExternalProvider('')
           break;
       }
     });
@@ -168,7 +168,7 @@ export default function Login() {
             <div role="status">
               <svg
                   aria-hidden="true"
-                  className={`inline w-6 h-6 text-transparent animate-spin dark:text-transparent fill-gray-500  dark:fill-gray-500 `}
+                  className={`inline w-8 h-8 text-transparent animate-spin dark:text-transparent fill-white  dark:fill-white `}
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ export default function Login() {
             <div role="status">
               <svg
                   aria-hidden="true"
-                  className={`inline w-6 h-6 text-transparent animate-spin dark:text-transparent fill-gray-500  dark:fill-gray-500 `}
+                  className={`inline w-8 h-8 text-transparent animate-spin dark:text-transparent fill-gray-500  dark:fill-gray-500 `}
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
