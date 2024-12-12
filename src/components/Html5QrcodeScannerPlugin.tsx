@@ -1,4 +1,4 @@
-// file = Html5QrcodePlugin.jsx
+/* // file = Html5QrcodePlugin.jsx
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { useEffect } from 'react';
 
@@ -20,10 +20,10 @@ const createConfig = (props) => {
         config.disableFlip = props.disableFlip;
     }
     return config;
-};
+}; */
 
-const Html5QrcodePlugin = (props) => {
-
+const Html5QrcodePlugin = (/* props */) => {
+/* 
     useEffect(() => {
         // when component mounts
         const config = createConfig(props);
@@ -41,10 +41,10 @@ const Html5QrcodePlugin = (props) => {
                 console.error("Failed to clear html5QrcodeScanner. ", error);
             });
         };
-    }, []);
+    }, []); */
 
     return (
-        <div id={qrcodeRegionId} />
+        <div /* id={qrcodeRegionId} */ />
     );
 };
 
