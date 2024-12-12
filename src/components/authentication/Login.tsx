@@ -85,7 +85,7 @@ export default function Login() {
       signInWithRedirect({ provider: "Google"})
     }else if( provider === 'Facebook'){
       setLoadingExternalProvider(provider)
-      signInWithRedirect({ provider: "Google"})}
+      signInWithRedirect({ provider: "Facebook"})}
     }
     
   return (
@@ -159,7 +159,7 @@ export default function Login() {
         </div>
       </div>
       <section className="w-[90%] flex flex-col gap-y-3 py-4">
-        {/* <button 
+        <button 
           onClick={() =>SignInWithExtProvider('Facebook')}
           className="bg-[#3b5998] flex justify-center w-full py-2 px-3 items-center text-white rounded-md font-medium shadow-sm active:bg-[#263f74]">
           
@@ -192,7 +192,7 @@ export default function Login() {
             <span>Ingresar con Facebook</span>
           </>
           }
-        </button> */}
+        </button>
         <button 
            onClick={() =>SignInWithExtProvider('Google')}
           className="bg-white border border-gray-400 flex justify-center w-full py-2 px-3 items-center text-gray-600 rounded-md font-medium shadow-sm active:bg-gray-200">
