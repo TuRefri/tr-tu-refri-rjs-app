@@ -1,4 +1,3 @@
-import React from 'react'
 import useGetS3Data from '../hooks/useGetS3Data'
 import { useParams } from 'react-router-dom'
 import useGetLocation from '../hooks/useGetLocation'

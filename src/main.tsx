@@ -9,7 +9,6 @@ import { Toaster } from 'sonner';
 import './index.css';
 import { FridgeProvider } from './context/fridge-color-context.tsx';
 import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
-import { StorePageProvider } from './context/store-page-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import 'aws-amplify/auth/enable-oauth-listener';
 
@@ -23,7 +22,6 @@ import Contact from './routes/contact.tsx';
 import Scan from './routes/scan.tsx';
 import Events from './routes/events.tsx';
 import Profile from './routes/profile.tsx';
-import StorePage from './routes/stores.tsx';
 import Login from './routes/login.tsx';
 import SignUp from './routes/signup.tsx';
 import UserProfile from './routes/user-profile.tsx';
