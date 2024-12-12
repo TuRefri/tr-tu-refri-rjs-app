@@ -1,5 +1,5 @@
 import { generateClient } from "aws-amplify/api"
-import { listLocationsByZone, listCategories, getUser, listMagnetGroups, listEvents } from "../graphql/queries";
+import { listLocationsByZone, listCategories, getUser, listMagnetGroups, listEvents, getLocationByID } from "../graphql/queries";
 export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
@@ -27,7 +27,28 @@ export const listLocationsByZoneQuery = async(zone: string) =>{
         }
 
 }
+export const getLocationByIDQuery = async(id: string) =>{
+  try {
+      const response = await client.graphql({
+          query: getLocationByID,
+          variables: { id: id }
+        });
+        console.log(response)
+        return {
+          status: STATUS.SUCCESS,
+          msg: 'location',
+          data: response
+        };
+      } catch (error) {
+        console.error(error);
+        return {
+          status: STATUS.FAIL,
+          msg: 'Error get locations',
+          data: null
+        };
+      }
 
+}
 export const listCategoriesQuery = async() =>{
   try {
       const response = await client.graphql({

@@ -8,7 +8,7 @@ const formatDate = (date: string) => {
   };
 
 export default function PromotionCard({data} : PromotionCardProps) {
-
+    console.log(data)
     const formattedDate = formatDate(data.endDate);
     
   return (

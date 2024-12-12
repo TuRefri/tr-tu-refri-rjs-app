@@ -30,6 +30,7 @@ import UserProfile from './routes/user-profile.tsx';
 import ConfirmCode from './routes/confirm-code.tsx';
 import ResetPasswordPage from './routes/reset-password.tsx';
 import { registerSW } from 'virtual:pwa-register'
+import LocationPage from './components/LocationPage.tsx';
 
 registerSW({ immediate: true })
 // Configure Amplify
@@ -78,17 +79,17 @@ const router = createBrowserRouter([
                 path: "user-profile",
                 element: <UserProfile />,
             },
-            {
+/*             {
                 path: "stores",
                 element: (
                     <StorePageProvider>
                         <StorePage />
                     </StorePageProvider>
                 ),
-            },
+            }, */
             {
-                path: "stores/:id",
-                element: <StorePage />,
+                path: "location/:id",
+                element: <LocationPage />,
             },
             {
                 path: "map",

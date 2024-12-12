@@ -4,6 +4,7 @@ import { day, /* Promotion */ } from '../types';
 import PromotionCard from './PromotionCard';
 import useGetS3Data from '../hooks/useGetS3Data';
 import { Schedule } from '../types/magnetGroup';
+import { toast } from 'sonner';
 interface ModalMagnetRefriProps {
     handleDeleteMagnet: (id : string) => void
 }
@@ -28,7 +29,17 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
         ? formatSchedule(data.location.schedules.items)
         : 'Horarios no disponibles';
     console.log(formattedSchedule)
-    console.log(data)
+    const handleCopyToClipboard = (text: string) => {
+        console.log(window.location.hostname)
+        if(text === '') return
+        navigator.clipboard.writeText(`http://${window.location.hostname}:5173/location/${text}`)
+            .then(() => {
+                toast.success('¡Url copiada en tu portapapeles! Ya puedes compartirlo con un amigo.', {duration: 2000,  position: 'top-center'});
+            })
+            .catch(() => {
+                toast.success('Error al copiar en el portapapeles', {duration: 2000,  position: 'top-center'});
+            });
+    };
     return (
         <>
             <AnimatePresence>
@@ -88,7 +99,9 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                     <p className="relative w-full rounded-full bg-gray-300 font-semibold text-lg text-gray-700 m-2 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150">
                         {data?.location.phone}
                     </p>
-                    <p className="relative underline text-blue-500  flex  p-4 font-light text-sm">
+                    <button 
+                        onClick={() => handleCopyToClipboard(data?.location.id || '')}
+                        className="relative underline text-blue-500  flex  p-4 font-light text-sm">
                         Compartir tienda con un amigo
                         <img
                             src="/icons/share.svg"
@@ -96,7 +109,7 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                             width={15}
                             className="absolute right-0 top-3"
                         />
-                    </p>
+                    </button>
                     <div className="w-full border-b" />
                     <h2 className="relative text-xl font-bold  py-4 px-8 m-2">
                         Promociones

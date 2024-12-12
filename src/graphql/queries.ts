@@ -52,6 +52,43 @@ export const listLocationsByZone = /* GraphQL */ `
   }
 `;
 
+export const getLocationByID = /* GraphQL */ `
+  query GetLocation($id: ID!) {
+    getLocation(id: $id) {
+      id
+      address
+      phone
+      store {
+        name
+        avatarImage
+        description
+        categories {
+          items {
+            id
+            categoryId
+            category {
+              name
+            }
+          }
+        }
+      }
+      latitude
+      longitud
+      zoneID
+      promotions {
+        items {
+          id
+          title
+          description
+          startDate
+          endDate
+          image
+        }
+      }
+    }
+  }
+`;
+
 
 export const listCategories = /* GraphQL */ `
   query ListCategories {
