@@ -1,18 +1,11 @@
-/* import Html5QrcodePlugin from "../components/Html5QrcodeScannerPlugin"
+//@ts-ignore
+import QRScanner from '../components/qrScanner/QRScanner.jsx'
 export default function Scan() {
- */
- const onNewScanResult = (/* decodedText, decodedResult */) => {
-/*     console.log(decodedResult, decodedText)
-}; */
-  return (
-    <div className="App">
-            {/* <Html5QrcodePlugin
-                fps={10}
-                qrbox={250}
-                disableFlip={false}
-                qrCodeSuccessCallback={onNewScanResult}
-            /> */}
-        </div>
-  )
+
+return (
+    <div className="w-full h-full flex flex-col overflow-y-scroll items-center no-scrollbar px-4 pt-8 sm:pt-16">
+        <img src="/turefri-logo.png" className="w-56 pb-8" style={{ aspectRatio: '55/20'}} />
+        <QRScanner />
+    </div>
+);
 }
-export default onNewScanResult

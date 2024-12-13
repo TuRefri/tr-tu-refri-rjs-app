@@ -25,6 +25,7 @@ export default function Emergency() {
           <li
             key={item.number}
             style={{ backgroundColor: item.background, color: item.text }}
+            onClick={() => window.location.href=`tel:${item.number}`}
             className="cursor-pointer py-3 px-6 rounded-md flex items-center text-md sm:text-xl h-20 font-bold max-w-full"
           >
             <span className="w-[30%] text-3xl sm:text-4xl font-extrabold pr-2 sm:pr-3">

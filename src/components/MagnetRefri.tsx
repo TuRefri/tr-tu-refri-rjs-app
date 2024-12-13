@@ -12,7 +12,7 @@ export default function MagnetRefri({item}: MagnetRefriProps1) {
         <section className='w-full flex justify-center pb-1'>
             <div className='h-auto w-[60%] rounded-full overflow-hidden'>
                 <img 
-                src={`https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${item.location.store.avatarImage}`} alt={item.location.store.name} className='border aspect-square object-cover mix-blend-darken'/>
+                src={`https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${item.location.store.avatarImage}`} alt={item.location.store.name} className='border aspect-square object-cover mix-blend-darken h-22'/>
             </div>
         </section>
         <p className='font-light text-[10px] pt-1 text-center'>{item.location.store.categories.items[0].category.name}</p>

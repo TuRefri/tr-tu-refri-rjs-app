@@ -77,7 +77,7 @@ export default function SideBar() {
       </ul>
       
       <div className={`mt-4 border border-gray-300 p-1 rounded-full`}>
-        <RoundedButton href='' icon='/icons/qr-scanner.svg' />
+        <RoundedButton href='/scan' icon='/icons/qr-scanner.svg' />
       </div>
 
       <div className={`${sideBarDim < 642? "mt-1" : "mt-2"} border border-gray-300 p-1 rounded-full`}>

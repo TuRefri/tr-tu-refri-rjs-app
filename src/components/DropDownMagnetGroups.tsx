@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { MagnetGroup } from '../../types/magnetGroup';
-import { useGlobalContext } from '../../context/global-context';
+import { MagnetGroup } from '../types/magnetGroup';
+import { useGlobalContext } from '../context/global-context';
 import { toast } from 'sonner';
 interface DrowDropTuRefriProps {
     magnetgroups: MagnetGroup[],
@@ -12,8 +12,9 @@ export default function DropDownMagnetGroups({magnetgroups, loading } : DrowDrop
     <Menu as="div" className="w-fit relative inline-block text-left">
       <div>
         {loading || !selectedMagnetGroup? 
-            <MenuButton role="status" className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
-                <div className="flex items-center justify-center w-24 h-9 bg-gray-200 rounded  dark:bg-gray-300" />
+            <MenuButton disabled className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500">
+              Tu Refri 1
+              <img src="/icons/chrevron-down.svg" alt='open refris' />
             </MenuButton>
             :
             <>

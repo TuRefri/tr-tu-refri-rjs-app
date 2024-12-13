@@ -18,12 +18,12 @@ export default function LogOutButton({combinedClassName, icon} : LogOutButtonPro
     }
   return (
     <button onClick={handleActionButton} className={`${combinedClassName} relative ${loading && 'opacity-60 cursor-not-allowed'}`}>
-      <img src={icon} alt='icon' />
-      {loading && (
+      
+      {loading? (
             <div role="status" className='absolute'>
               <svg
                 aria-hidden="true"
-                className="inline w-4 h-4 text-blue-500 animate-spin dark:text-blue-500 fill-gray-100 dark:fill-gray-100"
+                className="inline w-4 h-4 text-white animate-spin dark:text-white fill-blue-500 dark:fill-blue-500"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,9 @@ export default function LogOutButton({combinedClassName, icon} : LogOutButtonPro
                 />
               </svg>
             </div>
-          )}
+          )
+        :
+        <img src={icon} alt='icon' />}
     </button>
   )
 }

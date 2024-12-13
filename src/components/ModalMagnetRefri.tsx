@@ -4,7 +4,7 @@ import { day, /* Promotion */ } from '../types';
 import PromotionCard from './PromotionCard';
 import useGetS3Data from '../hooks/useGetS3Data';
 import { Schedule } from '../types/magnetGroup';
-import { toast } from 'sonner';
+import { handleContactViaWhatsapp, handleShareLocation } from '../utils/shareInfoFunctions';
 interface ModalMagnetRefriProps {
     handleDeleteMagnet: (id : string) => void
 }
@@ -29,17 +29,8 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
         ? formatSchedule(data.location.schedules.items)
         : 'Horarios no disponibles';
     console.log(formattedSchedule)
-    const handleCopyToClipboard = (text: string) => {
-        console.log(window.location.hostname)
-        if(text === '') return
-        navigator.clipboard.writeText(`https://${window.location.hostname}/location/${text}`)
-            .then(() => {
-                toast.success('¡Url copiada en tu portapapeles! Ya puedes compartirlo con un amigo.', {duration: 2000,  position: 'top-center'});
-            })
-            .catch(() => {
-                toast.success('Error al copiar en el portapapeles', {duration: 2000,  position: 'top-center'});
-            });
-    };
+
+    
     return (
         <>
             <AnimatePresence>
@@ -87,20 +78,24 @@ export default function ModalMagnetRefri({ handleDeleteMagnet }: ModalMagnetRefr
                         {data?.location.store.description}
                     </p>
                     <div className="w-full border-b" />
-                    <p className="relative w-full rounded-full bg-green-600 text-white font-semibold text-lg mt-3 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#16a34a,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150">
-                        <img
-                            src="/icons/social-media/whatsapp-icon.webp"
-                            height={24}
-                            width={24}
-                            className="absolute left-[.9rem] top-1/2 transform -translate-y-1/2 "
-                        />
+                    <button
+                    onClick={() => handleContactViaWhatsapp(data?.location.phone || '')}
+                    className="relative w-full rounded-full bg-green-600 text-white font-semibold text-lg mt-3 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#16a34a,inset_1px_-1px_5px_#f9f9f9] transition-transform duration-150"
+                    >
+                    <img
+                        src="/icons/social-media/whatsapp-icon.webp"
+                        height={24}
+                        width={24}
+                        className="absolute left-[.9rem] top-1/2 transform -translate-y-1/2"
+                    />
+                    {data?.location.phone}
+                    </button>
+
+                    <button onClick={() => window.location.href=`tel:${data?.location.phone}`}className="relative w-full rounded-full bg-gray-300 font-semibold text-lg text-gray-700 m-2 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150">
                         {data?.location.phone}
-                    </p>
-                    <p className="relative w-full rounded-full bg-gray-300 font-semibold text-lg text-gray-700 m-2 text-center py-2 cursor-pointer active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150">
-                        {data?.location.phone}
-                    </p>
+                    </button>
                     <button 
-                        onClick={() => handleCopyToClipboard(data?.location.id || '')}
+                        onClick={() => handleShareLocation(data)}
                         className="relative underline text-blue-500  flex  p-4 font-light text-sm">
                         Compartir tienda con un amigo
                         <img

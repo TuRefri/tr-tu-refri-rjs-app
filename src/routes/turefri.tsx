@@ -7,11 +7,10 @@ import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
 import { useGlobalContext } from "../context/global-context";
 import ModalNotAuth from "../components/ModalNotAuth";
-import DropDownMagnetGroups from "../components/test/DropDownMagnetGroups";
+import DropDownMagnetGroups from "../components/DropDownMagnetGroups";
 import { deleteMagnetOnDB } from "../functions/mutations_grapql";
 import { toast } from "sonner";
 import SimpleLoadingComponent from "../components/SimpleLoadingComponent";
-import useUserAuth from "../hooks/useUserAuth";
 //import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
   {url: '/images/banner/banner_coca_cola.webp', alt: "banner 1"},
@@ -26,7 +25,6 @@ export default function TuRefri() {
   const { selectedMagnetGroup, selectedCategory, handleSelectMagnetGroup, handleSelectCategory } = useGlobalContext();
   const {isOpen, handleClose } = useDetailMagnetContext();
   const { magnetgroups, loadingMagnets, refetch } = useGetMagnets()
-  const { authenticated } = useUserAuth()
   useEffect(() =>{
     if(!selectedMagnetGroup && magnetgroups.length > 0){
       handleSelectMagnetGroup(magnetgroups[0])
@@ -83,7 +81,7 @@ export default function TuRefri() {
     :
     magnetList
   return (
-    <div ref={sidebarRef} className="w-full h-full flex flex-col overflow-y-scroll no-scrollbar px-4">
+    <div ref={sidebarRef} className="w-full h-full flex flex-col px-4">
       <div className="w-full flex justify-center pt-6 pb-4">
         <img src="/turefri-logo.png" className="w-56" />
       </div>
@@ -95,9 +93,9 @@ export default function TuRefri() {
             className={`cursor-pointer ml-2 py-1 px-3 bg-gray-400 text-white flex items-center rounded-lg text-sm  font-medium mt-1 whitespace-nowrap`}
             >{selectedCategory.name}</button>
           )}
-        {authenticated && <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets}/> }
+        <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets}/>
       </section>
-      <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4`}>
+      <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4 overflow-y-scroll no-scrollbar`}>
           {loadingMagnets ? (
             <SimpleLoadingComponent loadingText="Cargando imanes" size="20" className="absolute"/>
           ) : magnetList && magnetList.length > 0 ? (
