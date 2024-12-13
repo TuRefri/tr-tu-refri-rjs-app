@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom'
 import { useFridgeContext } from '../context/fridge-color-context'
-import useUserAuth from '../hooks/useUserAuth';
+import { useUserContext } from '../context/user-auth';
 interface AddMagnetProps {
   handleOpenModal: () => void
 }
@@ -9,10 +9,9 @@ interface AddMagnetProps {
 export default function AddMagnets({ handleOpenModal} : AddMagnetProps) {
   const navigate = useNavigate()
   const { currentColor } = useFridgeContext()
-  const { authenticated } = useUserAuth()
-
+  const { user } = useUserContext()
   const handleActionButton = () =>{
-    if(authenticated){
+    if(user){
       navigate('/map')
     } else{
       handleOpenModal()

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "./image-slider.css"
+import useListBanners from "../hooks/useListBanners"
 
 type ImageSliderProps = {
   images: {
@@ -10,18 +11,19 @@ type ImageSliderProps = {
 
 export default function Slider({ images }: ImageSliderProps) {
   const [imageIndex, setImageIndex] = useState(0)
-
+  const { banners } = useListBanners()
   useEffect(() => {
     const interval = setInterval(() => {
       showNextImage();
     }, 3000);
   
     return () => clearInterval(interval);
-  }, []);
+  }, [banners]);
   
+  const toshowimages = [...images, ...banners]
   function showNextImage() {
     setImageIndex(index => {
-      if (index === images.length - 1) return 0
+      if (index === toshowimages.length - 1) return 0
       return index + 1
     })
   }
@@ -32,7 +34,6 @@ export default function Slider({ images }: ImageSliderProps) {
       return index - 1
     })
   } */
-
   return (
     <section
       style={{ width: "100%", position: "relative" }}
@@ -45,7 +46,7 @@ export default function Slider({ images }: ImageSliderProps) {
           overflow: "hidden",
         }}
       >
-        {images.map(({ url, alt }, index) => (
+        {toshowimages.map(({ url, alt }, index) => (
           <img
             key={alt}
             src={url}
@@ -80,7 +81,7 @@ export default function Slider({ images }: ImageSliderProps) {
           gap: ".25rem",
         }}
       >
-        {images.map((_, index) => (
+        {toshowimages.map((_, index) => (
           <button
             key={index}
             className="img-slider-dot-btn"

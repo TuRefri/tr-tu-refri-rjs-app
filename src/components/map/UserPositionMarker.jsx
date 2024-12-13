@@ -9,46 +9,36 @@ export default function UserPositionMarker({ map }) {
   const markerRef = useRef(null);
 
   useEffect(() => {
-    if ((position || staticPosition) && map) {
-      const desiredPositionToUse = position ? position : staticPosition;
-
-      // Si el marcador no está creado, crearlo
-      if (!markerRef.current) {
-        markerRef.current = new google.maps.Marker({
-          position: { lat: desiredPositionToUse.latitude, lng: desiredPositionToUse.longitude },
-          map: map,
-          draggable: true,
-          icon: {
-            url: '/icons/user-position/current_location_2.png',
-            scaledSize: new window.google.maps.Size(50, 50),
-            anchor: new window.google.maps.Point(25, 25),
-          },
-          title: 'Tu ubicación',
-        });
-
-        markerRef.current.addListener("dragend", () => {
-          const newPosition = markerRef.current.getPosition();
-          handleUpdatePosition(newPosition.lat(), newPosition.lng());
-        });
-      }
-
-      // Mover el marcador si la posición cambia
-      const newPosition = { lat: desiredPositionToUse.latitude, lng: desiredPositionToUse.longitude };
-      markerRef.current.setPosition(newPosition);
-
-      // Centrar el mapa en la nueva posición
-      if(position === desiredPositionToUse){
-        map.panTo(newPosition);
-      }
-
-      // Limpiar el marcador cuando el componente se desmonte
-     /*  return () => {
-        if (markerRef.current) {
-          markerRef.current.setMap(null);
-        }
-      }; */
+    if (!map || !(position || staticPosition)) return; // Verifica que el mapa esté listo
+  
+    const desiredPositionToUse = position || staticPosition;
+  
+    if (!markerRef.current) {
+      markerRef.current = new google.maps.Marker({
+        position: { lat: desiredPositionToUse.latitude, lng: desiredPositionToUse.longitude },
+        map,
+        draggable: true,
+        icon: {
+          url: '/icons/user-position/current_location_2.png',
+          scaledSize: new window.google.maps.Size(50, 50),
+          anchor: new window.google.maps.Point(25, 25),
+        },
+        title: 'Tu ubicación',
+      });
+  
+      markerRef.current.addListener("dragend", () => {
+        const newPosition = markerRef.current.getPosition();
+        handleUpdatePosition(newPosition.lat(), newPosition.lng());
+      });
     }
-  }, [position, staticPosition, map, handleUpdatePosition]);
+  
+    const newPosition = { lat: desiredPositionToUse.latitude, lng: desiredPositionToUse.longitude };
+    markerRef.current.setPosition(newPosition);
+  
+    if (position === desiredPositionToUse) {
+      map.panTo(newPosition);
+    }
+  }, [map, position, staticPosition, handleUpdatePosition]);
 
   return null;
 }

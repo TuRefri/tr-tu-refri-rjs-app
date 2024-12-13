@@ -3,7 +3,7 @@ import {  RoundedButtonTooltipCategoriesProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGlobalContext } from "../context/global-context";
-import useUserAuth from "../hooks/useUserAuth";
+import { useUserContext } from '../context/user-auth';
 import { toast } from "sonner";
 import { CategoryQuery } from "../types/graphql";
 
@@ -13,7 +13,7 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
   const tooltipRef = useRef<HTMLDivElement>(null);
   const { handleSelectCategory } = useGlobalContext()
   const navigate = useNavigate();
-  const { authenticated } = useUserAuth()
+  const { user } = useUserContext()
   const handleClickOutside = (event: MouseEvent) => {
     if (
       buttonRef.current && !buttonRef.current.contains(event.target as Node) &&
@@ -45,7 +45,7 @@ export default function RoundedButtonTooltipCategories({ icon, options }: Rounde
     }),
   };
   const handleActionButton = () =>{
-    if(!authenticated){
+    if(!user){
       toast('¡Inicia sesión para aprovechar esta función!', {
         action: <button 
         onClick={() => {toast.dismiss(), navigate('/auth/login') }}

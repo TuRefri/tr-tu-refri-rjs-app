@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import Login from '../components/authentication/Login'
-import useUserAuth from '../hooks/useUserAuth'
+import { useUserContext } from '../context/user-auth';
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const { authenticated, loading } = useUserAuth()
-  if(loading) return <h1>Comprobando información</h1>
-  if(!loading && authenticated) navigate('/')
-  if(!loading && !authenticated)return (
+  const { user } = useUserContext()
+  if(user) navigate('/')
+  if(!user)return (
     <Login />
   )
   

@@ -102,6 +102,18 @@ export const listCategories = /* GraphQL */ `
   }
 `;
 
+export const listBanners = /* GraphQL */ `
+  query ListBanners {
+    listBanners {
+      items {
+        id
+        name
+        image
+      }
+      nextToken
+    }
+  }
+`;
 export const listMagnetGroups = /* GraphQL */ `
   query ListMagnetGroups($userID: ID!) {
     listMagnetGroups(filter: {userID: {eq: $userID}}) {

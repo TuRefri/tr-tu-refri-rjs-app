@@ -58,24 +58,27 @@ export default function LocationsToShowInMap({ map, handleCloseModal, handleSele
   };
 
   useEffect(() => {
+    if (!map || !locations.length) return; // Verifica que el mapa y las ubicaciones estén listos
+  
     let filteredLocations = [...locations];
-    
+  
     if (selectedCategory !== '') {
       filteredLocations = filteredLocations.filter(item =>
         item.store.categories.items[0].categoryId === selectedCategory.id
       );
     }
-
-    const desiredPosition = position ? position : JSON.parse(window.localStorage.getItem('aprox_position'));
-
+  
+    const desiredPosition = position || JSON.parse(window.localStorage.getItem('aprox_position'));
+  
     filteredLocations = handleIsOnRadius({
       userPosition: desiredPosition,
       locations: filteredLocations,
-      radius
+      radius,
     });
-
+  
     handleCreateMarkers(filteredLocations);
-  }, [locations, selectedCategory, radius, position]);
+  }, [map, locations, selectedCategory, radius, position]);
+  
 
   if (loading) {
     return (

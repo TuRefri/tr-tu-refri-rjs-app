@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom'
 import useGetLocation from '../hooks/useGetLocation'
 import PromotionCard from './PromotionCard'
 import SimpleLoadingComponent from './SimpleLoadingComponent'
-import useUserAuth from '../hooks/useUserAuth'
+import { useUserContext } from '../context/user-auth';
 export default function LocationPage() {
     const params = useParams()
     const { awsS3Name, awsS3Region } = useGetS3Data()
-    const { authenticated, loading } = useUserAuth()
+    const { user } = useUserContext()
     const { location, loadingGetLocation } = useGetLocation(params.id || '')
     console.log(location)
-    if(!loading && !authenticated) return(
+    if(!user) return(
         <div className='h-full flex w-full pt-10 justify-center'>
             <div className='w-11/12 text-center'>
                 <h1 className='text-gray-700 text-xl font-medium'>

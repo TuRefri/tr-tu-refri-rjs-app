@@ -29,7 +29,7 @@ import ConfirmCode from './routes/confirm-code.tsx';
 import ResetPasswordPage from './routes/reset-password.tsx';
 import { registerSW } from 'virtual:pwa-register'
 import LocationPage from './components/LocationPage.tsx';
-
+import { UserContextProvider } from './context/user-auth.tsx';
 registerSW({ immediate: true })
 
 //Check if you are in localhost or production
@@ -65,9 +65,11 @@ const router = createBrowserRouter([
     {
         path: "",
         element: (
+            <UserContextProvider>
             <GlobalProvider>
                 <RootComponent />
             </GlobalProvider>
+            </UserContextProvider>
         ),
         errorElement: <ErrorPage />,
         children: [

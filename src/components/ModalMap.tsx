@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Location } from '../types/location'
 import { motion } from 'framer-motion'
 import { useGlobalContext } from '../context/global-context'
-import useUserAuth from '../hooks/useUserAuth'
+import { useUserContext } from '../context/user-auth';
 import useGetS3Data from '../hooks/useGetS3Data'
 import { createMagnetOndDB } from '../functions/mutations_grapql'
 import { toast } from 'sonner'
@@ -15,12 +15,12 @@ interface ModalMapProps {
 }
 export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   const { selectedMagnetGroup } = useGlobalContext()
-  const { authenticated } = useUserAuth()
+  const { user } = useUserContext()
   const { refetch } = useGetMagnets()
   const { awsS3Name, awsS3Region } = useGetS3Data()
   const [loading, setLoading] = useState(false)
   const handleActionButton = (data : Location | null) =>{
-    if(!authenticated){
+    if(!user){
       handleCloseModal()
     } else{
       if(data){

@@ -1,10 +1,10 @@
 import { RoundedButtonProps } from "../types";
 import { Link, useNavigate } from "react-router-dom";
 import LogOutButton from "./LogOutButton";
-import useUserAuth from "../hooks/useUserAuth";
+import { useUserContext } from '../context/user-auth';
 import { toast } from "sonner";
 export default function RoundedButton({ href, icon, theme, className }: RoundedButtonProps) {
-  const { authenticated } = useUserAuth()
+  const { user } = useUserContext()
   const navigate = useNavigate()
   const classNameTheme = theme === 'dark'
     ? "rounded-[50px] h-6 w-6 p-1 flex justify-center items-center bg-[#121212]"
@@ -13,7 +13,7 @@ export default function RoundedButton({ href, icon, theme, className }: RoundedB
   const combinedClassName = `${classNameTheme} ${className || ''}`.trim();
 
   const handleActionButton = (href : string) =>{
-    if(!authenticated){
+    if(!user){
       toast('¡Inicia sesión para aprovechar esta función!', {
         action: <button 
         onClick={() => {toast.dismiss(), navigate('/auth/login') }}

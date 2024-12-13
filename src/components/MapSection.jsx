@@ -54,14 +54,19 @@ const MapSection = (props) => {
       </div>
       <div id="map" ref={mapRef} style={{ height: `${refriDim.height}px`, width: "100%" }} />
       <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
-      <UserPositionMarker map={map}/>
-      <div className="absolute top-8 inset-x-0 mx-auto z-10 w-fit">
-        <LocationsToShowInMap 
-          map={map} 
-          handleCloseModal={handleCloseModal} 
-          handleSelectStoreOnMap={handleSelectStoreOnMap} 
-        />
-      </div>
+      {map && (
+        <>
+          <UserPositionMarker map={map}/>
+          <div className="absolute top-8 inset-x-0 mx-auto z-10 w-fit">
+            <LocationsToShowInMap 
+              map={map} 
+              handleCloseModal={handleCloseModal} 
+              handleSelectStoreOnMap={handleSelectStoreOnMap} 
+            />
+          </div>
+        </>
+      )}
+      
     </div>
 
   );

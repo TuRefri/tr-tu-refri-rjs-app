@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import StoreCard from './StoreCard';
 import { MagnetRefriProps } from '../types';
-import useUserAuth from '../hooks/useUserAuth';
+import { useUserContext } from '../context/user-auth';
 interface StoreListProps {
     stores: MagnetRefriProps[]
 }
@@ -14,7 +14,7 @@ export default function StoreList({ stores }: StoreListProps ) {
       transition: { delay: index * .1 },
     }),
   };
-  const { authenticated } = useUserAuth()
+  const { user } = useUserContext()
 
 
   return (
@@ -28,7 +28,7 @@ export default function StoreList({ stores }: StoreListProps ) {
             animate="visible"
             custom={index} 
           >
-            <StoreCard data={item} authenticated={authenticated}/>
+            <StoreCard data={item} authenticated={user}/>
           </motion.li>
         ))}
       </ul>
