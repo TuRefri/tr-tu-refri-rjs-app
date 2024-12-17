@@ -28,7 +28,9 @@ export default function useGetMagnets() {
             const response = await listMagnetGroupsQuery(userID)
             if(response.status === 'SUCCESS'){
                 //@ts-ignore
-                handleSelectMagnetGroup(response.data.data.listMagnetGroups.items[0])
+                const favoriteGroup = response.data.data.listMagnetGroups.items.find(item => item.favorite)
+                //@ts-ignore
+                handleSelectMagnetGroup(favoriteGroup || response.data.data.listMagnetGroups.items[0])
                 //@ts-ignore
                 setMagnetGroups(response.data.data.listMagnetGroups.items)
             }

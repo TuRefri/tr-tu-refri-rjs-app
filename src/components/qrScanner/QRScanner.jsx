@@ -19,7 +19,7 @@ const handleScan = (imageSrc) => {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert"});
             if (code) {
-                setQrCode(code);
+                setQrCode(code.data);
                 console.log("code: ", code);
             }
         }
@@ -29,6 +29,7 @@ const handleScan = (imageSrc) => {
 return (
     <div>
         <WebcamCapture onScan={handleScan} />
+        <p>{qrCode}</p>
     </div>
 );
 }

@@ -3,11 +3,15 @@ import {
   createUser,
   updateUser,
   deleteMagnet,
-  createMagnet
+  createMagnet,
+  createMagnetGroup,
+  updateMagnetGroup,
+  deleteMagnetGroup
  } from "../graphql/mutations";
 import { NewUserInput } from "../types/graphql";
 import { UserData } from "../types";
 import { getCurrentUser } from "aws-amplify/auth";
+import { MagnetGroupInput } from "../types/magnetGroup";
 export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
@@ -122,6 +126,86 @@ export const deleteMagnetOnDB = async(id: string) =>{
     throw {
       status: STATUS.FAIL,
       msg: 'Error al eliminar Magnet',
+      data: null
+    };
+  }
+}
+
+export const createMagnetGroupOndDB = async (item : MagnetGroupInput) =>{
+  try {
+    const { userId } = await getCurrentUser()
+    item.userID = userId
+    const response = await client.graphql({
+      query: createMagnetGroup,
+      variables: { input: item }
+    });
+    /* console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Magnet creado',
+      data: response
+    }) */
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'MagnetGroup creado',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    throw {
+      status: STATUS.FAIL,
+      msg: 'Error al crear MagnetMagnetGroup',
+      data: null
+    };
+  }
+}
+
+export const deleteMagnetGroupOndDB = async (id : string) =>{
+  try {
+
+    const response = await client.graphql({
+      query: deleteMagnetGroup,
+      variables: { input: { id: id} }
+    });
+    /* console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Magnet creado',
+      data: response
+    }) */
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'MagnetGroup eliminado',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    throw {
+      status: STATUS.FAIL,
+      msg: 'Error al eliminar MagnetMagnetGroup',
+      data: null
+    };
+  }
+}
+export const updateMagnetGroupOnDB = async (item: MagnetGroupInput) => {
+  try {
+    const response = await client.graphql({
+      query: updateMagnetGroup,
+      variables: { input: item }
+    });
+    /* console.log({
+      status: STATUS.SUCCESS,
+      msg: 'Usuario modificado exitosamente',
+      data: response
+    }) */
+    return {
+      status: STATUS.SUCCESS,
+      msg: 'MagnetGroup modificado exitosamente',
+      data: response
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: STATUS.FAIL,
+      msg: 'Error al modificar MagnetGroup',
       data: null
     };
   }

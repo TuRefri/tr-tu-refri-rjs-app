@@ -49,3 +49,37 @@ export const createMagnet =  /* GraphQL */ `
     }
   }
 `
+
+export const createMagnetGroup =`
+  mutation CreateMagnetGroup(
+    $input: CreateMagnetGroupInput!
+    $condition: ModelMagnetGroupConditionInput
+  ) {
+    createMagnetGroup(input: $input, condition: $condition) {
+      id
+    }
+  }
+`;
+
+export const deleteMagnetGroup =`
+  mutation deleteMagnetGroup(
+    $input: DeleteMagnetGroupInput!
+  ) {
+    deleteMagnetGroup(input: $input) {
+      id
+    }
+  }
+`;
+
+export const updateMagnetGroup = /* GraphQL */ `
+  mutation UpdateMagnetGroup(
+    $input: UpdateMagnetGroupInput!
+    $condition: ModelMagnetGroupConditionInput
+  ) {
+    updateMagnetGroup(input: $input, condition: $condition) {
+      id
+      name
+      favorite
+    }
+  }
+`;

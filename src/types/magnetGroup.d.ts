@@ -1,7 +1,14 @@
+export interface MagnetGroupInput {
+    id?: string;
+    name?:    string;
+    favorite?: boolean;
+    userID?: string
+}
 export interface MagnetGroup {
     id:      string;
     name:    string;
     magnets: Magnets;
+    favorite: boolean;
 }
 
 export interface Location {

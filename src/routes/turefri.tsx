@@ -11,6 +11,7 @@ import DropDownMagnetGroups from "../components/DropDownMagnetGroups";
 import { deleteMagnetOnDB } from "../functions/mutations_grapql";
 import { toast } from "sonner";
 import SimpleLoadingComponent from "../components/SimpleLoadingComponent";
+import ModalCreateMagnetGroup from "../components/ModalCreateMagnetGroup";
 //import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
   {url: '/images/banner/banner_coca_cola.webp', alt: "banner 1"},
@@ -22,19 +23,25 @@ export default function TuRefri() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const[sideBarDim, setSideBarDim] = useState(0)
   const [showNotAuthModal, setShowNotAuthModal] = useState(false)
-  const { selectedMagnetGroup, selectedCategory, handleSelectMagnetGroup, handleSelectCategory } = useGlobalContext();
+  const [showCreateMagnetGroupModal, setShowCreateMagnetGroupModal] = useState(false)
+  const { selectedMagnetGroup, selectedCategory, handleSelectCategory } = useGlobalContext();
   const {isOpen, handleClose } = useDetailMagnetContext();
   const { magnetgroups, loadingMagnets, refetch } = useGetMagnets()
-  useEffect(() =>{
-    if(!selectedMagnetGroup && magnetgroups.length > 0){
-      handleSelectMagnetGroup(magnetgroups[0])
-    }
-  },[magnetgroups])
+
   const handleCloseNotAuthModal = () =>{
     setShowNotAuthModal(false)
   }
   const handleOpenNotAuthModal = () =>{
     setShowNotAuthModal(true)
+  }
+  const handleCloseCreateMagnetGroupModal = (newMagnetGroup: boolean) =>{
+    if(newMagnetGroup){
+      refetch()
+    }
+    setShowCreateMagnetGroupModal(false)
+  }
+  const handleOpenCreateMagnetGroupModal = () =>{
+    setShowCreateMagnetGroupModal(true)
   }
   const logHeight = () => {
     if (sidebarRef.current) {
@@ -72,7 +79,7 @@ export default function TuRefri() {
     } /* else if (!selectedMagnetGroup && magnetgroups.length > 0) {
       return magnetgroups[0]?.magnets?.items || [];
     } */
-    return magnetgroups[0]?.magnets?.items || [];
+    return selectedMagnetGroup?.magnets?.items || [];
   };
   
   const magnetList = magnetsToShow();
@@ -93,7 +100,7 @@ export default function TuRefri() {
             className={`cursor-pointer ml-2 py-1 px-3 bg-gray-400 text-white flex items-center rounded-lg text-sm  font-medium mt-1 whitespace-nowrap`}
             >{selectedCategory.name}</button>
           )}
-        <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets}/>
+        <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets} handleOpenCreateMagnetGroupModal={handleOpenCreateMagnetGroupModal}/>
       </section>
       <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4 overflow-y-scroll no-scrollbar`}>
           {loadingMagnets ? (
@@ -125,6 +132,13 @@ export default function TuRefri() {
         showNotAuthModal &&
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full">
           <ModalNotAuth handleCloseModal={handleCloseNotAuthModal}/>
+        </div>
+        
+      }
+      {
+        showCreateMagnetGroupModal &&
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full">
+          <ModalCreateMagnetGroup handleCloseModal={handleCloseCreateMagnetGroupModal}/>
         </div>
         
       }

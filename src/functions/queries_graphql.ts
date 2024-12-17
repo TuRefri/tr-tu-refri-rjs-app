@@ -6,6 +6,8 @@ export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
 }
+const apiUrl = awsmobile.aws_appsync_graphqlEndpoint;
+const apiKey = import.meta.env.VITE_API_KEY_GRAPHQL;
 const client = generateClient();
 export const listLocationsByZoneQuery = async(zone: string) =>{
     try {
@@ -49,6 +51,47 @@ export const getLocationByIDQuery = async(id: string) =>{
           data: null
         };
       }
+
+  /* PARA USAR CON EL APIKEY
+    try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
+      body: JSON.stringify({
+        query: getLocationByID,
+        variables: { id: id },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.errors) {
+      console.error('GraphQL errors:', data.errors);
+      return {
+        status: 'FAIL',
+        msg: 'Error al obtener la ubicación',
+        data: null,
+      };
+    }
+
+    return {
+      status: 'SUCCESS',
+      msg: 'Ubicación obtenida',
+      data: data.data.getLocation,
+    };
+  } catch (error) {
+    console.error('Error en la solicitud:', error);
+    return {
+      status: 'FAIL',
+      msg: 'Error al obtener la ubicación',
+      data: null,
+    };
+  }
+    
+    */
 
 }
 export const listCategoriesQuery = async() =>{
@@ -141,8 +184,6 @@ export const listEventsQuery = async (zoneID: string) =>{
 }
 
 export const listBannersQuery = async () => {
-  const apiUrl = awsmobile.aws_appsync_graphqlEndpoint
-  const apiKey = import.meta.env.VITE_API_KEY_GRAPHQL 
 
   try {
     const response = await fetch(apiUrl, {

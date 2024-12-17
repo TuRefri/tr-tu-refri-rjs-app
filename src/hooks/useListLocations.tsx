@@ -3,20 +3,29 @@ import { listLocationsByZoneQuery } from '../functions/queries_graphql'
 
 export default function useListLocations(zone: string) {
     const [loading, setLoading] = useState(false)
-    const [locations, setLocations] = useState([])
+    const [locations, setLocations] = useState<Location[]>([])
     const [error, setErrors] = useState<unknown>(null)
 
-    useEffect(() =>{
+    useEffect(() => {
         makeQuery()
-    },[])
+    }, [zone])
 
-    const makeQuery = async () =>{
+    const makeQuery = async () => {
         try {
             setLoading(true)
             const response = await listLocationsByZoneQuery(zone)
-            if(response.status === 'SUCCESS'){
+            if (response.status === 'SUCCESS' ) {
                 //@ts-ignore
-                setLocations(response.data.data.listLocations.items)
+                const fetchedLocations: Location[] = response.data.data.listLocations.items
+                
+                const storedLocations = window.localStorage.getItem('locations_map')
+                if (!storedLocations) {
+                    window.localStorage.setItem('locations_map', JSON.stringify(fetchedLocations))
+                    setLocations(fetchedLocations)
+                } else {
+                    const parsedLocations: Location[] = JSON.parse(storedLocations) as Location[]
+                    setLocations(parsedLocations)
+                }
             }
         } catch (error) {
             setErrors(error)
@@ -24,12 +33,12 @@ export default function useListLocations(zone: string) {
                 error,
                 msg: 'Error fetching in useListLocations'
             }
-        } finally{
+        } finally {
             setTimeout(() => {
                 setLoading(false)
-                
-            }, 2000);
+            }, 2000)
         }
     }
-  return { loading, locations, error}
+
+    return { loading, locations, error }
 }

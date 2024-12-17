@@ -120,6 +120,7 @@ export const listMagnetGroups = /* GraphQL */ `
       items {
         id
         name
+        favorite
         magnets {
           items {
             id

@@ -2,12 +2,13 @@
 import { useState } from 'react'
 import { Location } from '../types/location'
 import { motion } from 'framer-motion'
+import DropDownRefrisMap from './DropDownRefrisMap'
 import { useGlobalContext } from '../context/global-context'
 import { useUserContext } from '../context/user-auth';
 import useGetS3Data from '../hooks/useGetS3Data'
 import { createMagnetOndDB } from '../functions/mutations_grapql'
 import { toast } from 'sonner'
-import {  MagnetsItem } from '../types/magnetGroup'
+import {  MagnetGroup, MagnetsItem } from '../types/magnetGroup'
 import useGetMagnets from '../hooks/useGetMagnets'
 interface ModalMapProps {
     data: Location | null
@@ -19,22 +20,23 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   const { refetch } = useGetMagnets()
   const { awsS3Name, awsS3Region } = useGetS3Data()
   const [loading, setLoading] = useState(false)
-  const handleActionButton = (data : Location | null) =>{
+
+  const handleActionButton = (data : Location | null, magnetGroup: MagnetGroup | null) =>{
     if(!user){
       handleCloseModal()
     } else{
       if(data){
-        handleAddMagnetToRefri(data)
+        handleAddMagnetToRefri(data, magnetGroup)
       }
     }
   }
-  const handleAddMagnetToRefri = async (data: Location) =>{
-    if(!selectedMagnetGroup) return toast.error('No hay un grupo de imanes seleccionado', {duration: 2000,  position: 'top-center'})
-      const result = magnetExistInMagnetGroup(data.id, selectedMagnetGroup.magnets.items)
+  const handleAddMagnetToRefri = async (data: Location, magnetGroup: MagnetGroup | null) =>{
+    if(!magnetGroup) return toast.error('No hay un grupo de imanes seleccionado', {duration: 2000,  position: 'top-center'})
+      const result = magnetExistInMagnetGroup(data.id, magnetGroup.magnets.items)
       if(!result){
         try {
           setLoading(true)
-          await createMagnetOndDB(data.id, selectedMagnetGroup?.id )
+          await createMagnetOndDB(data.id, magnetGroup?.id )
           refetch()
           toast.success('Imán agregado exitosamente', {duration: 2000,  position: 'top-center'})
         } catch (error) {
@@ -77,8 +79,10 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
                 </p>
             </section>
         </div>
-        <button 
-          onClick={() => handleActionButton(data)}
+        <div className='flex gap-x-1'>
+
+        <button
+          onClick={() => handleActionButton(data, selectedMagnetGroup)}
           className='w-full border py-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'
           >
           {loading?
@@ -101,11 +105,13 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
             </svg>
           </div>
           :
-          "Agregar a tu refri"
+          `Agregar a ${selectedMagnetGroup?.name}`
           }
             
-            
           </button>
+          <DropDownRefrisMap handleActionButton={handleActionButton} data={data}/>
+        </div>
+
     </motion.div>
   )
 }
