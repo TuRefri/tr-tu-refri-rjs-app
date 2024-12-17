@@ -18,7 +18,7 @@ import 'aws-amplify/auth/enable-oauth-listener';
 const RootComponent = React.lazy(() => import('./routes/root'));
 const TuRefri = React.lazy(() => import('./routes/turefri'));
 const ErrorPage = React.lazy(() => import('./error-page'));
-const Map = React.lazy(() => import('./routes/map.tsx'));
+import Map from './routes/map.tsx'
 const Emergency = React.lazy(() => import('./routes/emergency.tsx'));
 const Contact = React.lazy(() => import('./routes/contact.tsx'));
 const Scan = React.lazy(() => import('./routes/scan.tsx'));
@@ -150,9 +150,7 @@ const router = createBrowserRouter([
             {
                 path: "map",
                 element: (
-                    <Suspense fallback={null}>
                         <Map />
-                    </Suspense>
                 ),
             },
             {
