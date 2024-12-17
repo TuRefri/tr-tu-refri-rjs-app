@@ -66,7 +66,7 @@ export default function Login() {
             birthday: userDB.data.birthday
         })
         }
-        navigate('/user-profile')
+        navigate('/')
       } else {
         toast.error(result.msg, {duration: 2000,  position: 'top-center'})
       }

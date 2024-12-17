@@ -4,6 +4,7 @@ import { MagnetGroup } from '../types/magnetGroup';
 import { useGlobalContext } from '../context/global-context';
 import { updateMagnetGroupOnDB } from '../functions/mutations_grapql';
 import { toast } from 'sonner';
+import { useUserContext } from '../context/user-auth';
 interface DrowDropTuRefriProps {
     magnetgroups: MagnetGroup[],
     loading: boolean
@@ -12,6 +13,7 @@ interface DrowDropTuRefriProps {
 export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenCreateMagnetGroupModal } : DrowDropTuRefriProps) {
     const { selectedMagnetGroup , handleSelectMagnetGroup} = useGlobalContext()
     const [localMagnetGroups, setLocalMagnetGroups] = useState(magnetgroups);
+    const { user } = useUserContext()
     useEffect(() => {
       const sortedMagnetGroups = [...magnetgroups].sort((a, b) => {
         return a.favorite === b.favorite ? 0 : a.favorite ? -1 : 1;
@@ -49,7 +51,7 @@ export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenC
     return (
     <Menu as="div" className="w-fit relative inline-block text-left">
       <div>
-        {loading || !selectedMagnetGroup? 
+        {loading? 
             <MenuButton disabled className="inline-flex w-full justify-end gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500 min-w-20">
               <div role="status">
               <svg
@@ -73,8 +75,8 @@ export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenC
             </MenuButton>
             :
             <>
-            <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500">
-            {selectedMagnetGroup && selectedMagnetGroup?.name}
+            <MenuButton disabled={!user} className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-500">
+            {(selectedMagnetGroup && user )&& selectedMagnetGroup?.name || 'Refri 1' }
             {(!selectedMagnetGroup && magnetgroups.length > 0 )&& magnetgroups[0].name }
             <img src="/icons/chrevron-down.svg" alt='open refris' />
           </MenuButton>

@@ -12,7 +12,7 @@ export default function FilterButtonSearchbarMap() {
     const { categories } = useListCategories()
     const { handleRadius, handleTime, selectedTime, handleSelectCategory, selectedCategory} = useGlobalContext()
     const [open, setOpen] = useState(false);
-    const [rangeValue, setRangeValue] = useState('1');
+    const [rangeValue, setRangeValue] = useState('2');
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const divRef = useRef<HTMLDivElement | null>(null);
     const buttonFilterRef = useRef<HTMLButtonElement | null>(null)
