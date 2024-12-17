@@ -2,10 +2,12 @@ import useGetMagnets from '../../hooks/useGetMagnets'
 import { MagnetGroup } from '../../types/magnetGroup'
 import { deleteMagnetGroupOndDB, deleteMagnetOnDB } from '../../functions/mutations_grapql'
 import { toast } from 'sonner';
+import { useState } from 'react';
 export default function ListMagnetGroupsUserProfile() {
     const { magnetgroups, refetch } = useGetMagnets()
-
+    const [deleteOnProgress, setDeleteOnProgress] = useState(false)
     const handleDelete = async (item: MagnetGroup) => {
+        setDeleteOnProgress(true)
         console.log(item.id)
         try {
             const deletePromises: Promise<unknown>[] = [
@@ -29,6 +31,8 @@ export default function ListMagnetGroupsUserProfile() {
             }
         } catch (error) {
             console.error('Error al eliminar el grupo o sus magnetos:', error);
+        } finally{
+            setDeleteOnProgress(false)
         }
     };
     
@@ -43,11 +47,12 @@ export default function ListMagnetGroupsUserProfile() {
                         className='flex justify-between py-3 px-2 hover:bg-slate-200 rounded-md text-gray-500 font-medium' 
                     >
                         <p>{item.name}</p>
-                        <button
+                        {magnetgroups.length > 1 && <button
+                            disabled={deleteOnProgress}
                             onClick={() => handleDelete(item)}
                         >
                             <img src="/icons/trash.svg" alt='delete'/>
-                        </button>
+                        </button>}
                     </li>
                 )
             })}

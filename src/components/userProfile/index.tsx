@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFridgeContext } from "../../context/fridge-color-context";
 import { UserData } from "../../types";
 import { updateUserOnDB } from "../../functions/mutations_grapql";
 import { toast } from "sonner";
 import useUserInfoDB from "../../hooks/useGetUserInfoDB";
 import ListMagnetGroupsUserProfile from "./ListMagnetGroupsUserProfile";
+import { uploadImage } from "../../functions/s3";
+import { getUrl } from "aws-amplify/storage";
 export enum STATUS {
   SUCCESS = 'SUCCESS',
   FAIL = 'FAIL',
 }
 const initialForm = {
+  id: "",
   email: "",
   username: "",
   name: "",
@@ -18,19 +21,37 @@ const initialForm = {
 
 export default function UserProfile() {
   const { currentColor } = useFridgeContext();
-  const { user, refetch, loadingUserData } = useUserInfoDB()
+  const { user, refetch, loadingUserData } = useUserInfoDB();
+  console.log(user, 'user')
   const [editProfile, setEditProfile] = useState(false);
   const [form, setForm] = useState<UserData>(user || initialForm);
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false); // Estado del modal
+  const [selectedImage, setSelectedImage] = useState<File | null>(null); // Imagen seleccionada
+  const [previewImage, setPreviewImage] = useState<string>(""); // URL de la imagen para vista previa
+  const [avatarUrl, setAvatarUrl] = useState<string>('');
+  const avatarInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  useEffect(() =>{
-    if(user){
-      setForm(user)
+  useEffect(() => {
+    if (user) {
+      setForm(user);
+      loadAvatarImage(user?.avatar);
     }
-  },[user])
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  }, [user]);
+
+const loadAvatarImage = async (avatarPath: string | undefined) => {
+    const icon = "/icons/edit_user_avatar.svg";
+    const avatarUrl = avatarPath !== "" ? avatarPath : icon;
+    if (avatarUrl === icon) {
+      setAvatarUrl(icon);
+    } else {
+      // Obtener la URL usando getUrl
+      //@ts-ignore
+      const { url } = await getUrl({ path: avatarUrl });
+      setAvatarUrl(url instanceof URL ? url.href : url);
+    }
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
@@ -38,30 +59,96 @@ export default function UserProfile() {
     }));
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewImage(URL.createObjectURL(file)); // Generar vista previa de la imagen
+      setModalOpen(true); // Abrir modal
+    }
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedImage(null);
+    setPreviewImage("");
+    if (avatarInputRef.current) {
+      avatarInputRef.current.value = ""; // Resetear el input de archivo
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const result = await updateUserOnDB(form)
-      if(result.status === STATUS.SUCCESS){
-        refetch()
-        toast.success(result.msg, {duration: 2000,  position: 'top-center'})
-      } else{
-        toast.error(result.msg, {duration: 2000,  position: 'top-center'})
+      const result = await updateUserOnDB(form);
+      if (result.status === STATUS.SUCCESS) {
+        refetch();
+        toast.success(result.msg, { duration: 2000, position: "top-center" });
+      } else {
+        toast.error(result.msg, { duration: 2000, position: "top-center" });
       }
     } catch (error) {
-      console.error(error)
-      toast.error('Error al modificar el usuario.', {duration: 2000,  position: 'top-center'})
-    } finally{
+      console.error(error);
+      toast.error("Error al modificar el usuario.", {
+        duration: 2000,
+        position: "top-center",
+      });
+    } finally {
       setLoading(false);
       setEditProfile(false); // Salir del modo de edición
     }
   };
+  const handleUpdateImage = async(type: string) =>{
+    if(!selectedImage || !user?.id) return
+    console.log(selectedImage)
+    try {
+      const path = `public/users/${user?.id}/${type}/${selectedImage.name}`
+      await uploadImage(selectedImage, path)
+      let result = await updateUserOnDB({
+        id: user?.id,
+        avatar: path
+      })
+      if(result.status === STATUS.SUCCESS){
+        handleModalClose()
 
-  const cancelUpdateProfile = () =>{
-    setForm(user || initialForm)
-    setEditProfile(false)
+        loadAvatarImage(`${path}`)
+        toast.success('¡Buen avatar!', {
+          duration: 1200,
+          position: 'top-center'
+        })
+      }else{
+        toast.error('Error al actualizar el avatar', {
+          duration: 1200,
+          position: 'top-center'
+        })
+      }
+    } catch (error) {
+      
+    }
   }
+  const cancelUpdateProfile = () => {
+    setForm(user || initialForm);
+    setEditProfile(false);
+  };
+/*   const avatarImage = async () => {
+    const icon = "/icons/edit_user_avatar.svg";
+    const avatarPath =
+      avatar !== ""
+        ? avatar
+        : user?.avatar
+        ? `${user?.avatar}`
+        : icon;
+  
+    if (avatarPath === icon) return icon;
+  
+    // Obtener la URL usando getUrl
+    //@ts-ignore
+    const { url } = await getUrl({ path: avatarPath });
+  
+    // Convertir URL a string explícitamente (si es necesario)
+    return url instanceof URL ? url.href : url;
+  }; */
   return (
     <div className="w-full">
       <header className='w-full'>
@@ -69,20 +156,79 @@ export default function UserProfile() {
           <svg className="w-10 h-10 text-gray-200 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
             <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
           </svg>
-          <div className='z-10 absolute -bottom-[34px] left-4 p-1 bg-[#f2f2f2] rounded-full'>
-            {editProfile?
-            <button className='relative w-[60px] h-[60px] cursor-pointer'>
-              <div className='absolute bg-black opacity-50 w-full h-full flex justify-center items-center rounded-full'><img src="/icons/edit_user_avatar.svg" alt="edit user"/> </div>
-              <img src={'/images/profile/profile_image.webp'} alt='profile image' width={60} />
-            </button>
-            :
-            <img src={'/images/profile/profile_image.webp'} alt='profile image' width={60} />
-            }
+          <div className='z-10 absolute -bottom-[34px] left-4 p-1 bg-[#f2f2f2] rounded-full h-20 w-20 overflow-hidden'>
+          {editProfile ? (
+              <div 
+              className="w-full h-full rounded-full"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                  id="avatarInput"
+                  ref={avatarInputRef}
+                />
+                <label
+                  htmlFor="avatarInput"
+                  className="relative w-[60px] h-[60px] cursor-pointer"
+                >
+                  <div className="absolute bg-black opacity-50 w-full h-full flex justify-center items-center rounded-full">
+                    <img
+                      src={"/icons/edit_user_avatar.svg" }
+                      alt="edit user"
+                    />
+                  </div>
+                  <img
+                      src={avatarUrl}
+                      className="w-full h-full rounded-full"
+
+                      alt="edit user"
+                    />
+                </label>
+              </div>
+            ) : (
+              loadingUserData?
+              <div className="animate-pulse w-full h-full rounded-full bg-gray-300"/>
+              :
+              <img
+                src={avatarUrl}
+                className="w-full h-full rounded-full"
+                alt="profile image"
+              />
+            )}
           </div>
           {!editProfile && <button onClick={() => {setEditProfile(true)}} className='absolute top-6 right-4 bg-gray-400 px-3 py-1 text-xs text-white rounded-md active:bg-gray-500'>Editar perfil</button>}
           {/* {editProfile && <div className='absolute cursor-pointer bg-black opacity-50 w-full h-full flex justify-center items-center'><RiImageEditLine className='text-3xl text-white'/> </div>} */}
         </div>
       </header>
+      {/* Modal para mostrar la imagen seleccionada */}
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <h2 className="text-lg font-bold mb-4">Vista previa del avatar</h2>
+            <img
+              src={previewImage}
+              alt="Vista previa"
+              className="w-40 h-40 object-cover rounded-full mx-auto"
+            />
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={handleModalClose}
+                className="py-2 px-4 bg-gray-300 rounded-md text-gray-800"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => handleUpdateImage('hola')}
+                className="ml-2 py-2 px-4 bg-blue-600 rounded-md text-white"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <article className="w-full px-6 pt-9">
         {!editProfile ? 
         <>

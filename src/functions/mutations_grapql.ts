@@ -9,7 +9,6 @@ import {
   deleteMagnetGroup
  } from "../graphql/mutations";
 import { NewUserInput } from "../types/graphql";
-import { UserData } from "../types";
 import { getCurrentUser } from "aws-amplify/auth";
 import { MagnetGroupInput } from "../types/magnetGroup";
 export enum STATUS {
@@ -39,7 +38,7 @@ export const createUserOnDB = async (data: NewUserInput) => {
     }
   };
 
-export const updateUserOnDB = async (data: UserData) => {
+export const updateUserOnDB = async (data: any) => {
   const { userId } = await getCurrentUser()
   try {
     const input = {

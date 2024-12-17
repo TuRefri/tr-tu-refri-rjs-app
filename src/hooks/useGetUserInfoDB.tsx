@@ -3,7 +3,7 @@ import { getUserQuery } from '../functions/queries_graphql'
 import { getCurrentUser } from 'aws-amplify/auth'
 import { UserData } from '../types'
 export default function useUserInfoDB() {
-    const [loadingUserData, setLoadingUserData] = useState(false)
+    const [loadingUserData, setLoadingUserData] = useState(true)
     const [user, setUser] = useState<UserData | null>(null)
     const [error, setErrors] = useState<unknown>(null)
 

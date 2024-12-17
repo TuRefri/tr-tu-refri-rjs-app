@@ -1,41 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useListLocations from '../../hooks/useListLocations';
 import useGetS3Data from '../../hooks/useGetS3Data';
 import { useGlobalContext } from '../../context/global-context';
 import { handleIsOnRadius } from '../../utils/mapFunctions';
 
-let markers = [];  // Lista global de marcadores
-
 export default function LocationsToShowInMap({ map, handleCloseModal, handleSelectStoreOnMap }) {
   const { locations, loading } = useListLocations('3');
   const { selectedCategory, radius, position } = useGlobalContext();
   const { awsS3Name, awsS3Region } = useGetS3Data();
-  console.log(locations, 'locationslocations')
+  const markersRef = useRef([]); // Ref para los marcadores
+
   const handleCreateMarkers = (filteredLocations) => {
     const dataIDs = filteredLocations.map(item => item.id);
 
-    // Eliminar los marcadores que ya no son necesarios
-    markers.forEach(marker => {
+    // Eliminar marcadores que ya no son necesarios
+    markersRef.current.forEach(marker => {
       if (!dataIDs.includes(marker.title)) {
-        marker.setMap(null);  // Eliminar del mapa
+        marker.setMap(null); // Eliminar del mapa
       }
     });
 
-    // Filtrar los marcadores que deben permanecer en el mapa
-    markers = markers.filter(marker => dataIDs.includes(marker.title));
+    // Filtrar marcadores que deben permanecer
+    markersRef.current = markersRef.current.filter(marker => dataIDs.includes(marker.title));
 
+    // Crear nuevos marcadores si no existen
     filteredLocations.forEach(item => {
-      if (!markers.some(marker => marker.title === item.id)) {
-        // Crear un nuevo marcador solo si no existe
+      if (!markersRef.current.some(marker => marker.title === item.id)) {
         const imgElement = document.createElement('img');
         imgElement.src = `https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${item.store.avatarImage}`;
-        imgElement.style.width = '40px';
-        imgElement.style.height = '40px';
-        imgElement.style.padding = '2px';
-        imgElement.style.backgroundColor = '#000';
-        imgElement.style.borderRadius = '50%';
-        imgElement.style.objectFit = 'cover';
-        imgElement.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+        imgElement.style = `
+          width: 40px;
+          height: 40px;
+          padding: 2px;
+          background-color: #000;
+          border-radius: 50%;
+          object-fit: cover;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        `;
 
         const marker = new google.maps.marker.AdvancedMarkerElement({
           map,
@@ -52,37 +53,40 @@ export default function LocationsToShowInMap({ map, handleCloseModal, handleSele
         });
 
         marker.setMap(map);
-        markers.push(marker);  // Agregar al array global
+        markersRef.current.push(marker); // Agregar al array de marcadores
       }
     });
   };
 
   useEffect(() => {
     if (!map || !locations.length) return; // Verifica que el mapa y las ubicaciones estén listos
-  
+
     let filteredLocations = [...locations];
-  
     if (selectedCategory !== '') {
       filteredLocations = filteredLocations.filter(item =>
         item.store.categories.items[0].categoryId === selectedCategory.id
       );
     }
-  
+
     const desiredPosition = position || JSON.parse(window.localStorage.getItem('aprox_position'));
-  
     filteredLocations = handleIsOnRadius({
       userPosition: desiredPosition,
       locations: filteredLocations,
       radius,
     });
-  
+
     handleCreateMarkers(filteredLocations);
+
+    // Limpia los marcadores al desmontar el componente
+    return () => {
+      markersRef.current.forEach(marker => marker.setMap(null));
+      markersRef.current = [];
+    };
   }, [map, locations, selectedCategory, radius, position]);
-  
 
   if (loading) {
     return (
-      <div className='flex gap-x-2 text-sm px-6 py-2 bg-white shadow-lg text-gray-600 rounded-full items-center w-fit '>
+      <div className="flex gap-x-2 text-sm px-6 py-2 bg-white shadow-lg text-gray-600 rounded-full items-center w-fit">
         <div role="status">
           <svg
             aria-hidden="true"

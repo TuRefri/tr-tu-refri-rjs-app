@@ -1,3 +1,4 @@
+import React, { Suspense }from 'react';
 import { Amplify } from 'aws-amplify';
 import config from './amplifyconfiguration.json';
 import { createRoot, Root } from 'react-dom/client';
@@ -13,22 +14,23 @@ import { GlobalProvider } from './context/global-context.tsx';
 import 'aws-amplify/auth/enable-oauth-listener';
 
 // Import components directly
-import RootComponent from './routes/root';
-import TuRefri from './routes/turefri';
-import ErrorPage from './error-page';
-import Map from './routes/map.tsx';
-import Emergency from './routes/emergency.tsx';
-import Contact from './routes/contact.tsx';
-import Scan from './routes/scan.tsx';
-import Events from './routes/events.tsx';
-import Profile from './routes/profile.tsx';
-import Login from './routes/login.tsx';
-import SignUp from './routes/signup.tsx';
-import UserProfile from './routes/user-profile.tsx';
-import ConfirmCode from './routes/confirm-code.tsx';
-import ResetPasswordPage from './routes/reset-password.tsx';
+// Lazy-load components
+const RootComponent = React.lazy(() => import('./routes/root'));
+const TuRefri = React.lazy(() => import('./routes/turefri'));
+const ErrorPage = React.lazy(() => import('./error-page'));
+const Map = React.lazy(() => import('./routes/map.tsx'));
+const Emergency = React.lazy(() => import('./routes/emergency.tsx'));
+const Contact = React.lazy(() => import('./routes/contact.tsx'));
+const Scan = React.lazy(() => import('./routes/scan.tsx'));
+const Events = React.lazy(() => import('./routes/events.tsx'));
+const Profile = React.lazy(() => import('./routes/profile.tsx'));
+const Login = React.lazy(() => import('./routes/login.tsx'));
+const SignUp = React.lazy(() => import('./routes/signup.tsx'));
+const UserProfile = React.lazy(() => import('./routes/user-profile.tsx'));
+const ConfirmCode = React.lazy(() => import('./routes/confirm-code.tsx'));
+const ResetPasswordPage = React.lazy(() => import('./routes/reset-password.tsx'));
+const LocationPage = React.lazy(() => import('./components/LocationPage.tsx'));
 import { registerSW } from 'virtual:pwa-register'
-import LocationPage from './components/LocationPage.tsx';
 import { UserContextProvider } from './context/user-auth.tsx';
 registerSW({ immediate: true })
 
@@ -67,83 +69,130 @@ const router = createBrowserRouter([
         element: (
             <UserContextProvider>
             <GlobalProvider>
-                <RootComponent />
+                <Suspense fallback={null}>
+                    <RootComponent />
+                </Suspense>
             </GlobalProvider>
             </UserContextProvider>
         ),
-        errorElement: <ErrorPage />,
+        errorElement: (
+            <Suspense fallback={null}>
+                <ErrorPage />
+            </Suspense>
+        ),
         children: [
             {
                 path: "/",
                 element: (
-                    <DetailMagnetProvider>
-                        <TuRefri />
-                    </DetailMagnetProvider>
+                    <Suspense fallback={null}>
+                        <DetailMagnetProvider>
+                            <TuRefri />
+                        </DetailMagnetProvider>
+                    </Suspense>
                 ),
             },
             {
                 path: "auth/login",
-                element: <Login />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Login />
+                    </Suspense>
+                ),
             },
             {
                 path: "auth/signup",
-                element: <SignUp />,
+                element: (
+                    <Suspense fallback={null}>
+                        <SignUp />
+                    </Suspense>
+                ),
             },
             {
                 path: "auth/confirm-code",
-                element: <ConfirmCode />,
+                element: (
+                    <Suspense fallback={null}>
+                        <ConfirmCode />
+                    </Suspense>
+                ),
             },
             {
                 path: "auth/reset-password",
-                element: <ResetPasswordPage />,
+                element: (
+                    <Suspense fallback={null}>
+                        <ResetPasswordPage />
+                    </Suspense>
+                ),
             },
             {
                 path: "profile",
-                element: <Profile />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Profile />
+                    </Suspense>
+                ),
             },
             {
                 path: "user-profile",
-                element: <UserProfile />,
-            },
-/*             {
-                path: "stores",
                 element: (
-                    <StorePageProvider>
-                        <StorePage />
-                    </StorePageProvider>
+                    <Suspense fallback={null}>
+                        <UserProfile />
+                    </Suspense>
                 ),
-            }, */
+            },
             {
                 path: "location/:id",
-                element: <LocationPage />,
+                element: (
+                    <Suspense fallback={null}>
+                        <LocationPage />
+                    </Suspense>
+                ),
             },
             {
                 path: "map",
-                element: <Map />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Map />
+                    </Suspense>
+                ),
             },
             {
                 path: "events",
-                element: <Events />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Events />
+                    </Suspense>
+                ),
             },
             {
                 path: "emergency",
-                element: <Emergency />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Emergency />
+                    </Suspense>
+                ),
             },
             {
                 path: "contact",
-                element: <Contact />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Contact />
+                    </Suspense>
+                ),
             },
             {
                 path: "scan",
-                element: <Scan />,
+                element: (
+                    <Suspense fallback={null}>
+                        <Scan />
+                    </Suspense>
+                ),
             },
         ],
     },
 ]);
 
-// Use a variable to hold the root instance
+// Root render
 let root: Root | null = null;
-
 const rootElement = document.getElementById("root");
 
 if (rootElement) {

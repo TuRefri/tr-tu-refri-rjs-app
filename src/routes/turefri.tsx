@@ -12,6 +12,7 @@ import { deleteMagnetOnDB } from "../functions/mutations_grapql";
 import { toast } from "sonner";
 import SimpleLoadingComponent from "../components/SimpleLoadingComponent";
 import ModalCreateMagnetGroup from "../components/ModalCreateMagnetGroup";
+import { Link } from "react-router-dom";
 //import DropDownRefri from "../components/DropDownRefri";
 const IMAGES =[
   {url: '/images/banner/banner_coca_cola.webp', alt: "banner 1"},
@@ -103,19 +104,32 @@ export default function TuRefri() {
         <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets} handleOpenCreateMagnetGroupModal={handleOpenCreateMagnetGroupModal}/>
       </section>
       <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4 overflow-y-scroll no-scrollbar`}>
-          {loadingMagnets ? (
-            <SimpleLoadingComponent loadingText="Cargando imanes" size="20" className="absolute"/>
-          ) : magnetList && magnetList.length > 0 ? (
-            magnetListFilteredByCategory.map((item) => (
-              <li key={item.id}>
-                <MagnetRefri item={item} />
-              </li>
-            ))
-          ) : (
-            <li className="absolute h-full w-full">
-              <AddMagnets handleOpenModal={handleOpenNotAuthModal} />
+      {loadingMagnets ? (
+          <SimpleLoadingComponent loadingText="Cargando imanes" size="20" className="absolute" />
+        ) : magnetList && magnetList.length > 0 && magnetListFilteredByCategory.length > 0 ? (
+          magnetListFilteredByCategory.map((item) => (
+            <li key={item.id}>
+              <MagnetRefri item={item} />
             </li>
-          )}
+          ))
+        ) : magnetList && magnetList.length > 0 ? (
+          <li className="absolute h-full w-full flex flex-col pt-10 items-center pl-4 pr-10">
+            <p className="text-xl text-gray-800 font-semibold mb-2">¡Ups! No hay imanes que coincidan con esta categoría.</p>
+            <p className="text-md text-gray-600">¡Pero no te preocupes, sigue explorando otras opciones! O puedes ir al mapa para 
+              buscar tiendas de esta categoría.
+            </p>
+
+            <Link 
+              to={"/map"}
+              className="w-full bg-blue-500 text-white font-medium text-center py-2 mt-2 rounded-md active:bg-blue-600"
+              >Ir al mapa</Link>
+          </li>
+        ) : (
+          <li className="absolute h-full w-full">
+            <AddMagnets handleOpenModal={handleOpenNotAuthModal} />
+          </li>
+        )}
+
         {magnetsToShow.length < 6 && (
           <li className={`col-span-2 ${sideBarDim < 650 ? "h-20" : "h-32"}`}></li>
         )}

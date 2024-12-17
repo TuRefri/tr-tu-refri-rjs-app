@@ -30,14 +30,16 @@ export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenC
       console.log(item, 'new fav')
       const currentFavorite = localMagnetGroups.find(item => item.favorite)
       console.log(currentFavorite, 'old fav')
-      if(currentFavorite && currentFavorite.id === item.id){
+      if(currentFavorite?.id === item.id){
         return 
       }else{
         try {
-          //@ts-ignore
-          const oldFavorite = {id: currentFavorite.id, favorite: false}
-          //@ts-ignore
-          await updateMagnetGroupOnDB(oldFavorite)
+          if(currentFavorite){
+            //@ts-ignore
+            const oldFavorite = {id: currentFavorite.id, favorite: false}
+            //@ts-ignore
+            await updateMagnetGroupOnDB(oldFavorite)
+          }
 
           const newFavorite ={ id: item.id, favorite: true}
           await updateMagnetGroupOnDB(newFavorite)

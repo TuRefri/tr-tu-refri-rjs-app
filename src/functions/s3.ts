@@ -1,9 +1,9 @@
 import { uploadData } from 'aws-amplify/storage';
 
-export const uploadImage = (file: File, path : string) =>{
+export const uploadImage = async (file: File, path : string) =>{
     try {
-        const result = uploadData({
-          path: ({identityId}) => `protected/${identityId}/${path}/${file.name}`,
+        const result = await uploadData({
+          path: () => path,
           // Alternatively, path: ({identityId}) => `protected/${identityId}/album/2024/1.jpg`
           data: file,
           options: {
