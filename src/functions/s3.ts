@@ -56,7 +56,7 @@ const resizeImage = (file: File, maxWidth: number, maxHeight: number, quality: n
 export const uploadImage = async (file: File, path: string) => {
   try {
     // Reducir la calidad de la imagen antes de subirla
-    const resizedFile = await resizeImage(file, 800, 800, 0.4); // Máximo 800x800px, calidad 70%
+    const resizedFile = await resizeImage(file, 800, 800, 0.3); // Máximo 800x800px, calidad 70%
 
     const result = await uploadData({
       path: () => path,

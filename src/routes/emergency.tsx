@@ -17,7 +17,7 @@ const entities = [
 export default function Emergency() {
   const { currentColor } = useFridgeContext()
   return (
-    <div className="w-full px-3 pt-12 overflow-y-scroll h-full no-scrollbar">
+    <div className="w-full px-4 pt-12 overflow-y-scroll h-full no-scrollbar">
       <h2 className="text-lg font-light" style={{ color: currentColor.textPrimaryColor}}>Ayuda inmediata</h2>
       <h1 className="text-4xl font-semibold pb-4" style={{ color: currentColor.textPrimaryColor}}>A un solo click</h1>
       <ul className="flex flex-col w-full gap-y-3 pb-20">
