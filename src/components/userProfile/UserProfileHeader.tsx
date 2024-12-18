@@ -3,6 +3,7 @@ import React from "react";
 interface UserProfileHeaderProps {
   avatarUrl: string;
   loadingUserData: boolean;
+  loadingAvatar: boolean;
   editProfile: boolean;
   setEditProfile: (value: boolean) => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -12,6 +13,7 @@ interface UserProfileHeaderProps {
 const UserProfileHeader: React.FC<UserProfileHeaderProps> = ({
   avatarUrl,
   loadingUserData,
+  loadingAvatar,
   editProfile,
   setEditProfile,
   handleImageChange,
@@ -51,7 +53,7 @@ const UserProfileHeader: React.FC<UserProfileHeaderProps> = ({
                 />
               </label>
             </div>
-          ) : loadingUserData ? (
+          ) : (loadingUserData || loadingAvatar) ? (
             <div className="animate-pulse w-full h-full rounded-full bg-gray-300" />
           ) : (
             <img

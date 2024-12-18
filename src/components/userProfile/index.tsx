@@ -34,6 +34,7 @@ export default function UserProfile() {
   const [previewImage, setPreviewImage] = useState<string>(""); // URL de la imagen para vista previa
   const [ loadingUpdateAvatar,setLoadingUpdateAvatar] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState<string>('');
+  const [loadingAvatar, setLoadingAvatar] = useState(true)
   const avatarInputRef = React.useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function UserProfile() {
   }, [user]);
 
 const loadAvatarImage = async (avatarPath: string | undefined) => {
+    setLoadingAvatar(true)
     const icon = "/images/profile/profile_image.webp";
     console.log(avatarPath)
     const avatarUrl = (avatarPath !== "" && avatarPath) ? avatarPath : icon;
@@ -55,6 +57,7 @@ const loadAvatarImage = async (avatarPath: string | undefined) => {
       const { url } = await getUrl({ path: avatarUrl });
       setAvatarUrl(url instanceof URL ? url.href : url);
     }
+    setLoadingAvatar(false)
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -143,6 +146,7 @@ const loadAvatarImage = async (avatarPath: string | undefined) => {
       <UserProfileHeader 
         avatarUrl={avatarUrl}
         loadingUserData={loadingUserData}
+        loadingAvatar={loadingAvatar}
         editProfile={editProfile}
         setEditProfile={setEditProfile}
         handleImageChange={handleImageChange}
