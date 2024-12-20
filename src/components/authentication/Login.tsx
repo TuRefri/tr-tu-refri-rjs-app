@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { getUserInfo } from "../../functions/user";
 import { useGlobalContext } from "../../context/global-context";
 import { useMagnetGroupsContext } from "../../context/magnet-groups";
+import useListCategories from "../../hooks/userListCategories";
 enum STATUS {
     SUCCESS = 'SUCCESS',
     FAIL = 'FAIL',
@@ -18,6 +19,7 @@ export default function Login() {
   const navigate = useNavigate()
   const { handleSetUserData } = useGlobalContext()
   const { refetch } = useMagnetGroupsContext()
+  const { makeQuery }  = useListCategories()
   const { currentColor } = useFridgeContext();
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
@@ -58,6 +60,9 @@ export default function Login() {
       if(result.status === STATUS.SUCCESS && result.isSignedIn){
         const userdata = await getCurrentUser()
         refetch()
+        if(!window.localStorage.getItem('categories')){
+          makeQuery()
+        }
         const userDB = await getUserInfo(userdata.userId)
         if(userDB.data){
           handleSetUserData({

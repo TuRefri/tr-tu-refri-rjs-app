@@ -15,7 +15,6 @@ export default function useListCategories() {
             makeQuery();
         }
     }, []);
-
     const makeQuery = async () =>{
         try {
             setLoading(true)
@@ -36,5 +35,5 @@ export default function useListCategories() {
             setLoading(false)
         }
     }
-  return { loading, categories, error}
+  return { loading, categories, error, makeQuery }
 }
