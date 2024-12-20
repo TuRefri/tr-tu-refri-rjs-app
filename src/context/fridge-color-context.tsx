@@ -1,15 +1,6 @@
 import React, { useState, createContext, useContext, ReactNode } from 'react';
 import colorFridge from '../data/colors-fridge.json';
-
-interface Color {
-    name: string;
-    hexColor: string;
-    shadow: string;
-    textPrimaryColor: string;
-    textSecondaryColor:string;
-    border: string
-    cardBackground: string
-}
+import { Color } from '../types';
 
 interface FridgeContextType {
     currentColor: Color;
@@ -28,6 +19,7 @@ const FridgeContext = createContext<FridgeContextType | undefined>(undefined);
 export const FridgeProvider = ({ children }: { children: ReactNode }) => {
     const [currentColor, setCurrentColor] = useState<Color>(colorFridge[0]);
     const[refriDim, setRefriDim] = useState<refriDim>({height: 0, width: 0})
+
     return (
         <FridgeContext.Provider value={{ currentColor, setCurrentColor, refriDim, setRefriDim }}>
             {children}

@@ -101,7 +101,7 @@ export default function TuRefri() {
             className={`cursor-pointer ml-2 py-1 px-3 bg-gray-400 text-white flex items-center rounded-lg text-sm  font-medium mt-1 whitespace-nowrap`}
             >{selectedCategory.name}</button>
           )}
-        <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets} handleOpenCreateMagnetGroupModal={handleOpenCreateMagnetGroupModal}/>
+        <DropDownMagnetGroups magnetgroups={magnetgroups} loading={loadingMagnets} handleOpenCreateMagnetGroupModal={handleOpenCreateMagnetGroupModal} refetch={refetch}/>
       </section>
       <ul className={`${sideBarDim < 650 ? "gap-2" : "gap-3"} relative flex-grow grid grid-cols-2 p-4 overflow-y-scroll no-scrollbar`}>
       {loadingMagnets ? (

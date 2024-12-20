@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { RoundedButtonTooltipProps } from "../types";
+import { Color, RoundedButtonTooltipProps } from "../types";
 import { useFridgeContext } from "../context/fridge-color-context";
 import { motion } from "framer-motion";
+import { getCurrentUser } from "aws-amplify/auth";
 
 export default function RoundedButtonTooltipColors({ icon, theme, className, options }: RoundedButtonTooltipProps) {
   const { setCurrentColor } = useFridgeContext();  
@@ -40,6 +41,19 @@ export default function RoundedButtonTooltipColors({ icon, theme, className, opt
     }),
   };
 
+  const handleSelectColor = async(item : Color) =>{
+    try {
+      const { userId } = await getCurrentUser();
+      window.localStorage.setItem(`${userId}_fridgecolor`, JSON.stringify(item))
+     
+      
+    } catch (error) {
+      
+    } finally {
+      setCurrentColor(item);
+      setVisible(false); 
+    }
+  }
   return (
     <div className="relative inline-block">
       <button
@@ -68,8 +82,7 @@ export default function RoundedButtonTooltipColors({ icon, theme, className, opt
               >
                 <motion.button
                   onClick={() => {
-                    setCurrentColor(item);
-                    setVisible(false); // Cerrar el tooltip al seleccionar un color
+                    handleSelectColor(item)
                   }}
                   className={`rounded-[80px] h-8 w-8 ${item.shadow}`}
                   style={{ backgroundColor: item.hexColor }}

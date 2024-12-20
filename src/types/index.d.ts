@@ -2,6 +2,15 @@ import { CategoryQuery } from "./graphql";
 import { CategoryItem } from "./location";
 
 export type day = "lunes" | "martes" | "miércoles" | "jueves" | "viernes" | "sábado" | "domingo"
+export interface Color {
+    name: string;
+    hexColor: string;
+    shadow: string;
+    textPrimaryColor: string;
+    textSecondaryColor:string;
+    border: string
+    cardBackground: string
+}
 
 export interface SideBarButton {
     href?: string;

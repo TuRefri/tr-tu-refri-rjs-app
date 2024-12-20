@@ -9,8 +9,9 @@ interface DrowDropTuRefriProps {
     magnetgroups: MagnetGroup[],
     loading: boolean
     handleOpenCreateMagnetGroupModal: () => void
+    refetch: () => void
 }
-export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenCreateMagnetGroupModal } : DrowDropTuRefriProps) {
+export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenCreateMagnetGroupModal, refetch } : DrowDropTuRefriProps) {
     const { selectedMagnetGroup , handleSelectMagnetGroup} = useGlobalContext()
     const [localMagnetGroups, setLocalMagnetGroups] = useState(magnetgroups);
     const { user } = useUserContext()
@@ -44,6 +45,7 @@ export default function DropDownMagnetGroups({magnetgroups, loading, handleOpenC
           const newFavorite ={ id: item.id, favorite: true}
           await updateMagnetGroupOnDB(newFavorite)
           setLocalMagnetGroups(handleChangeFavoriteLocally(item.id));
+          refetch()
           toast.success(`¡${item.name} es tu nuevo Refri favorito!`, {duration: 2000,  position: 'top-center'});
         } catch (error) {
           console.log(error)
