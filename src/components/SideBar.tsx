@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import RoundedButton from './RoundedButton';
 import redes from '../data/redes-sociales.json';
 import firstSection from "../data/buttons-sidebar-first.json";
@@ -12,35 +11,15 @@ import useListCategories from '../hooks/userListCategories';
 /* import { useLocation } from 'react-router-dom'; */
 export default function SideBar() {
   /* const location = useLocation(); */
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const[sideBarDim, setSideBarDim] = useState(0)
   const { categories } = useListCategories()
-  const logHeight = () => {
-    if (sidebarRef.current) {
-      setSideBarDim(sidebarRef.current.clientHeight)
-    }
-  };
-
-  useEffect(() => {
-    // Log initial height
-    logHeight();
-
-    // Add a resize event listener
-    window.addEventListener('resize', logHeight);
-
-    // Clean up event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', logHeight);
-    };
-  }, []);
 
   return (
-    <aside ref={sidebarRef} className=' pt-4 px-2 py-4 flex flex-col justify-center items-center h-[90%]'>
+    <aside  className=' pt-4 px-2 py-4 flex flex-col justify-center items-center h-[90%]'>
       <div className={`border border-gray-300 p-1 rounded-full`}>
         <RoundedButton className={""} href='/user-profile' icon='/icons/person.svg' />
       </div>
 
-      <ul className={`${sideBarDim < 642? "mt-2" : "mt-6"} border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center`}>
+      <ul className={`mt-2 border border-gray-300 px-1 rounded-full flex flex-col justify-center items-center`}>
         {firstSection.map((item, index: number) => {
           if (item.name === 'draw') {
             return (
@@ -66,7 +45,7 @@ export default function SideBar() {
         })}
       </ul>
 
-      <ul className={`${sideBarDim < 642? "mt-2" : "mt-6"} border border-gray-300 px-1 rounded-full`}>
+      <ul className={`mt-2 border border-gray-300 px-1 rounded-full`}>
         {secondSection.map((item, index: number) => {
           return (
             <li key={index}>
@@ -80,7 +59,7 @@ export default function SideBar() {
         <RoundedButton href='/scan' icon='/icons/qr-scanner.svg' />
       </div>
 
-      <div className={`${sideBarDim < 642? "mt-1" : "mt-2"} border border-gray-300 p-1 rounded-full`}>
+      <div className={`mt-2 border border-gray-300 p-1 rounded-full`}>
         <RoundedButtonSharingPosition />
       </div>
 
