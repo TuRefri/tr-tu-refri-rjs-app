@@ -32,6 +32,7 @@ const ResetPasswordPage = React.lazy(() => import('./routes/reset-password.tsx')
 const LocationPage = React.lazy(() => import('./components/LocationPage.tsx'));
 import { registerSW } from 'virtual:pwa-register'
 import { UserContextProvider } from './context/user-auth.tsx';
+import { MagnetGroupsProvider } from './context/magnet-groups.tsx';
 registerSW({ immediate: true })
 
 //Check if you are in localhost or production
@@ -68,11 +69,14 @@ const router = createBrowserRouter([
         path: "",
         element: (
             <UserContextProvider>
-            <GlobalProvider>
-                <Suspense fallback={null}>
-                    <RootComponent />
-                </Suspense>
-            </GlobalProvider>
+                <GlobalProvider>
+                    <MagnetGroupsProvider>
+
+                        <Suspense fallback={null}>
+                            <RootComponent />
+                        </Suspense>
+                        </MagnetGroupsProvider>
+                </GlobalProvider>
             </UserContextProvider>
         ),
         errorElement: (
@@ -199,7 +203,7 @@ if (rootElement) {
     }
     root.render(
         <FridgeProvider>
-            <RouterProvider router={router} />
+                <RouterProvider router={router} />
             <Toaster />
         </FridgeProvider>
     );

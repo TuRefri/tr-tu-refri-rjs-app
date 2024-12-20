@@ -5,14 +5,13 @@ import { Location } from '../types/location';
 import { useGlobalContext } from '../context/global-context';
 import { updateMagnetGroupOnDB } from '../functions/mutations_grapql';
 import { toast } from 'sonner';
-import useGetMagnets from '../hooks/useGetMagnets';
 interface DropDownRefrisMap{
-    data: Location | null;
-    handleActionButton: (data : Location | null, magnetGroup: MagnetGroup | null) => void
+  data: Location | null;
+  magnetgroups: MagnetGroup[]
+  handleActionButton: (data : Location | null, magnetGroup: MagnetGroup | null) => void
 }
-export default function DropDownRefrisMap({ data, handleActionButton }: DropDownRefrisMap) {
+export default function DropDownRefrisMap({ data, magnetgroups, handleActionButton }: DropDownRefrisMap) {
     const { selectedMagnetGroup } = useGlobalContext()
-    const { magnetgroups } = useGetMagnets()
     const [localMagnetGroups, setLocalMagnetGroups] = useState(magnetgroups);
 
     useEffect(() => {
@@ -50,9 +49,9 @@ export default function DropDownRefrisMap({ data, handleActionButton }: DropDown
       }
     }
     return (
-    <Menu as="div" className="w-fit relative inline-block text-left">
+    <Menu as="div" className="w-fit h-full relative inline-block text-left">
 
-        <MenuButton className='w-fit border py-2  px-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'>
+        <MenuButton className='w-fit border py-2 h-full  px-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'>
             <img src='/icons/vertical_dots.svg' alt='more refris'/>
         </MenuButton>
 

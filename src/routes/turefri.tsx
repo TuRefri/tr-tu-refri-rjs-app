@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDetailMagnetContext } from "../context/detail-magnet-context";
 import MagnetRefri from "../components/MagnetRefri";
-import useGetMagnets from "../hooks/useGetMagnets";
+import { useMagnetGroupsContext } from "../context/magnet-groups";
 import Slider from "../components/Slider";
 import ModalMagnetRefri from "../components/ModalMagnetRefri";
 import AddMagnets from "../components/AddMagnets";
@@ -27,7 +27,7 @@ export default function TuRefri() {
   const [showCreateMagnetGroupModal, setShowCreateMagnetGroupModal] = useState(false)
   const { selectedMagnetGroup, selectedCategory, handleSelectCategory } = useGlobalContext();
   const {isOpen, handleClose } = useDetailMagnetContext();
-  const { magnetgroups, loadingMagnets, refetch } = useGetMagnets()
+  const { magnetgroups, loadingMagnets, refetch } = useMagnetGroupsContext()
 
   const handleCloseNotAuthModal = () =>{
     setShowNotAuthModal(false)

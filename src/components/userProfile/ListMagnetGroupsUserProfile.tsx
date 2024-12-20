@@ -1,10 +1,10 @@
-import useGetMagnets from '../../hooks/useGetMagnets'
+import { useMagnetGroupsContext } from '../../context/magnet-groups';
 import { MagnetGroup } from '../../types/magnetGroup'
 import { deleteMagnetGroupOndDB, deleteMagnetOnDB } from '../../functions/mutations_grapql'
 import { toast } from 'sonner';
 import { useState } from 'react';
 export default function ListMagnetGroupsUserProfile() {
-    const { magnetgroups, refetch } = useGetMagnets()
+    const { magnetgroups, refetch } = useMagnetGroupsContext()
     const [deleteOnProgress, setDeleteOnProgress] = useState(false)
     const handleDelete = async (item: MagnetGroup) => {
         setDeleteOnProgress(true)

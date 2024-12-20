@@ -9,7 +9,7 @@ import useGetS3Data from '../hooks/useGetS3Data'
 import { createMagnetOndDB } from '../functions/mutations_grapql'
 import { toast } from 'sonner'
 import {  MagnetGroup, MagnetsItem } from '../types/magnetGroup'
-import useGetMagnets from '../hooks/useGetMagnets'
+import { useMagnetGroupsContext } from '../context/magnet-groups'
 interface ModalMapProps {
     data: Location | null
     handleCloseModal: () => void
@@ -17,7 +17,7 @@ interface ModalMapProps {
 export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
   const { selectedMagnetGroup } = useGlobalContext()
   const { user } = useUserContext()
-  const { refetch } = useGetMagnets()
+  const { magnetgroups, refetch } = useMagnetGroupsContext()
   const { awsS3Name, awsS3Region } = useGetS3Data()
   const [loading, setLoading] = useState(false)
 
@@ -79,11 +79,11 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
                 </p>
             </section>
         </div>
-        <div className='flex gap-x-1'>
+        <div className='flex gap-x-1 h-10'>
 
         <button
           onClick={() => handleActionButton(data, selectedMagnetGroup)}
-          className='w-full border py-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'
+          className='w-full h-full border py-2 text-sm rounded-md bg-blue-500 text-white font-medium active:bg-blue-600'
           >
           {loading?
           <div role="status">
@@ -109,7 +109,7 @@ export default function ModalMap({data, handleCloseModal} : ModalMapProps) {
           }
             
           </button>
-          <DropDownRefrisMap handleActionButton={handleActionButton} data={data}/>
+          {magnetgroups.length > 1 && <DropDownRefrisMap handleActionButton={handleActionButton} data={data} magnetgroups={magnetgroups}/>}
         </div>
 
     </motion.div>
