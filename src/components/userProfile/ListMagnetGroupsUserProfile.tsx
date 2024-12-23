@@ -3,8 +3,10 @@ import { MagnetGroup } from '../../types/magnetGroup'
 import { deleteMagnetGroupOndDB, deleteMagnetOnDB } from '../../functions/mutations_grapql'
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { useFridgeContext } from '../../context/fridge-color-context';
 export default function ListMagnetGroupsUserProfile() {
     const { magnetgroups, refetch } = useMagnetGroupsContext()
+    const { currentColor } = useFridgeContext();
     const [deleteOnProgress, setDeleteOnProgress] = useState(false)
     const handleDelete = async (item: MagnetGroup) => {
         setDeleteOnProgress(true)
@@ -38,12 +40,15 @@ export default function ListMagnetGroupsUserProfile() {
     
   return (
     <section className='text-gray-700 w-full flex flex-col items-center'>
-        <h2 className='text-lg font-medium w-full mb-1'>Tus Refris</h2>
+        <h2 
+        className='text-lg font-medium w-full mb-1'
+        style={{color: currentColor.textPrimaryColor}}>Tus Refris</h2>
         <ul className='w-full px-1 flex flex-col gap-y-2'>
             {magnetgroups.map(item =>{
                 return(
                     <li 
                         key={item.id}
+                        style={{color: currentColor.textSecondaryColor, backgroundColor: currentColor.cardBackground}}
                         className='flex justify-between py-3 px-2 hover:bg-slate-200 rounded-md text-gray-500 font-medium' 
                     >
                         <p>{item.name}</p>

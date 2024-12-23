@@ -14,25 +14,26 @@ const WebcamCapture = ({ onScan }) => {
     const videoConstraints = {
         width: 500,
         height: 500,
-        facingMode: "environment"
+        facingMode: "environment",
     };
 
     const capture = () => {
         const imageSrc = webcamRef.current.getScreenshot();
         onScan(imageSrc);
-    }
+    };
 
     return (
-        <div>
+        <div className="rounded-lg overflow-hidden shadow-md">
             <Webcam
+                className="rounded-lg"
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
-                onClick={() => capture() }
+                onClick={() => capture()}
             />
         </div>
     );
-}
+};
 
 export default WebcamCapture;
