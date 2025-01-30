@@ -165,7 +165,7 @@ const router = createBrowserRouter([
                 path: "emergency",
                 element: (
                     <Suspense fallback={null}>
-                        <Emergency />
+                        <Emergency  />
                     </Suspense>
                 ),
             },
