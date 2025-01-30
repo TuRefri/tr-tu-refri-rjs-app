@@ -13,7 +13,6 @@ import { DetailMagnetProvider } from './context/detail-magnet-context.tsx';
 import { GlobalProvider } from './context/global-context.tsx';
 import 'aws-amplify/auth/enable-oauth-listener';
 
-// Import components directly
 // Lazy-load components
 const RootComponent = React.lazy(() => import('./routes/root'));
 const TuRefri = React.lazy(() => import('./routes/turefri'));
@@ -166,7 +165,7 @@ const router = createBrowserRouter([
                 path: "emergency",
                 element: (
                     <Suspense fallback={null}>
-                        <Emergency />
+                        <Emergency  />
                     </Suspense>
                 ),
             },
