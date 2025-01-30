@@ -8,8 +8,8 @@ export default function MagnetRefri({item}: MagnetRefriProps1) {
     const { handleOpen } = useDetailMagnetContext();
     const { awsS3Name, awsS3Region } = useGetS3Data()
   return (
-    <article onClick={() => handleOpen(item)} className='cursor-pointer relative h-44    w-full flex flex-col items-center justify-center rounded-xl shadow-md px-2 bg-[#fdfcfc] active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150'>
-        <section className='w-full flex justify-center pb-1'>
+    <article onClick={() => handleOpen(item)} className='cursor-pointer relative h-44 w-full flex flex-col items-center justify-center rounded-xl shadow-md px-2 bg-[#fdfcfc] active:shadow-[inset_-1px_1px_5px_#cccccc,inset_1px_-1px_5px_#f9f9f9]  transition-transform duration-150'>
+        <section className='w-full flex justify-center pb-1 '>
             <div className='h-auto w-[60%] rounded-full overflow-hidden'>
                 <img 
                 src={`https://${awsS3Name}.s3.${awsS3Region}.amazonaws.com/${item.location.store.avatarImage}`} alt={item.location.store.name} className='border aspect-square object-cover mix-blend-darken h-22'/>

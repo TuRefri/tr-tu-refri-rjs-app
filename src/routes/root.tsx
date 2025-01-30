@@ -44,26 +44,38 @@ export default function Root() {
       };
     }, []);
     return (
-      <div  className="flex h-[100dvh] w-full justify-center bg-slate-200 items-center">
-            <SideBar />
-            <section ref={refriDimRef} id="detail" className=" h-[90%]  max-w-[25rem] rounded-3xl w-full bg-transparent mr-4">
-            <article 
-              className={`relative h-full rounded-3xl overflow-hidden
-                          ${currentColor.shadow}`} 
-              style={{ backgroundColor: currentColor.hexColor }}>
-                  {
-                  (location.pathname === "/")
-                  && (
-                    <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col items-end">
-                      {/* <img src="/turefri-logo.png" className="w-24 mr-4 pb-2" /> */}
-                      <img src="/images/handle.webp" className="" />
-                    </div>
-
-                  )}
-                  
-                  <Outlet />
-              </article>
-            </section>
+      <div className="flex h-[100dvh] w-full justify-center bg-slate-200 items-center">
+        <SideBar />
+        {/* REFRI */}
+        <section ref={refriDimRef} id="detail" className="h-[90%] max-w-[25rem] rounded-3xl w-full bg-transparent mr-4 relative">
+          {/* Video WebM de fondo */}
+          {/* <video 
+            className="absolute top-0 left-0 w-full h-full object-cover z-30" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="/confetti_video.webm" type="video/webm" />
+            Tu navegador no soporta el formato WebM.
+          </video>
+   */}
+          <article 
+            className={`relative h-full rounded-3xl overflow-hidden ${currentColor.shadow}`} 
+            style={{ backgroundColor: currentColor.hexColor }}
+          >
+            {
+              (location.pathname === "/") && (
+                <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col items-end z-10">
+                  {/* <img src="/turefri-logo.png" className="w-24 mr-4 pb-2" /> */}
+                  <img src="/images/handle.webp" className="" />
+                </div>
+              )
+            }
+  
+            <Outlet />
+          </article>
+        </section>
       </div>
     );
 }
