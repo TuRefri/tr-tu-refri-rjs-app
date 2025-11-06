@@ -1,0 +1,15 @@
+{
+  "resourceName": "turefristorage",
+  "policyUUID": "27791a43",
+  "bucketName": "turefribackend5e56d43645524b0da67a58e45e98e5e9",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE"
+}

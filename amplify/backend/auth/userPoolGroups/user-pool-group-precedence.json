@@ -1,0 +1,18 @@
+[
+  {
+    "groupName": "ADMIN",
+    "precedence": 1
+  },
+  {
+    "groupName": "MARKETINGADMIN",
+    "precedence": 2
+  },
+  {
+    "groupName": "MANAGER",
+    "precedence": 3
+  },
+  {
+    "groupName": "REGULAR",
+    "precedence": 4
+  }
+]

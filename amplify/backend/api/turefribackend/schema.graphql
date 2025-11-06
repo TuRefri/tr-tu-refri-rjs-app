@@ -1,0 +1,191 @@
+type Zone @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  name: String!
+  events: [Event] @hasMany(fields: ["id"])
+  emergencyNumbers: [EmergencyNumber] @hasMany(fields: ["id"])
+  locations: [Location] @hasMany(fields: ["id"])
+  banners: [Banner] @manyToMany(relationName: "ZoneBanners")
+  splashes: [Splash] @manyToMany(relationName: "ZoneSplashes")
+}
+
+type Event @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  title: String!
+  description: String
+  location: String
+  date: AWSDateTime!
+  image: String
+  zoneID: ID!
+  zone: Zone @belongsTo(fields: ["zoneID"])
+}
+
+type EmergencyNumber @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  name: String!
+  phone: String!
+  zoneID: ID!
+  zone: Zone @belongsTo(fields: ["zoneID"])
+}
+
+type Store @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] },
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  name: String!
+  description: String
+  bannerImage: String
+  avatarImage: String
+  categories: [Category] @manyToMany(relationName: "StoreCategories")
+  locations: [Location] @hasMany(fields: ["id"])
+  managers: [User] @manyToMany(relationName: "StoreManagers")
+}
+
+type Category @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] },
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  name: String!
+  image: String
+  href: String
+  stores: [Store] @manyToMany(relationName: "StoreCategories")
+}
+
+type Location @model @auth(rules: [
+    { allow: private, operations: [create, update, delete, read] },
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  address: String!
+  latitude: Float!
+  longitud: Float!
+  phone: String
+  schedules: [Schedule] @hasMany(fields: ["id"], indexName: "byLocation")
+  promotions: [Promotion] @hasMany(fields: ["id"], indexName: "byLocation")
+  zoneID: ID!
+  zone: Zone @belongsTo(fields: ["zoneID"])
+  storeID: ID!
+  store: Store @belongsTo(fields: ["storeID"])
+  magnets: [Magnet] @hasMany(fields: ["id"]) # Relación con Magnet
+}
+
+type Schedule @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  day: ScheduleDay!
+  openingTime: AWSTime!
+  closingTime: AWSTime!
+  locationID: ID! @index(name: "byLocation", sortKeyFields: ["id"])
+  location: Location @belongsTo(fields: ["locationID"])
+}
+
+type Promotion @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] },
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  title: String!
+  description: String
+  startDate: AWSDate!
+  endDate: AWSDate!
+  image: String
+  locationID: ID! @index(name: "byLocation", sortKeyFields: ["id"])
+  location: Location @belongsTo(fields: ["locationID"])
+}
+
+type MagnetGroup @model @auth(rules: [{ allow: private, operations: [create, read, update, delete] }]) {
+  id: ID!
+  name: String!
+  favorite: Boolean!
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
+  magnets: [Magnet] @hasMany(fields: ["id"], indexName: "byMagnetGroup")
+}
+
+type Magnet @model @auth(rules: [{ allow: private, operations: [create, read, update, delete] }]) {
+  id: ID!
+  magentGroupID: ID! @index(name: "byMagnetGroup", sortKeyFields: ["id"])
+  magnetGroup: MagnetGroup @belongsTo(fields: ["magentGroupID"])
+  locationID: ID!
+  location: Location @belongsTo(fields: ["locationID"])
+}
+
+type Splash @model 
+  @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  name: String!
+  description: String
+  zones: [Zone] @manyToMany(relationName: "ZoneSplashes")
+  initialDate: AWSDate
+  endDate: AWSDate
+  image: String
+}
+
+type Banner @model 
+  @auth(rules: [
+    { allow: private, operations: [create, update, delete, read] },  # Operaciones privadas
+    { allow: public, operations: [read] }  # Solo lectura pública
+  ]) {
+  id: ID!
+  name: String!
+  description: String
+  zones: [Zone] @manyToMany(relationName: "ZoneBanners")
+  initialDate: AWSDate
+  endDate: AWSDate
+  image: String
+}
+
+type User @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  name: String
+  username: String!
+  avatar: String
+  bannerProfile: String
+  email: AWSEmail!
+  birthday: AWSDate
+  userType: UserType! # MANAGER, REGULAR, ADMIN, MARKETING_ADMIN
+  favoriteGroups: [MagnetGroup] @hasMany(fields: ["id"])
+  stores: [Store] @manyToMany(relationName: "StoreManagers")
+  contacts: [Contact] @hasMany(fields: ["id"])
+}
+
+enum UserType {
+  MANAGER
+  REGULAR
+  ADMIN
+  MARKETING_ADMIN
+}
+
+enum ScheduleDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+type Contact @model @auth(rules: [
+    { allow: private, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
+  name: String!
+  lastName: String!
+  subject: String!
+  message: String!
+}

@@ -10,6 +10,15 @@
       "StackName": "amplify-turefribackend-dev-a8155",
       "StackId": "arn:aws:cloudformation:us-east-1:266735804192:stack/amplify-turefribackend-dev-a8155/948b64e0-b1f2-11ef-97f3-0ef338eb6921",
       "AmplifyAppId": "d36guiggozg269"
+    },
+    "categories": {
+      "auth": {
+        "turefribackend8022d53a": {},
+        "userPoolGroups": {}
+      },
+      "storage": {
+        "turefristorage": {}
+      }
     }
   }
 }
